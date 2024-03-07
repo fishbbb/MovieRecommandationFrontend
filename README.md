@@ -1,10 +1,5 @@
-![image](https://img-blog.csdnimg.cn/20201108174935393.png#pic_center)
-***
-![](https://img.shields.io/badge/framework-Spring-green.svg)  ![](https://img.shields.io/badge/licsense-MIT-orange.svg) ![](https://img.shields.io/badge/release-v1.0.0-blue.svg)
 # 项目简介
 这是一个前后端分离的电影管理和推荐系统，采用Vue.js + Spring Boot技术栈开发
-- 前端项目地址：[前端项目](https://github.com/xiaott-ahh/five-six-vue)
-- 后端项目地址：[后端项目](https://github.com/xiaott-ahh/five-six)
 # 前台效果
 ## 主页
 主页是网站的门户，进行导航和slogan的展示，提供搜索的功能
@@ -47,25 +42,11 @@
 - Redis
 
 # 运行
-- 后端
-1. 克隆项目到本地
-```
-git clone https://github.com/xiaott-ahh/five-six.git
-```
-2. 启动Redis服务，默认端口6379，密码为空
-3. 创建数据库five-six，初始化脚本在src/main/resources文件夹下，包含电影相关和用户相关两个脚本；数据库初始化由配置类  
-DBInitializer完成，切换脚本的路径即可执行不同的脚本，不过电影初始化脚本只包含表结构，是没有数据的，需要结合[爬虫](https://github.com/xiaott-ahh/scrapy-douban)导入
-4. 启动FiveSixServerApplication，项目运行在8443端口，端口号、数据库、MyBatis、Redis相关配置在application-dev.yml中
 - 前端
 1. 克隆项目到本地
-```
-git clone https://github.com/xiaott-ahh/five-six-vue.git
-```
 2. 进入项目根目录运行（在Idea中可以右键package.json->show npm script,双击serve，项目默认运行在8080端口  
 端口可以在vue.config.js中进行更改，跨域配置也在该文件中）
 ```
 npm run serve
 ```
-3. 前后端都启动服务后，就可以进行交互了，登录用户名：xiaott，密码：123；也可以使用后端中InitAdmin.sql中初始化的其他用户登录，会有不同的角色和访问权限  
-注：本项目基于vue-cli3
 
