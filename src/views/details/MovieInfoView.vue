@@ -4,15 +4,16 @@
 
     <div class="list-and-comments my-border">
       <movie-list v-if="movies.length" class="list" :tag="tag" :movies="movies" :opt="0"/>
-
-<!--      <movie-comments :mid="mid" style="margin-top: 1.5rem;"></movie-comments>-->
+    </div>
+    <div class="comments-container">
+      <movie-comments :mid="mid" style="margin-top: 1.5rem;"></movie-comments>
     </div>
   </div>
 </template>
 
 <script>
 import MovieInfo from "@/components/movie/MovieInfo";
-// import MovieComments from "@/components/movie/MovieComments";
+import MovieComments from "@/components/movie/MovieComments";
 import MovieList from "@/components/home/MovieList";
 import {reactive, ref} from "vue";
 // import movieRequest from "@/api/movie";
@@ -24,7 +25,7 @@ import {useRouter} from "vue-router";
 export default {
   name: 'MovieInfoView',
   // components: {CommentStrip, Edit, MovieInfo, MovieComments, MovieList},
-  components: { MovieInfo, MovieList},
+  components: { MovieInfo, MovieList,MovieComments},
   setup() {
     const router = useRouter()
 
@@ -102,7 +103,10 @@ export default {
 /deep/ .el-dialog {
   width: 40%
 }
-
+.comments-container{
+  padding: 1rem;
+  margin: 1rem 10% 1rem 10%;
+}
 /* 响应式布局 - 当屏幕小于 1200 像素宽 */
 @media screen and (max-width: 1200px) {
   .list-and-comments {
