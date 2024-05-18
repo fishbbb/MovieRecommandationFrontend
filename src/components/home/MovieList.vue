@@ -2,9 +2,9 @@
   <div>
     <p class="panel-title">
       <span v-if="opt === 1">猜你喜欢</span>
-      <span v-if="opt === 2">最多人看</span>
+      <span v-if="opt === 2">本站热榜</span>
       <span v-if="opt === 3">评分最高</span>
-      {{ tag }}...
+      {{ tag }}
     </p>
 
     <el-scrollbar>
@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .panel-title {
   font-size: 26px;
-  color: #e52a0d;
+  color:darkblue;
   font-weight: bold;
   margin-bottom: 1rem;
 }

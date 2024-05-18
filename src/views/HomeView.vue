@@ -1,20 +1,17 @@
 <template>
   <div class="main-container">
-    <h1>我是主页面，我这放置轮播图，电影列表展示</h1>
     <div class="flex-container">
       <main-carousel/>
     </div>
-    <router-link to="/movie/info">
-      <el-button>点击我进入一个具体电影的具体信息页面</el-button>
-    </router-link>
+<!--    <router-link to="/movie/info">-->
+<!--      <el-button>点击我进入一个具体电影的具体信息页面</el-button>-->
+<!--    </router-link>-->
 
-    <h1>推荐放在这里，因为比较重要所以放第一个</h1>
     <div class="recommand-container">
 <!--      <movie-list/>-->
       <movie-list
           :opt="1"
-          v-if="1 !== 0"
-          :tag="1"
+          v-if="isLogin"
           :movies="recommendedMovies"
           class="movie-list my-border"
       />
@@ -25,18 +22,24 @@
         <!-- 这里放置登录按钮或者其他登录提示 -->
         <el-button @click="handleLogin">登录</el-button>
       </div>
-    <h1>本站热榜</h1>
     <div class="recommand-container">
       <!--      <movie-list/>-->
       <movie-list
           :opt="2"
           v-if="1 !== 0"
-          :tag="1"
           :movies="recommendedMovies"
           class="movie-list my-border"
       />
     </div>
-    <h1>还需要其他的话...</h1>
+    <div class="recommand-container">
+      <!--      <movie-list/>-->
+      <movie-list
+          :opt="3"
+          v-if="1 !== 0"
+          :movies="recommendedMovies"
+          class="movie-list my-border"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -48,13 +51,13 @@ export default {
   components:{MainCarousel,MovieList},
   data() {
     return {
-        isLogin:true,
+        isLogin:false,
     };
   },
   methods:{
     // 模拟登录操作
     handleLogin(){
-
+      this.isLogin=true;
     }
   }
 }
@@ -72,7 +75,7 @@ export default {
 }
 .movie-list {
   padding: 1rem;
-  margin: 1rem 10% 1rem 10%;
+  margin: 1rem 5% 1rem 5%;
 }
 
 /* 响应式布局 - 当屏幕小于 1200 像素宽时，让两列堆叠而不是并排 */
