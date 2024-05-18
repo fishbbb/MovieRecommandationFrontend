@@ -51,6 +51,7 @@ export default {
   margin-top: 0.5rem;
   margin-left: 25%;
   margin-right: 25%;
+
 }
 .movie-list {
   padding: 1rem;

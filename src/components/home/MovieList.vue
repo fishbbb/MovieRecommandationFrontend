@@ -51,9 +51,9 @@ export default {
   data() {
     return {
       mockMovies: [ // Mock movie data
-        { id: 1, idx: 90, num: 100 },
-        { id: 2, idx: 85, num: 150 },
-        { id: 3, idx: 95, num: 80 },
+        { id: 1, idx: 90, num: 100, name: 'hh'},
+        { id: 2, idx: 85, num: 150,name: 'hd' },
+        { id: 3, idx: 95, num: 80, name: 'h3' },
         { id: 4, idx: 95, num: 80 },
         { id: 5, idx: 95, num: 80 },
         { id: 6, idx: 95, num: 80 },
