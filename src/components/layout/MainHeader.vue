@@ -26,18 +26,76 @@
       </el-autocomplete>
     </div>
     <div class="spacer"></div> <!-- Spacer -->
+
+
     <router-link to="/login">
-      <el-button>登录</el-button>
+      <el-button
+          class="login-button"
+          v-if="!isLogin">
+        登录
+      </el-button>
     </router-link>
+
+<!--    <el-link-->
+<!--        class="login-link"-->
+<!--        v-if="!isLogin"-->
+<!--        @click="handleLogin"-->
+<!--        :underline="false">-->
+<!--      登录-->
+<!--    </el-link>-->
+
+    <el-dropdown class="login-dropdown" v-if="isLogin">
+      <el-button type="text">
+        <div class="login-name">
+          {{ user.nickname }}
+        </div>
+        <el-avatar :src="user.avatar">
+          <!-- 当图片加载错误时，将加载这里面的图片 -->
+          <img src="../../assets/logo.png" alt="default avatar"/>
+        </el-avatar>
+      </el-button>
+
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item>
+            <el-link :underline="false" @click="show()" style="padding-right: 7px">
+              <i style="padding-right: 3px"></i>我的主页
+            </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-link :underline="false" @click="show()" style="padding-right: 7px">
+              <i style="padding-right: 3px"></i>我的记录
+            </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <el-button type="text" @click="handleLogout" :underline="false">
+              <i style="padding-right: 3px"></i>退出登录
+            </el-button>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
   </div>
 </template>
 
 <script>
+import {useRouter} from "vue-router";
+import router from "@/router";
+
 export default {
   name: "MainHeader",
+  setup() {
+  },
   data() {
     return {
-      searchKeywords: ''
+      searchKeywords: '',
+      isLogin : true,
+      router:useRouter(),
+      user:{
+        id:0,
+        nickname:"test",
+
+      }
     };
   },
   methods: {
@@ -53,6 +111,16 @@ export default {
     },
     handleSearch(){
 
+    },
+    handleLogin(){
+      this.isLogin = true;
+      router.push('/login');
+    },
+    show(){
+
+    },
+    handleLogout(){
+      this.isLogin=false;
     }
   }
 
@@ -100,6 +168,25 @@ export default {
 .el-button{
   margin-left: 10px;
   margin-right: 10px;
+}
+/*登录样式*/
+.login-link {
+  margin-left: auto; /*右对齐*/
+}
+
+/*登录成功抽屉样式*/
+.login-dropdown {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+
+  /*登录用户名样式*/
+
+  .login-name {
+    font-weight: bolder;
+    font-size: 15px;
+    letter-spacing: 2px;
+  }
 }
 
 

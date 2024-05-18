@@ -19,6 +19,12 @@
           class="movie-list my-border"
       />
     </div>
+
+      <div v-if=!isLogin>
+        <h2>您需要登录才能查看个性化推荐内容。</h2>
+        <!-- 这里放置登录按钮或者其他登录提示 -->
+        <el-button @click="handleLogin">登录</el-button>
+      </div>
     <h1>本站热榜</h1>
     <div class="recommand-container">
       <!--      <movie-list/>-->
@@ -40,6 +46,17 @@ import MovieList from "@/components/home/MovieList.vue";
 export default {
   name:"HomeView",
   components:{MainCarousel,MovieList},
+  data() {
+    return {
+        isLogin:true,
+    };
+  },
+  methods:{
+    // 模拟登录操作
+    handleLogin(){
+
+    }
+  }
 }
 </script>
 
