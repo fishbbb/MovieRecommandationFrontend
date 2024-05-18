@@ -67,6 +67,7 @@ export default {
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
+  z-index: 999;
 }
 .navbar {
   display: flex;
