@@ -3,6 +3,7 @@
 export const userStatus = (state, user) =>{
     //判断用户是否存在
     if (user!=null){
+        state.userId = JSON.parse(user).userId;
         state.userName = JSON.parse(user).userName;
         state.roleName = JSON.parse(user).roleName;
         state.isLogin = true;

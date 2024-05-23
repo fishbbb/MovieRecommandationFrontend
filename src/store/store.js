@@ -26,6 +26,7 @@ import * as actions from'./actions';
 
 const store = createStore({
     state: {
+        userId:null,
         userName: null,
         roleName: null,
         isLogin: false,
