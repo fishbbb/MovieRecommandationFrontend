@@ -1,7 +1,8 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+// 引入vuex
+import store from './store/store'
 
 import ElementPlus from 'element-plus'
 import * as ElIcons from '@element-plus/icons-vue'

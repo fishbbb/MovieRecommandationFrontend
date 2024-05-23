@@ -1,3 +1,4 @@
+import request from "@/utils/request";
 //获取轮播图电影
 
 //获取推荐电影

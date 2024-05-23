@@ -24,6 +24,11 @@ const routes = [
                 name: 'classification',
                 component: () => import('../views/classification/ClassificationView.vue'),
             },
+            {
+                path: 'searchResult',
+                name: 'searchResult',
+                component: () => import('../views/SearchResultView.vue'),
+            },
          ]
      },
     {
@@ -48,7 +53,7 @@ const router = createRouter({
 //
 //     // 兼容IE
 //     window.scrollTo(0, 0);
-//     // next();
+//      next();
 // })
 
 export default router

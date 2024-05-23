@@ -58,9 +58,10 @@
 <script>
 import { Lock as IconLock, User as IconUser } from "@element-plus/icons";
 import { reactive, ref, unref } from "vue";
+import { useStore } from 'vuex'
 import { useRouter } from "vue-router";
-import { ErrorMessage, SuccessMessage } from "@/utils/my-message";
-import userRequest from "@/api/user";
+// import { ErrorMessage, SuccessMessage } from "@/utils/my-message";
+// import userRequest from "@/api/user";
 import { debounce } from "@/utils/debounce-throttle";
 
 export default {
@@ -73,6 +74,7 @@ export default {
     const router = useRouter();
     let remember = ref(false);
     const loginFormRef = ref("");
+    const store = useStore();
 
     const loginForm = reactive({
       username: "",
@@ -97,19 +99,41 @@ export default {
       }
       try {
         await form.validate();
-        userRequest.login(loginForm).then((res) => {
-          if (res.code === 200) {
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
-            SuccessMessage(res.msg);
-            // 登录成功之后，进行页面跳转
-            router.replace("/");
-          } else {
-            ErrorMessage(res.msg);
+
+        //TODO:在接上后端前使用这个，接上后删除---------------------------------------------------------
+        const res = {
+          data: {
+            userName: "exampleUser",
+            roleName: "user",
+            userPwd:"123",
+            token: "exampleToken123"
           }
-        }).catch((err) => {
-          ErrorMessage(err);
-        });
+        };
+        await store.dispatch("setUser", JSON.stringify(res.data));
+        await store.dispatch("setToken", res.data.userPwd);
+        console.log(store.state.isLogin);
+        await router.replace("/");
+
+        //TODO:此处接上后端再启用-----------------------------------------------------------------------
+        // userRequest.login(loginForm).then((res) => {
+        //   if (res.code === 200) {
+        //     //将用户名放入sessionStorage中
+        //     sessionStorage.setItem("user", JSON.stringify(res.data));
+        //     sessionStorage.setItem("userToken", res.data.userPwd);
+        //     //将用户名放入vuex中
+        // await store.dispatch("setUser", JSON.stringify(res.data));
+        // await store.dispatch("setToken", res.data.userPwd);
+        //     //打印login状态
+        //     console.log(store.state.isLogin);
+        //     SuccessMessage(res.msg);
+        //     // 登录成功之后，进行页面跳转
+        //     router.replace("/");
+        //   } else {
+        //     ErrorMessage(res.msg);
+        //   }
+        // }).catch((err) => {
+        //   ErrorMessage(err);
+        // });
       } catch (err) {
         console.log(err);
       }
