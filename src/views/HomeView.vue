@@ -6,7 +6,7 @@
 <!--    <router-link to="/movie/info">-->
 <!--      <el-button>点击我进入一个具体电影的具体信息页面</el-button>-->
 <!--    </router-link>-->
-
+      <el-button @click=getUserName()>Test</el-button>
     <div class="recommand-container">
 <!--      <movie-list/>-->
       <movie-list
@@ -20,7 +20,9 @@
       <div v-if=!isLogin>
         <h2>您需要登录才能查看个性化推荐内容。</h2>
         <!-- 这里放置登录按钮或者其他登录提示 -->
-        <el-button @click="handleLogin">登录</el-button>
+        <router-link :to="{ path: '/login'}">
+          <el-button>登录</el-button>
+        </router-link>
       </div>
     <div class="recommand-container">
       <!--      <movie-list/>-->
@@ -44,21 +46,25 @@
 </template>
 <script>
 //TODO：这个页面有无登录时有差别的，查询推荐电影要带用户id
+import { useStore } from 'vuex'
 import MainCarousel from "@/components/home/MainCarousel.vue";
 import MovieList from "@/components/home/MovieList.vue";
+import { useRouter } from "vue-router";
+import store from "@/store/store";
 export default {
   name:"HomeView",
   components:{MainCarousel,MovieList},
   data() {
     return {
-        isLogin:false,
+        store:useStore(),
+        router:useRouter(),
+        isLogin:store.state.isLogin,
     };
   },
   methods:{
-    // 模拟登录操作
-    handleLogin(){
-      this.isLogin=true;
-    }
+      getUserName(){
+        console.log(store.state.userName)
+      }
   }
 }
 </script>

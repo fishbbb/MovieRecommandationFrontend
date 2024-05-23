@@ -36,14 +36,6 @@
       </el-button>
     </router-link>
 
-<!--    <el-link-->
-<!--        class="login-link"-->
-<!--        v-if="!isLogin"-->
-<!--        @click="handleLogin"-->
-<!--        :underline="false">-->
-<!--      登录-->
-<!--    </el-link>-->
-
     <el-dropdown class="login-dropdown" v-if="isLogin">
       <el-button type="text">
         <div class="login-name">
@@ -80,7 +72,7 @@
 
 <script>
 import {useRouter} from "vue-router";
-import router from "@/router";
+import store from "@/store/store";
 
 export default {
   name: "MainHeader",
@@ -89,12 +81,11 @@ export default {
   data() {
     return {
       searchKeywords: '',
-      isLogin : true,
+      isLogin : store.state.isLogin,
       router:useRouter(),
       user:{
         id:0,
-        nickname:"test",
-
+        nickname:store.state.userName,
       }
     };
   },
@@ -112,15 +103,11 @@ export default {
     handleSearch(){
 
     },
-    handleLogin(){
-      this.isLogin = true;
-      router.push('/login');
-    },
     show(){
 
     },
     handleLogout(){
-      this.isLogin=false;
+      this.$router.go(0);
     }
   }
 
