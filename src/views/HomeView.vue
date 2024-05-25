@@ -45,7 +45,6 @@
   </div>
 </template>
 <script>
-//TODO：这个页面有无登录时有差别的，查询推荐电影要带用户id
 import { useStore } from 'vuex'
 import MainCarousel from "@/components/home/MainCarousel.vue";
 import MovieList from "@/components/home/MovieList.vue";

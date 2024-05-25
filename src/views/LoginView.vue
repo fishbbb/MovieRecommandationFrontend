@@ -105,8 +105,8 @@ export default {
           data: {
             userId: "1",
             userName: "exampleUser",
-            // roleName: "admin",
-            roleName: "user",
+            roleName: "admin",
+            // roleName: "user",
             userPwd:"123",
             token: "exampleToken123"
           }

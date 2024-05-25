@@ -32,29 +32,44 @@ const routes = [
          ]
      },
     {
-        path:'/admin',
-        name: 'admin',
-        component:()=>import('../views/admin/AdminHome.vue'),
+        path: '/admin',
+        name: 'adminIndex',
+        component: () => import('../views/admin/AdminIndex.vue'),
         children: [
             {
-                path: 'heartbeat',
+                path: '/', // 注意这里是空字符串，表示默认路由
+                name:'adminHome',
+                components: {
+                    component: () => import('../views/admin/AdminHome.vue'), // 将 AdminHome 放在 mainContent 视图中
+                },
+            },
+            {
+                path: '/heartbeat',
                 name: 'heartbeat',
-                component: () => import('../views/admin/HeartBeatView.vue')
+                components: {
+                    component: () => import('../views/admin/HeartBeatView.vue'),
+                },
             },
             {
-                path: 'qps',
+                path: '/qps',
                 name: 'qps',
-                component: () => import('../views/admin/QPSView.vue')
+                components: {
+                    component: () => import('../views/admin/QPSView.vue'),
+                },
             },
             {
-                path: 'security',
+                path: '/security',
                 name: 'security',
-                component: () => import('../views/admin/SecurityView.vue'),
+                components: {
+                    component: () => import('../views/admin/SecurityView.vue'),
+                },
             },
             {
-                path: 'userManagement',
+                path: '/userManagement',
                 name: 'userManagement',
-                component: () => import('../views/admin/UserManageView.vue'),
+                components: {
+                    component: () => import('../views/admin/UserManageView.vue'),
+                },
             },
         ]
     },
