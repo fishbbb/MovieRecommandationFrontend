@@ -2,17 +2,23 @@
   <div>
     <h1>我是评论区</h1>
     <!-- Comment Form -->
-    <el-form :model="newComment" ref="commentForm" class="comment-form" @submit.prevent="submitComment">
-      <el-form-item label="内容" prop="content">
-        <el-input v-model="newComment.content"></el-input>
-      </el-form-item>
-      <el-form-item label="作者" prop="author">
-        <el-input v-model="newComment.author"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" native-type="submit">发布评论</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="comment-edit">
+      <el-button @click="showCommentDialog">评价一下</el-button>
+      <el-dialog
+          title="评价"
+          v-model="dialogVisible"
+          @update:visible="dialogVisible = $event"
+          :close-on-click-modal="false"
+          :show-close="false"
+      >
+        <el-rate v-model="rating" :max="5" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+        <el-input v-model="comment" type="textarea" autosize placeholder="请输入评论"></el-input>
+        <div class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="submitComment">发表</el-button>
+        </div>
+      </el-dialog>
+    </div>
     <!-- Show Comments -->
     <el-card v-for="(comment, index) in comments" :key="index" class="comment-card">
       <template v-slot:header>
@@ -34,25 +40,42 @@
 <script>
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
+import store from "@/store/store";
+import {useStore} from "vuex";
+import movieRequest from "@/api/movie";
 // import movieRequest from "@/api/movie";
 
 export default {
   name: 'MovieComments',
   data() {
     return {
+      store:useStore(),
+      route:useRoute(), // Use useRoute to get the current route
+      isLogin:store.state.isLogin,
       comments: reactive([
         { content: '这是一条评论的内容。', author: '用户A', date: '2024-05-16' },
         { content: '这是另一条评论的内容。', author: '用户B', date: '2024-05-17' },
         // Add more dummy comments as needed
       ]),
-      newComment: { content: '', author: '' } // New comment object to bind to the form
+      newComment: { content: '', author: '' }, // New comment object to bind to the form
+      rating:null,
+      comment:null,
+      dialogVisible: false,
     };
   },
   created() {
-    const route = useRoute(); // Use useRoute to get the current route
+    const route = useRoute();
     this.id = route.query.id; // Access the id from the current route
   },
   methods: {
+    showCommentDialog() {
+      if (this.isLogin) {
+        this.dialogVisible = true;
+        console.log(this.dialogVisible)
+      } else {
+        this.showLoginPrompt();
+      }
+    },
     // fetchComments(){
     //   movieRequest.getComments()
     //       .then(response => {
@@ -63,19 +86,25 @@ export default {
     //       });
     // },
     submitComment() {
-      // Add the new comment to the comments array
-      this.comments.push({
-        content: this.newComment.content,
-        author: this.newComment.author,
-        date: new Date().toLocaleString() // You may want to format the date accordingly
-      });
-
-      // Clear the form fields after submission
-      this.newComment.content = '';
-      this.newComment.author = '';
-
-      // Reset form validation state
-      this.$refs.commentForm.clearValidate();
+      if (this.isLogin) {
+        const route = useRoute();
+        const userId = store.state.userId; // Assuming there's a method to get userId from global scope
+        const movieId = route.query.id; // Get movie id from current route
+        movieRequest.addComment(userId, this.rating, this.comment, movieId)
+            .then(() => {
+              // Comment added successfully
+            })
+            .catch((error) => {
+              console.error('Error adding comment:', error);
+            });
+        this.dialogVisible = false;
+      } else {
+        this.showLoginPrompt();
+      }
+    },
+    showLoginPrompt() {
+      // Implement your login prompt logic here, such as showing a modal or redirecting to login page
+      alert('Please login to add a comment.');
     },
     deleteComment(index) {
       // Implement deleteComment method as per your requirements
@@ -103,65 +132,16 @@ export default {
   font-size: 12px;
   color: #999;
 }
-</style>
-
-
-<!--planB:有回复的版本
-<template>
-  <div>
-    <h1>我是评论区</h1>
-    <el-card v-for="(comment, index) in comments" :key="index" class="comment-card">
-      <template v-slot:header>
-        <div class="clearfix">
-          <span>评论{{ index + 1 }}</span>
-          <el-button type="text" class="delete-btn" @click="deleteComment(index)">删除</el-button>
-        </div>
-      </template>
-      <div>{{ comment.content }}</div>
-      <div class="comment-info">
-        <span>{{ comment.author }}</span>
-        <span>{{ comment.date }}</span>
-      </div>
-    </el-card>
-  </div>
-</template>
-
-<script>
-import { reactive } from 'vue';
-
-export default {
-  name: 'MovieComments',
-  data() {
-    return {
-      comments: reactive([
-        { content: '这是一条评论的内容。', author: '用户A', date: '2024-05-16' },
-        { content: '这是另一条评论的内容。', author: '用户B', date: '2024-05-17' },
-        // Add more dummy comments as needed
-      ])
-    };
-  },
-  methods: {
-    deleteComment(index) {
-      this.comments.splice(index, 1);
-    }
-  }
+.rating-container label,
+.input-container label {
+  margin-right: 10px;
 }
-</script>
-
-<style scoped>
-.comment-card {
+.dialog-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+.comment-edit{
   margin-bottom: 20px;
 }
-.comment-info {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #999;
-}
-.delete-btn {
-  float: right;
-  padding: 0;
-  font-size: 12px;
-  color: #999;
-}
 </style>
--->
+
