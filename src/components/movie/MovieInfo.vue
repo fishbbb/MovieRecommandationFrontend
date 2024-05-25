@@ -122,111 +122,180 @@
   </div>
 </template>
 
+<!--<script>-->
+<!--import {ref} from "vue";-->
+<!--// import {useRouter} from "vue-router";-->
+<!--// import movieRequest from "@/api/movie";-->
+<!--// import {ErrorMessage} from "@/utils/my-message";-->
+
+<!--export default {-->
+<!--  name: 'MovieInfo',-->
+<!--  setup() {-->
+<!--    // const router = useRouter();-->
+<!--    // let actorsDialogVisible = ref(false);-->
+<!--    // let introductionDialogVisible = ref(false);-->
+<!--    // let movie = ref({-->
+<!--    //   actors: '',-->
+<!--    //   alias: '',-->
+<!--    //   did: '',-->
+<!--    //   directors: '',-->
+<!--    //   five: '',-->
+<!--    //   four: '',-->
+<!--    //   id: '',-->
+<!--    //   imdb: '',-->
+<!--    //   introduction: '',-->
+<!--    //   languages: '',-->
+<!--    //   name: '',-->
+<!--    //   num: '',-->
+<!--    //   one: '',-->
+<!--    //   pic: '',-->
+<!--    //   regions: '',-->
+<!--    //   releaseDate: '',-->
+<!--    //   runtime: '',-->
+<!--    //   score: '',-->
+<!--    //   three: '',-->
+<!--    //   two: '',-->
+<!--    //   types: '',-->
+<!--    //   writers: '',-->
+<!--    //   year: '',-->
+<!--    // });-->
+<!--    // let score = ref(0);-->
+<!--    // let percentages = ref([]);-->
+<!--    let actorsDialogVisible = ref(false);-->
+<!--    let introductionDialogVisible = ref(false);-->
+<!--    let movie = ref({-->
+<!--      actors: 'John Doe, Jane Smith',-->
+<!--      alias: 'Alias Movie',-->
+<!--      did: 'Director Name',-->
+<!--      directors: 'Director Name',-->
+<!--      five: 'Five Star Data',-->
+<!--      four: 'Four Star Data',-->
+<!--      id: '123456',-->
+<!--      imdb: 'IMDb Data',-->
+<!--      introduction: 'Introduction of the movie goes here.',-->
+<!--      languages: 'English',-->
+<!--      name: 'Dummy Movie',-->
+<!--      num: 'Some Number',-->
+<!--      one: 'One Star Data',-->
+<!--      pic: 'https://via.placeholder.com/150', // Placeholder image URL-->
+<!--      regions: 'Region Data',-->
+<!--      releaseDate: 'Release Date Data',-->
+<!--      runtime: 'Runtime Data',-->
+<!--      score: 'Score Data',-->
+<!--      three: 'Three Star Data',-->
+<!--      two: 'Two Star Data',-->
+<!--      types: 'Action, Drama',-->
+<!--      writers: 'Writer Name',-->
+<!--      year: 'Release Year Data',-->
+<!--    });-->
+<!--    let score = ref(0);-->
+<!--    let percentages = ref([10, 20, 30, 40, 50]);-->
+
+
+<!--    // 初始化界面前，请求电影信息-->
+<!--    // movieRequest.getMovieInfo(-->
+<!--    //     router.currentRoute.value.params.id-->
+<!--    // ).then(res => {-->
+<!--    //   if (res.code === 200) {-->
+<!--    //     movie.value = res.data;-->
+<!--    //     score.value = movie.value.score / 2.0;-->
+<!--    //     percentages.value = [-->
+<!--    //       {color: '#f56c6c', percentage: movie.value.five, text: '5星'},-->
+<!--    //       {color: '#e6a23c', percentage: movie.value.four, text: '4星'},-->
+<!--    //       {color: '#5cb87a', percentage: movie.value.three, text: '3星'},-->
+<!--    //       {color: '#1989fa', percentage: movie.value.two, text: '2星'},-->
+<!--    //       {color: '#6f7ad3', percentage: movie.value.one, text: '1星'},-->
+<!--    //     ]-->
+<!--    //   } else {-->
+<!--    //     ErrorMessage(res.msg)-->
+<!--    //   }-->
+<!--    // }).catch(err => {-->
+<!--    //   ErrorMessage(err)-->
+<!--    // })-->
+<!--  // console.log($route.query.id)-->
+<!--    return {-->
+<!--      actorsDialogVisible,-->
+<!--      introductionDialogVisible,-->
+<!--      movie,-->
+<!--      score,-->
+<!--      percentages,-->
+<!--    }-->
+<!--  },-->
+<!--}-->
+<!--</script>-->
 <script>
-import {ref} from "vue";
-// import {useRouter} from "vue-router";
+import { useRoute } from 'vue-router';
 // import movieRequest from "@/api/movie";
-// import {ErrorMessage} from "@/utils/my-message";
-
 export default {
+
   name: 'MovieInfo',
-  setup() {
-    // const router = useRouter();
-    // let actorsDialogVisible = ref(false);
-    // let introductionDialogVisible = ref(false);
-    // let movie = ref({
-    //   actors: '',
-    //   alias: '',
-    //   did: '',
-    //   directors: '',
-    //   five: '',
-    //   four: '',
-    //   id: '',
-    //   imdb: '',
-    //   introduction: '',
-    //   languages: '',
-    //   name: '',
-    //   num: '',
-    //   one: '',
-    //   pic: '',
-    //   regions: '',
-    //   releaseDate: '',
-    //   runtime: '',
-    //   score: '',
-    //   three: '',
-    //   two: '',
-    //   types: '',
-    //   writers: '',
-    //   year: '',
-    // });
-    // let score = ref(0);
-    // let percentages = ref([]);
-    let actorsDialogVisible = ref(false);
-    let introductionDialogVisible = ref(false);
-    let movie = ref({
-      actors: 'John Doe, Jane Smith',
-      alias: 'Alias Movie',
-      did: 'Director Name',
-      directors: 'Director Name',
-      five: 'Five Star Data',
-      four: 'Four Star Data',
-      id: '123456',
-      imdb: 'IMDb Data',
-      introduction: 'Introduction of the movie goes here.',
-      languages: 'English',
-      name: 'Dummy Movie',
-      num: 'Some Number',
-      one: 'One Star Data',
-      pic: 'https://via.placeholder.com/150', // Placeholder image URL
-      regions: 'Region Data',
-      releaseDate: 'Release Date Data',
-      runtime: 'Runtime Data',
-      score: 'Score Data',
-      three: 'Three Star Data',
-      two: 'Two Star Data',
-      types: 'Action, Drama',
-      writers: 'Writer Name',
-      year: 'Release Year Data',
-    });
-    let score = ref(0);
-    let percentages = ref([10, 20, 30, 40, 50]);
-
-
-    // 初始化界面前，请求电影信息
-    // movieRequest.getMovieInfo(
-    //     router.currentRoute.value.params.id
-    // ).then(res => {
-    //   if (res.code === 200) {
-    //     movie.value = res.data;
-    //     score.value = movie.value.score / 2.0;
-    //     percentages.value = [
-    //       {color: '#f56c6c', percentage: movie.value.five, text: '5星'},
-    //       {color: '#e6a23c', percentage: movie.value.four, text: '4星'},
-    //       {color: '#5cb87a', percentage: movie.value.three, text: '3星'},
-    //       {color: '#1989fa', percentage: movie.value.two, text: '2星'},
-    //       {color: '#6f7ad3', percentage: movie.value.one, text: '1星'},
-    //     ]
-    //   } else {
-    //     ErrorMessage(res.msg)
-    //   }
-    // }).catch(err => {
-    //   ErrorMessage(err)
-    // })
-
+  data() {
     return {
-      actorsDialogVisible,
-      introductionDialogVisible,
-      movie,
-      score,
-      percentages,
-    }
+      id:null,
+      actorsDialogVisible: false,
+      introductionDialogVisible: false,
+      movie: {
+        actors: 'John Doe, Jane Smith',
+        alias: 'Alias Movie',
+        did: 'Director Name',
+        directors: 'Director Name',
+        five: 'Five Star Data',
+        four: 'Four Star Data',
+        id: '123456',
+        imdb: 'IMDb Data',
+        introduction: 'Introduction of the movie goes here.',
+        languages: 'English',
+        name: 'Dummy Movie',
+        num: 'Some Number',
+        one: 'One Star Data',
+        pic: 'https://via.placeholder.com/150', // Placeholder image URL
+        regions: 'Region Data',
+        releaseDate: 'Release Date Data',
+        runtime: 'Runtime Data',
+        score: 'Score Data',
+        three: 'Three Star Data',
+        two: 'Two Star Data',
+        types: 'Action, Drama',
+        writers: 'Writer Name',
+        year: 'Release Year Data',
+      },
+      score: 0,
+      percentages: [10, 20, 30, 40, 50],
+    };
   },
-}
+  created() {
+    const route = useRoute(); // Use useRoute to get the current route
+    this.id = route.query.id; // Access the id from the current route
+    console.log(this.id);
+  },
+  // methods: {
+  //   fetchMovieInfo() {
+  //     movieRequest.getMovieInfo(this.id)
+  //       .then(res => {
+  //      movie.value = res.data;
+  //     score.value = movie.value.score / 2.0;
+  //     percentages.value = [
+  //       {color: '#f56c6c', percentage: movie.value.five, text: '5星'},
+  //       {color: '#e6a23c', percentage: movie.value.four, text: '4星'},
+  //       {color: '#5cb87a', percentage: movie.value.three, text: '3星'},
+  //       {color: '#1989fa', percentage: movie.value.two, text: '2星'},
+  //       {color: '#6f7ad3', percentage: movie.value.one, text: '1星'},
+  //     ]
+  //       })
+  //       .catch(err => {
+  //         console.error('Error fetching movie info:', err);
+  //       });
+  //   },
+  // },
+  // mounted() {
+  //   this.fetchMovieInfo(); // Call fetchMovieInfo method when component is mounted
+  // },
+};
 </script>
 
 <style scoped>
 .blur-bg {
-  height: 36rem;
+  height: 32rem;
   width: 100%;
   filter: blur(1rem) brightness(85%);
   position: absolute;

@@ -7,7 +7,7 @@
 <!--      <el-button>点击我进入一个具体电影的具体信息页面</el-button>-->
 <!--    </router-link>-->
       <el-button @click=getUserName()>Test</el-button>
-    <div class="recommand-container">
+    <div class="recommend-container">
 <!--      <movie-list/>-->
       <movie-list
           :opt="1"
@@ -24,21 +24,21 @@
           <el-button>登录</el-button>
         </router-link>
       </div>
-    <div class="recommand-container">
+    <div class="recommend-container">
       <!--      <movie-list/>-->
       <movie-list
           :opt="2"
           v-if="1 !== 0"
-          :movies="recommendedMovies"
+          :movies="hottestMovies"
           class="movie-list my-border"
       />
     </div>
-    <div class="recommand-container">
+    <div class="recommend-container">
       <!--      <movie-list/>-->
       <movie-list
           :opt="3"
           v-if="1 !== 0"
-          :movies="recommendedMovies"
+          :movies="highestRatingMovies"
           class="movie-list my-border"
       />
     </div>
@@ -50,6 +50,7 @@ import MainCarousel from "@/components/home/MainCarousel.vue";
 import MovieList from "@/components/home/MovieList.vue";
 import { useRouter } from "vue-router";
 import store from "@/store/store";
+// import movieRequest from "@/api/movie";
 export default {
   name:"HomeView",
   components:{MainCarousel,MovieList},
@@ -58,13 +59,44 @@ export default {
         store:useStore(),
         router:useRouter(),
         isLogin:store.state.isLogin,
+        recommendedMovies:[],
+        highestRatingMovies:[],
+        hottestMovies:[],
     };
   },
   methods:{
       getUserName(){
         console.log(store.state.userName)
       }
-  }
+  },
+  //TODO:先注释掉了，到时候在这里打开，獲取推薦和評分排名
+  // mounted() {
+  //   if (this.isLogin) {
+  //     this.getRecommendedMovie(store.state.userId)
+  //         .then(response => {
+  //           this.recommendedMovies = response.data; // 假设 response 返回推荐的电影数据
+  //         })
+  //         .catch(error => {
+  //           console.error(error);
+  //         });
+  //   }
+  //
+  //   this.getHighestRatedMovies()
+  //       .then(response => {
+  //         this.highestRatingMovies = response.data; // 假设 response 返回评分最高榜单电影数据
+  //       })
+  //       .catch(error => {
+  //         console.error(error);
+  //       });
+  //
+  //   this.getHottestMovies()
+  //       .then(response => {
+  //         this.hottestMovies = response.data; // 假设 response 返回评分最高榜单电影数据
+  //       })
+  //       .catch(error => {
+  //         console.error(error);
+  //       });
+  // }
 }
 </script>
 
