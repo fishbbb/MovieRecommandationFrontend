@@ -7,7 +7,9 @@
           <div class="movie-info-top-left">
             <img class="image" :src="movie.pic"/>
           </div>
+          <el-button class="collect-button" size="large" type="primary" @click="addToFavorites">+收藏电影</el-button>
         </el-col>
+
 
         <el-col :span="16">
           <div class="movie-info-top-right">
@@ -225,6 +227,7 @@
 <!--</script>-->
 <script>
 import { useRoute } from 'vue-router';
+// import userRequest from "@/api/user";
 // import movieRequest from "@/api/movie";
 export default {
 
@@ -268,7 +271,7 @@ export default {
     this.id = route.query.id; // Access the id from the current route
     console.log(this.id);
   },
-  // methods: {
+   methods: {
   //   fetchMovieInfo() {
   //     movieRequest.getMovieInfo(this.id)
   //       .then(res => {
@@ -286,10 +289,20 @@ export default {
   //         console.error('Error fetching movie info:', err);
   //       });
   //   },
-  // },
-  // mounted() {
+     addToFavorites(){
+       alert("成功")
+       // userRequest.addCollections(this.id)
+       //     .then(() => {
+       //
+       //     })
+       //     .catch(err => {
+       //       console.error('Error adding comment:', err);
+       //     });
+     }
+   },
+   mounted() {
   //   this.fetchMovieInfo(); // Call fetchMovieInfo method when component is mounted
-  // },
+   },
 };
 </script>
 
@@ -355,6 +368,12 @@ export default {
 .movie-info-top-right .introduction {
   margin-left: 2rem;
   width: 50%;
+}
+
+.collect-button{
+  margin-left: 150px;
+  font-size: 35px;
+  padding: 20px;
 }
 
 /deep/ .el-rate__text {
