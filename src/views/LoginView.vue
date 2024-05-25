@@ -105,6 +105,7 @@ export default {
           data: {
             userId: "1",
             userName: "exampleUser",
+            // roleName: "admin",
             roleName: "user",
             userPwd:"123",
             token: "exampleToken123"
@@ -114,7 +115,13 @@ export default {
         await store.dispatch("setUser", JSON.stringify(res.data));
         await store.dispatch("setToken", res.data.userPwd);
         console.log(store.state.isLogin);
-        await router.replace("/");
+        console.log(res.data.roleName);
+        if (res.data.roleName ==='admin'){
+          await router.replace("/admin");
+        }else{
+          await router.replace("/");
+        }
+
 
         //TODO:此处接上后端再启用-----------------------------------------------------------------------
         // userRequest.login(loginForm).then((res) => {

@@ -32,6 +32,33 @@ const routes = [
          ]
      },
     {
+        path:'/admin',
+        name: 'admin',
+        component:()=>import('../views/admin/AdminHome.vue'),
+        children: [
+            {
+                path: 'heartbeat',
+                name: 'heartbeat',
+                component: () => import('../views/admin/HeartBeatView.vue')
+            },
+            {
+                path: 'qps',
+                name: 'qps',
+                component: () => import('../views/admin/QPSView.vue')
+            },
+            {
+                path: 'security',
+                name: 'security',
+                component: () => import('../views/admin/SecurityView.vue'),
+            },
+            {
+                path: 'userManagement',
+                name: 'userManagement',
+                component: () => import('../views/admin/UserManageView.vue'),
+            },
+        ]
+    },
+    {
         path: '/login',
         name: 'login',
         component: () => import('../views/LoginView.vue')
