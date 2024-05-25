@@ -33,6 +33,8 @@
 
 <script>
 import { reactive } from 'vue';
+import { useRoute } from 'vue-router';
+// import movieRequest from "@/api/movie";
 
 export default {
   name: 'MovieComments',
@@ -46,7 +48,20 @@ export default {
       newComment: { content: '', author: '' } // New comment object to bind to the form
     };
   },
+  created() {
+    const route = useRoute(); // Use useRoute to get the current route
+    this.id = route.query.id; // Access the id from the current route
+  },
   methods: {
+    // fetchComments(){
+    //   movieRequest.getComments()
+    //       .then(response => {
+    //       this.comments = response.data
+    //       })
+    //       .catch(error => {
+    //         console.error(error);
+    //       });
+    // },
     submitComment() {
       // Add the new comment to the comments array
       this.comments.push({
@@ -66,6 +81,9 @@ export default {
       // Implement deleteComment method as per your requirements
       this.comments.splice(index, 1);
     }
+  },
+  mounted() {
+    // this.fetchComments()
   }
 }
 </script>

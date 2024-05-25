@@ -52,7 +52,7 @@ const movieRequest = {
     },
     //TODO:评论区获取
     //GET /api/movies/ratings/comment/{id}
-    getComment:(id) => {
+    getComments:(id) => {
         return request({
             url: `/api/movies/ratings/comment/${id}`,
             method: 'get',
