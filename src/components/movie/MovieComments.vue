@@ -90,7 +90,13 @@ export default {
         const route = useRoute();
         const userId = store.state.userId; // Assuming there's a method to get userId from global scope
         const movieId = route.query.id; // Get movie id from current route
-        movieRequest.addComment(userId, this.rating, this.comment, movieId)
+        const commentData = {
+          userID: userId,
+          rating: this.rating,
+          comment: this.comment,
+          movieID: movieId
+        };
+        movieRequest.addComment(commentData)
             .then(() => {
               // Comment added successfully
             })

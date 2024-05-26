@@ -50,6 +50,7 @@ import MainCarousel from "@/components/home/MainCarousel.vue";
 import MovieList from "@/components/home/MovieList.vue";
 import { useRouter } from "vue-router";
 import store from "@/store/store";
+import axios from 'axios';
 // import movieRequest from "@/api/movie";
 export default {
   name:"HomeView",
@@ -62,13 +63,41 @@ export default {
         recommendedMovies:[],
         highestRatingMovies:[],
         hottestMovies:[],
+        userIP: ''
     };
   },
+
+    // fetch('https://api.ipify.org?format=json').
+    // then(response => response.json()).
+    // then(data => {
+    //   const ip = data.ip
+    //   //通过ip地址获取所在地
+    //   fetch(`https://api.vore.top/api/IPdata?ip=${ip}`).
+    //   then((res) => res.json()
+    //       .then((data) => {
+    //         console.log(data);
+    //       })
+    //   )
+    // })
+    //     .catch(error => { console.error(error) })
   methods:{
+
       getUserName(){
         console.log(store.state.userName)
+      },
+    async getUserIP() {
+      try {
+        const response = await axios.get('https://ipinfo.io/json');
+        this.userIP = response.data.ip;
+        console.log(this.userIP)
+      } catch (error) {
+        console.error('Failed to get user IP:', error);
       }
+    }
   },
+  mounted() {
+    this.getUserIP();
+  }
   //TODO:先注释掉了，到时候在这里打开，獲取推薦和評分排名
   // mounted() {
   //   if (this.isLogin) {
