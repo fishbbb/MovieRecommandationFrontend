@@ -43,7 +43,18 @@ const movieRequest = {
             }
         })
     },
-
+    getMoviesWithConditions:(optionalParams)=>{
+       return request({
+           url:'movie/search',
+           method:'get',
+           headers: {
+               isNeedToken: false
+           },
+           params:{
+               optionalParams
+           }
+       })
+    },
     //主页面的评分最高榜单获取:GET /movies/search
     getHighestRatedMovies: () => {
         return request({

@@ -96,9 +96,11 @@ export default {
           comment: this.comment,
           movieID: movieId
         };
+        console.log(commentData);
         movieRequest.addComment(commentData)
             .then(() => {
               // Comment added successfully
+              console.log("success!!!");
             })
             .catch((error) => {
               console.error('Error adding comment:', error);
