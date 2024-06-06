@@ -7,12 +7,22 @@
         <el-table-column prop="username" label="用户名"></el-table-column>
         <el-table-column label="发表评论">
           <template #default="{row}">
-            <el-switch v-model="row.canComment" active-text="是" inactive-text="否"></el-switch>
+            <el-switch
+                v-model="row.canComment"
+                active-text="是"
+                inactive-text="否"
+                @input="updateCanComment(row.userID)"
+            ></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="是否被禁用">
           <template #default="{row}">
-            <el-switch v-model="row.isBanned" active-text="是" inactive-text="否"></el-switch>
+            <el-switch
+                v-model="row.isBanned"
+                active-text="是"
+                inactive-text="否"
+                @input="updateIsBanned(row.userID)"
+            ></el-switch>
           </template>
         </el-table-column>
       </el-table>
@@ -30,6 +40,20 @@ export default {
         { userID: '345678', username: 'User3', canComment: true, isBanned: true },
       ]
     };
+  },
+  created() {
+    this.fetchUser();
+  },
+  methods:{
+    fetchUser(){
+      
+    },
+    updateCanComment(id){
+      console.log(id);
+    },
+    updateIsBanned(id){
+      console.log(id);
+    }
   }
 }
 </script>

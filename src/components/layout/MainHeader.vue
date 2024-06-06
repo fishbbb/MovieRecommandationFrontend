@@ -50,14 +50,12 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>
-            <el-link :underline="false" @click="show()" style="padding-right: 7px">
-              <i style="padding-right: 3px"></i>我的主页
-            </el-link>
-          </el-dropdown-item>
-          <el-dropdown-item>
-            <el-link :underline="false" @click="show()" style="padding-right: 7px">
-              <i style="padding-right: 3px"></i>我的记录
-            </el-link>
+            <router-link :to="{ path: '/collections'}">
+              <el-link :underline="false" @click="show()" style="padding-right: 7px">
+                <i style="padding-right: 3px"></i>我的主页
+              </el-link>
+            </router-link>
+
           </el-dropdown-item>
           <el-dropdown-item divided>
             <el-button type="text" @click="handleLogout" :underline="false">
@@ -104,7 +102,7 @@ export default {
 
     },
     show(){
-
+      console.log()
     },
     handleLogout(){
       this.$router.go(0);

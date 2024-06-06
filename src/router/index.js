@@ -29,6 +29,11 @@ const routes = [
                 name: 'searchResult',
                 component: () => import('../views/SearchResultView.vue'),
             },
+            {
+                path: 'collections',
+                name: 'collections',
+                component: () => import('../views/user/CollectionsView.vue')
+            }
          ]
      },
     {
