@@ -53,34 +53,34 @@ export default {
     opt: Number, // Pass the sorting option as a prop
     tag: String, // Pass the tag as a prop
     //TODO:接前后端这里要打开
-    // movies:{
-    //   type:Object,
-    // }
+    movies:{
+      type:Object,
+    }
   },
-  // setup(props) {
-  //   props.movies.forEach((movie) => {
-  //     if (movie.idx) {
-  //       movie.idx *= 100
-  //       // 保留两位小数（四舍五入）
-  //       movie.idx = movie.idx.toFixed(2)
-  //     }
-  //   })
-  // },
+  setup(props) {
+    props.movies.forEach((movie) => {
+      if (movie.idx) {
+        movie.idx *= 100
+        // 保留两位小数（四舍五入）
+        movie.idx = movie.idx.toFixed(2)
+      }
+    })
+  },
 
   //--------------假數據-------------------
   data() {
     return {
-      movies: [ // Mock movie data
-        { id: 1, idx: 95, num: 100, name: 'hh'},
-        { id: 2, idx: 93, num: 150,name: 'hd' },
-        { id: 3, idx: 92, num: 80, name: 'h3' },
-        { id: 4, idx: 90, num: 80 , name: 'h3' },
-        { id: 5, idx: 80, num: 80 , name: 'h3' },
-        { id: 6, idx: 70, num: 80 , name: 'h3' },
-        { id: 7, idx: 70, num: 80 , name: 'h3' },
-        { id: 8, idx: 65, num: 80 , name: 'h3' },
-
-      ],
+      // movies: [ // Mock movie data
+      //   { id: 1, idx: 95, num: 100, name: 'hh'},
+      //   { id: 2, idx: 93, num: 150,name: 'hd' },
+      //   { id: 3, idx: 92, num: 80, name: 'h3' },
+      //   { id: 4, idx: 90, num: 80 , name: 'h3' },
+      //   { id: 5, idx: 80, num: 80 , name: 'h3' },
+      //   { id: 6, idx: 70, num: 80 , name: 'h3' },
+      //   { id: 7, idx: 70, num: 80 , name: 'h3' },
+      //   { id: 8, idx: 65, num: 80 , name: 'h3' },
+      //
+      // ],
     };
   },
 };

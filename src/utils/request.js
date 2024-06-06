@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
+import store from "@/store/store";
 
 const request = axios.create({
-    baseURL: 'http://192.168.1.106:8888',
+    baseURL: 'http://47.95.177.195:8080',
     timeout: 5000
-})
+});
 
 /**
  * request 拦截器
@@ -11,22 +12,26 @@ const request = axios.create({
  * 比如统一加token，对请求参数统一加密
  */
 request.interceptors.request.use(config => {
+    console.log("111111111111")
     // 设置请求头
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
+
     // 是否需要token
-    const isNeedToken = (config.headers || {}).isNeedToken === false
-    let token = window.localStorage.getItem('token')
+    const isNeedToken = (config.headers || {}).isNeedToken === false;
+    const token = store.state.token; // 从 Vuex 的store中获取token
 
     if (!isNeedToken) {
         if (!token) {
-            // router.push("/login")
+            // 如果没有token，可以根据实际情况进行处理，比如跳转到登录页面
+            // router.push("/login");
         } else {
-            config.headers['token'] = token
+            config.headers['token'] = token;
         }
     }
-    return config
+    return config;
 }, error => {
-    return Promise.reject(error)
+    console.log("请求拦截器出错:", error);
+    return Promise.reject(error);
 });
 
 /**
@@ -35,22 +40,23 @@ request.interceptors.request.use(config => {
  */
 request.interceptors.response.use(
     response => {
+        console.log("123")
         let res = response.data;
         // 如果是返回的文件
         if (response.config.responseType === 'blob') {
-            return res
+            return res;
         }
         // 兼容服务端返回的字符串数据
         if (typeof res === 'string') {
-            res = res ? JSON.parse(res) : res
+            res = res ? JSON.parse(res) : res;
         }
         return res;
     },
     error => {
-        console.log('err' + error) // for debug
-        return Promise.reject(error)
+        console.log('响应拦截器出错:', error); // for debug
+        return Promise.reject(error);
     }
-)
+);
 
-export default request
+export default request;
 

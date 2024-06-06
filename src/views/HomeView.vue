@@ -51,7 +51,7 @@ import MovieList from "@/components/home/MovieList.vue";
 import { useRouter } from "vue-router";
 import store from "@/store/store";
 import axios from 'axios';
-// import movieRequest from "@/api/movie";
+import movieRequest from "@/api/movie";
 export default {
   name:"HomeView",
   components:{MainCarousel,MovieList},
@@ -81,10 +81,9 @@ export default {
     // })
     //     .catch(error => { console.error(error) })
   methods:{
-
-      getUserName(){
+    getUserName(){
         console.log(store.state.userName)
-      },
+    },
     async getUserIP() {
       try {
         const response = await axios.get('https://ipinfo.io/json');
@@ -93,13 +92,26 @@ export default {
       } catch (error) {
         console.error('Failed to get user IP:', error);
       }
-    }
+    },
+    getHighestRatedMovies(){
+      movieRequest.getHighestRatedMovies().then(response => {
+        this.highestRatingMovies = response.data
+        console.log(response)
+      }).catch(error => {
+        console.error(error);
+      });
+    },
   },
-  mounted() {
-    this.getUserIP();
+  created() {
+    this.getUserIP()
+    this.getHighestRatedMovies()
   }
+  // mounted() {
+  //
+  // }
   //TODO:先注释掉了，到时候在这里打开，獲取推薦和評分排名
   // mounted() {
+  //       this.getUserIP();
   //   if (this.isLogin) {
   //     this.getRecommendedMovie(store.state.userId)
   //         .then(response => {

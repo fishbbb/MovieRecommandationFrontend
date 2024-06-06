@@ -19,7 +19,7 @@ const movieRequest = {
             url: `/users/recommendations`,
             method: 'get',
             headers: {
-                isNeedToken: false
+                isNeedToken: true
             },
             params: {
                 userID: userId,

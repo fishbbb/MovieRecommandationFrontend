@@ -33,44 +33,33 @@ const routes = [
      },
     {
         path: '/admin',
-        name: 'adminIndex',
         component: () => import('../views/admin/AdminIndex.vue'),
         children: [
             {
-                path: '/', // 注意这里是空字符串，表示默认路由
-                name:'adminHome',
-                components: {
-                    component: () => import('../views/admin/AdminHome.vue'), // 将 AdminHome 放在 mainContent 视图中
-                },
+                path: '',
+                name: 'admin',
+                component: () => import('../views/admin/AdminHome.vue')
             },
             {
                 path: '/heartbeat',
                 name: 'heartbeat',
-                components: {
-                    component: () => import('../views/admin/HeartBeatView.vue'),
-                },
+                component: () => import('../views/admin/HeartBeatView.vue')
             },
             {
                 path: '/qps',
                 name: 'qps',
-                components: {
-                    component: () => import('../views/admin/QPSView.vue'),
-                },
+                component: () => import('../views/admin/QPSView.vue')
             },
             {
                 path: '/security',
                 name: 'security',
-                components: {
-                    component: () => import('../views/admin/SecurityView.vue'),
-                },
+                component: () => import('../views/admin/SecurityView.vue')
             },
             {
                 path: '/userManagement',
                 name: 'userManagement',
-                components: {
-                    component: () => import('../views/admin/UserManageView.vue'),
-                },
-            },
+                component: () => import('../views/admin/UserManageView.vue')
+            }
         ]
     },
     {

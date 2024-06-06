@@ -106,7 +106,7 @@ export default {
             userId: "1",
             userName: "exampleUser",
             roleName: "admin",
-            // roleName: "user",
+           // roleName: "user",
             userPwd:"123",
             token: "exampleToken123"
           }
@@ -124,19 +124,19 @@ export default {
 
 
         //TODO:此处接上后端再启用-----------------------------------------------------------------------
-        // userRequest.login(loginForm).then((res) => {
+        // userRequest.login(loginForm).then(async (res) => {
         //   if (res.code === 200) {
         //     //将用户名放入sessionStorage中
         //     sessionStorage.setItem("user", JSON.stringify(res.data));
         //     sessionStorage.setItem("userToken", res.data.userPwd);
         //     //将用户名放入vuex中
-        // await store.dispatch("setUser", JSON.stringify(res.data));
-        // await store.dispatch("setToken", res.data.userPwd);
+        //     await store.dispatch("setUser", JSON.stringify(res.data));
+        //     await store.dispatch("setToken", res.data.userPwd);
         //     //打印login状态
         //     console.log(store.state.isLogin);
         //     SuccessMessage(res.msg);
         //     // 登录成功之后，进行页面跳转
-        //     router.replace("/");
+        //     await router.replace("/");
         //   } else {
         //     ErrorMessage(res.msg);
         //   }
