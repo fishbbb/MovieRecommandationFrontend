@@ -7,6 +7,7 @@
         <el-button @click="cancelFavorite(movie.id)">取消收藏</el-button>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -32,7 +33,7 @@ export default {
     cancelFavorite(movieID) {
       // 处理取消收藏操作
       console.log(movieID);
-    }
+    },
   }
 };
 </script>

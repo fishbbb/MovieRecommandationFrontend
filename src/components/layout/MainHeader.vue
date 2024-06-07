@@ -55,7 +55,11 @@
                 <i style="padding-right: 3px"></i>我的主页
               </el-link>
             </router-link>
-
+          </el-dropdown-item>
+          <el-dropdown-item>
+              <el-link :underline="false" @click="showDrawer" style="padding-right: 7px">
+                <i style="padding-right: 3px"></i>开启Chat
+              </el-link>
           </el-dropdown-item>
           <el-dropdown-item divided>
             <el-button type="text" @click="handleLogout" :underline="false">
@@ -65,19 +69,31 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+
+
   </div>
+  <el-drawer
+      title="ChatABC"
+      v-model="drawer"
+      :direction="direction"
+      :before-close="handleClose">
+    <chat-conversation/>
+  </el-drawer>
+
 </template>
 
 <script>
 import {useRouter} from "vue-router";
 import store from "@/store/store";
+import ChatConversation from "@/components/chat/ChatConversation.vue";
 
 export default {
   name: "MainHeader",
-  setup() {
-  },
+  components:{ChatConversation},
   data() {
     return {
+      drawer: false,
+      direction: 'rtl',
       searchKeywords: '',
       isLogin : store.state.isLogin,
       router:useRouter(),
@@ -99,13 +115,26 @@ export default {
       console.log(item)
     },
     handleSearch(){
-
+      console.log("Search")
     },
     show(){
       console.log()
     },
     handleLogout(){
       this.$router.go(0);
+    },
+    //chat窗口
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+          .then(res => {
+            done();
+            console.log(res)
+          })
+          .catch(res => {console.log(res)});
+    },
+    showDrawer(){
+      this.drawer = true;
+      console.log(this.drawer);
     }
   }
 
