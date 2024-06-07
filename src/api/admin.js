@@ -68,7 +68,7 @@ const adminRequest = {
         })
     },
 
-    //TODO:页面没有这个内容
+    //TODO:页面没有这个内容,我不干啦！罢工！
     //返回历史服务器组健康状态
     //GET security/server-state/history
     getHistoryServerState:(start,end) =>{

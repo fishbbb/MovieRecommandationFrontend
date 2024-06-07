@@ -108,7 +108,7 @@ const movieRequest = {
     },
 
     //搜索框搜索结果
-    search:(input) => {
+    search:(input,page,size) => {
         return request({
             url:'/movies/search',
             method:'get',
@@ -117,8 +117,8 @@ const movieRequest = {
             },
             params:{
                 input:input,
-                page:1,
-                page_size:10//TODO:这里用分页，或者无限下拉，记得改
+                page:page,
+                page_size:size
             }
         })
     },
