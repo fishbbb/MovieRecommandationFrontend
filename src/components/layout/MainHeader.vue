@@ -86,6 +86,7 @@
 import {useRouter} from "vue-router";
 import store from "@/store/store";
 import ChatConversation from "@/components/chat/ChatConversation.vue";
+import movieRequest from "@/api/movie";
 
 export default {
   name: "MainHeader",
@@ -107,14 +108,27 @@ export default {
     async querySearchAsync(queryString, cb) {
       // 这里是异步请求数据的逻辑，根据queryString获取电影名建议列表
       console.log(queryString)
+      movieRequest.searchSuggestions(queryString).then(res => {
+        const result = []
+        console.log(res)
+        res.data.forEach((name, index) => {
+          result.push({'value': name})
+          console.log(index)
+        })
+        cb(result)
+      }).catch(err => {
+        console.error(err)
+      })
       console.log(cb)
       // 将建议列表传递给cb函数
     },
     handleSelect(item) {
-      // 处理选择建议项的逻辑
       console.log(item)
+      this.router.push({ path: '/searchResult', query: { id: item.id }})
+      // 处理选择建议项的逻辑
     },
     handleSearch(){
+      this.router.push({ path: '/searchResult', query: { searchKeywords: this.searchKeywords }})
       console.log("Search")
     },
     show(){
@@ -123,6 +137,7 @@ export default {
     handleLogout(){
       this.$router.go(0);
     },
+
     //chat窗口
     handleClose(done) {
       this.$confirm('确认关闭？')

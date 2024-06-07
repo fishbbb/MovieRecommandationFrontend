@@ -104,11 +104,11 @@ export default {
   },
   created() {
     this.getUserIP()
-    this.getHighestRatedMovies()
+    // this.getHighestRatedMovies()
+  },
+  mounted() {
+
   }
-  // mounted() {
-  //
-  // }
   //TODO:先注释掉了，到时候在这里打开，獲取推薦和評分排名
   // mounted() {
   //       this.getUserIP();

@@ -111,6 +111,36 @@ const movieRequest = {
             data
         })
     },
+
+    //模糊搜索 GET /movies/search-suggestions
+    searchSuggestions:(input) => {
+       return request({
+           url:'/movies/search-suggestions',
+           method:'get',
+           headers:{
+               isNeedToken:false,
+           },
+           params:{
+               input:input,
+               size:5,
+           }
+       })
+    },
+    //搜索
+    search:(input) => {
+       return request({
+           url:'/movies/search',
+           method:'get',
+           headers:{
+               isNeedToken:false,
+           },
+           params:{
+               input:input,
+               page:1,
+               page_size:10//TODO:这里用分页，或者无限下拉，记得改
+           }
+       })
+    }
 }
 
 export default movieRequest
