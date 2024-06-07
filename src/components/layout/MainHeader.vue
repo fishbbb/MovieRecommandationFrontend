@@ -52,7 +52,14 @@
           <el-dropdown-item>
             <router-link :to="{ path: '/collections'}">
               <el-link :underline="false" @click="show()" style="padding-right: 7px">
-                <i style="padding-right: 3px"></i>我的主页
+                <i style="padding-right: 3px"></i>我的收藏
+              </el-link>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <router-link :to="{ path: '/comments'}">
+              <el-link :underline="false" @click="toComments()" style="padding-right: 7px">
+                <i style="padding-right: 3px"></i>我的影评
               </el-link>
             </router-link>
           </el-dropdown-item>
@@ -113,6 +120,7 @@ export default {
         console.log(res)
         res.data.forEach((name, index) => {
           result.push({'value': name})
+          //TODO:返回value变量
           console.log(index)
         })
         cb(result)
@@ -133,6 +141,9 @@ export default {
     },
     show(){
       console.log()
+    },
+    toComments(){
+
     },
     handleLogout(){
       this.$router.go(0);

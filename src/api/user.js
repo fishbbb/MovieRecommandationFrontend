@@ -80,7 +80,6 @@ const userRequest = {
     },
 
     //删除影评及评分
-    //TODO：用户只有自己的评论后面显示删除键
     //DELETE /movies/comment-rating
     deleteComment: (data) => {
         return request({
@@ -111,9 +110,8 @@ const userRequest = {
     },
 
     //查询所有影评及评分
-    //TODO：或许需要新增加一个页面
     //GET /movies/comment-rating/all
-    getUserAllComments:(userID) => {
+    getUserAllComments:(userID,page,size) => {
         return request({
             url: `/movies/comment-rating/all`,
             method: 'get',
@@ -122,8 +120,8 @@ const userRequest = {
             },
             params:{
                 userID:userID,
-                page:1,
-                page_size:10
+                page:page,
+                page_size:size
             }
         })
     }

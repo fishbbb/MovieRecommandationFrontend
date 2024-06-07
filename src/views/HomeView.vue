@@ -93,6 +93,14 @@ export default {
         console.error('Failed to get user IP:', error);
       }
     },
+    getHottestMovies(){
+      movieRequest.getHottestMovies().then(res =>{
+        this.hottestMovies = res.data;
+        console.log(res.data)
+      }).catch(err =>{
+        console.log(err)
+      })
+    },
     getHighestRatedMovies(){
       movieRequest.getHighestRatedMovies().then(response => {
         this.highestRatingMovies = response.data
@@ -101,17 +109,28 @@ export default {
         console.error(error);
       });
     },
+    getRecommendedMovie(){
+      if(this.isLogin){
+        movieRequest.getRecommendedMovie(store.state.userId)
+            .then(res =>{
+              this.recommendedMovies = res.data;
+            }).catch(err =>{
+              console.log(err)
+        })
+      }
+    }
   },
   created() {
     this.getUserIP()
-    // this.getHighestRatedMovies()
+    this.getHighestRatedMovies()
+    this.getHottestMovies()
+    this.getRecommendedMovie()
   },
   mounted() {
 
   }
   //TODO:先注释掉了，到时候在这里打开，獲取推薦和評分排名
   // mounted() {
-  //       this.getUserIP();
   //   if (this.isLogin) {
   //     this.getRecommendedMovie(store.state.userId)
   //         .then(response => {

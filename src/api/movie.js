@@ -28,9 +28,8 @@ const movieRequest = {
     },
 
     //获取制定电影的影评和评分
-    //TODO:后续添加按照排序刷新评论
     //GET /movies/comments
-    getComments: (id) => {
+    getComments: (id,page,size) => {
         return request({
             url: `/movies/comments`,
             method: 'get',
@@ -39,8 +38,8 @@ const movieRequest = {
             },
             params: {
                 movieID: id,
-                page:1,
-                page_size:20,
+                page:page,
+                page_size:size,
             }
         });
     },

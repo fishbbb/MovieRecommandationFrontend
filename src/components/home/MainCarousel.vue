@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {useRouter} from "vue-router";
+import movieRequest from "@/api/movie";
 
 export default {
   name:"MainCarousel",
@@ -45,20 +45,24 @@ export default {
           src: require("@/assets/logo.png"),
           title: "这是sadmas.png"
         }
-      ]
+      ],
+      adList:[]
     };
   },
-  created() {},
-  mounted() {},
+  created() {
+    this.fetchAdMovie();
+  },
   computed: {},
   methods: {
-    handleCarouselClick(index) {
-      const clickedImage = this.imgList[index];
-      console.log(`Clicked image id: ${clickedImage.id}`);
-      let router = useRouter();
-      // router.push({ path: "/movie/info/${clickedImage.id}" })
-      router.push({ path: "/movie/info" })
-    }}
+    fetchAdMovie(){
+      movieRequest.getAdMovie().then(res => {
+        console.log(res)
+        this.adList = res.data
+      }).catch(err=>{
+        console.log(err)
+      })
+    }
+  }
 };
 </script>
 

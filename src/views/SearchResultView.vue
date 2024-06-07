@@ -17,12 +17,13 @@ export default {
     const route = useRoute(); // Use useRoute to get the current route
     this.searchKeywords = route.query.searchKeywords; // Access the id from the current route
     console.log(this.searchKeywords)
+    this.fetchSearchResult()
   },
   methods:{
     fetchSearchResult(){
       movieRequest.search(this.searchKeywords).then(res => {
         console.log(res)
-        this.searchResultList = res;
+        this.searchResultList = res.data;
       }).catch(err => {
         console.log(err)
       })

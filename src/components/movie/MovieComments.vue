@@ -20,20 +20,45 @@
       </el-dialog>
     </div>
     <!-- Show Comments -->
-    <el-card v-for="(comment, index) in comments" :key="index" class="comment-card">
-      <template v-slot:header>
-        <div class="clearfix">
-          <span>评论{{ index + 1 }}</span>
-          <el-button type="text" class="delete-btn" @click="deleteComment(index)">删除</el-button>
+    <div>
+      <el-card v-for="(comment, index) in comments" :key="index" class="comment-card">
+        <template v-slot:header>
+          <div class="clearfix">
+            <span>评论{{ index + 1 }}</span>
+          </div>
+        </template>
+        <div>{{ comment.content }}</div>
+        <div class="comment-info">
+          <span>{{ comment.author }}</span>
+          <span style="margin-right: 5px"></span>
+          <span>{{ comment.date }}</span>
         </div>
-      </template>
-      <div>{{ comment.content }}</div>
-      <div class="comment-info">
-        <span>{{ comment.author }}</span>
-        <span style="margin-right: 5px"></span>
-        <span>{{ comment.date }}</span>
-      </div>
-    </el-card>
+      </el-card>
+
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 20]"
+          :page-size="pageSize"
+          :total="comments.length"
+          layout="total, sizes, prev, pager, next, jumper"
+      >
+      </el-pagination>
+    </div>
+<!--    <el-card v-for="(comment, index) in comments" :key="index" class="comment-card">-->
+<!--      <template v-slot:header>-->
+<!--        <div class="clearfix">-->
+<!--          <span>评论{{ index + 1 }}</span>-->
+<!--        </div>-->
+<!--      </template>-->
+<!--      <div>{{ comment.content }}</div>-->
+<!--      <div class="comment-info">-->
+<!--        <span>{{ comment.author }}</span>-->
+<!--        <span style="margin-right: 5px"></span>-->
+<!--        <span>{{ comment.date }}</span>-->
+<!--      </div>-->
+<!--    </el-card>-->
   </div>
 </template>
 
@@ -43,7 +68,7 @@ import { useRoute } from 'vue-router';
 import store from "@/store/store";
 import {useStore} from "vuex";
 import movieRequest from "@/api/movie";
-// import movieRequest from "@/api/movie";
+import userRequest from "@/api/user";
 
 export default {
   name: 'MovieComments',
@@ -61,11 +86,14 @@ export default {
       rating:null,
       comment:null,
       dialogVisible: false,
+      pageSize: 10,
+      currentPage: 1,
     };
   },
   created() {
     const route = useRoute();
     this.id = route.query.id; // Access the id from the current route
+    this.fetchComments()
   },
   methods: {
     showCommentDialog() {
@@ -76,15 +104,24 @@ export default {
         this.showLoginPrompt();
       }
     },
-    // fetchComments(){
-    //   movieRequest.getComments()
-    //       .then(response => {
-    //       this.comments = response.data
-    //       })
-    //       .catch(error => {
-    //         console.error(error);
-    //       });
-    // },
+    fetchComments(){
+      movieRequest.getComments(this.id,this.currentPage,this.pageSize)
+          .then(response => {
+          this.comments = response.data
+          })
+          .catch(error => {
+            console.error(error);
+          });
+    },
+    handleSizeChange(newSize) {
+      this.pageSize = newSize;
+      this.currentPage = 1; // 重置当前页数以显示新的评论
+      this.fetchComments();
+    },
+    handleCurrentChange(newPage) {
+      this.currentPage = newPage;
+      this.fetchComments();
+    },
     submitComment() {
       if (this.isLogin) {
         const route = useRoute();
@@ -97,7 +134,7 @@ export default {
           movieID: movieId
         };
         console.log(commentData);
-        movieRequest.addComment(commentData)
+        userRequest.addComment(commentData)
             .then(() => {
               // Comment added successfully
               console.log("success!!!");
@@ -112,16 +149,9 @@ export default {
     },
     showLoginPrompt() {
       // Implement your login prompt logic here, such as showing a modal or redirecting to login page
-      alert('Please login to add a comment.');
+      alert('登录后才能评论');
     },
-    deleteComment(index) {
-      // Implement deleteComment method as per your requirements
-      this.comments.splice(index, 1);
-    }
   },
-  mounted() {
-    // this.fetchComments()
-  }
 }
 </script>
 

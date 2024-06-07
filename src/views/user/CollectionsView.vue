@@ -13,6 +13,9 @@
 
 <script>
 import MovieCard from "@/components/movie/MovieCard.vue";
+import {useStore} from "vuex";
+import store from "@/store/store";
+import userRequest from "@/api/user";
 
 export default {
   name: "CollectionView",
@@ -26,11 +29,33 @@ export default {
         { id: 3, title: '电影3', director: '导演3', year: 2021 }
         // 继续添加更多数据
       ],
-      userID: '用户ID'
+      store:useStore(),
+      userID:store.state.userId
     };
   },
+  created() {
+    this.fetchFavorite()
+  },
   methods: {
+    fetchFavorite(){
+      userRequest.getCollections(this.userID).then(res=>{
+        this.movies = res.data
+        console.log(res.data)
+      }).catch(err=>{
+        console.log(err)
+      })
+    },
     cancelFavorite(movieID) {
+      const data={
+        movieID:movieID,
+        userID:this.userID
+      }
+      userRequest.deleteCollections(data).then(res =>{
+        console.log(res.data)
+        alert("删除成功")
+      }).catch(err=>{
+        console.log(err)
+      })
       // 处理取消收藏操作
       console.log(movieID);
     },

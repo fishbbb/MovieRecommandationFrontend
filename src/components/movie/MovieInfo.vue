@@ -61,24 +61,6 @@
 
                 </div>
               </el-col>
-<!--              <el-col :span="16">-->
-<!--                <div class="rate">-->
-<!--                  <el-rate-->
-<!--                      v-model="score"-->
-<!--                      disabled-->
-<!--                      show-score-->
-<!--                      size="small"-->
-<!--                      text-color="#ff9900"-->
-<!--                      :score-template="`${ movie.score }`"-->
-<!--                  />-->
-<!--                </div>-->
-<!--                <el-row class="rate" v-for="(p,index) in percentages" :key="index">-->
-<!--                  <el-col :span="5" :style="`color: ${p.color}; text-align: center;`">{{ p.text }}</el-col>-->
-<!--                  <el-col :span="19">-->
-<!--                    <el-progress :percentage="p.percentage" :color="p.color"/>-->
-<!--                  </el-col>-->
-<!--                </el-row>-->
-<!--              </el-col>-->
             </el-row>
             <div class="show-first">
               <el-row class="actors-and-introduction">
@@ -110,8 +92,8 @@ import { useRoute } from 'vue-router';
 import {Star} from "@element-plus/icons";
 import {useStore} from "vuex";
 import store from "@/store/store";
-// import userRequest from "@/api/user";
-// import movieRequest from "@/api/movie";
+import userRequest from "@/api/user";
+import movieRequest from "@/api/movie";
 export default {
 
   name: 'MovieInfo',
@@ -176,29 +158,29 @@ export default {
     //this.fetchMovieInfo();
   },
    methods: {
-    // fetchMovieInfo() {
-    //   movieRequest.getMovieInfo(this.id)
-    //     .then(res => {
-     //   console.log(res)
-    //    this.movie.value = res.data;
-    //     })
-    //     .catch(err => {
-    //       console.error('Error fetching movie info:', err);
-    //     });
-    // },
+    fetchMovieInfo() {
+      movieRequest.getMovieInfo(this.id)
+        .then(res => {
+       console.log(res)
+       this.movie.value = res.data;
+        })
+        .catch(err => {
+          console.error('Error fetching movie info:', err);
+        });
+    },
      addToFavorites(){
        this.isStarSolid = !this.isStarSolid;
-       // const data ={
-       //   userID:this.userID,
-       //   movieID:this.id,
-       // }
-       // userRequest.addCollections(data)
-       //     .then(() => {
-       //       this.isStarSolid = !this.isStarSolid;
-       //     })
-       //     .catch(err => {
-       //       console.error('Error adding comment:', err);
-       //     });
+       const data ={
+         userID:this.userID,
+         movieID:this.id,
+       }
+       userRequest.addCollections(data)
+           .then(() => {
+             this.isStarSolid = !this.isStarSolid;
+           })
+           .catch(err => {
+             console.error('Error adding comment:', err);
+           });
      }
    },
 };

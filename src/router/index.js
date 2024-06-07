@@ -33,6 +33,11 @@ const routes = [
                 path: 'collections',
                 name: 'collections',
                 component: () => import('../views/user/CollectionsView.vue')
+            },
+            {
+                path: 'comments',
+                name: 'comments',
+                component:() => import('../views/user/UserCommentsView.vue')
             }
          ]
      },
