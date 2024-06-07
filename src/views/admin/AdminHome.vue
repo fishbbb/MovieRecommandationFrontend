@@ -1,11 +1,20 @@
 <template>
   <div class="main-container">
-   <p>欢迎页</p>
+   <p>欢迎管理员{{this.name}}</p>
   </div>
 </template>
 <script>
+import {useStore} from "vuex";
+import store from "@/store/store";
+
 export default {
   name:"AdminHome",
+  data(){
+    return{
+      store:useStore(),
+      name:store.state.userName
+    }
+  }
 }
 </script>
 

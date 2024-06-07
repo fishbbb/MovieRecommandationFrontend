@@ -11,7 +11,7 @@
           :close-on-click-modal="false"
           :show-close="false"
       >
-        <el-rate v-model="rating" :max="5" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+        <el-rate v-model="rating" :max="10" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :texts="['oops', 'disappointed', 'normal', 'good', 'great']"></el-rate>
         <el-input v-model="comment" type="textarea" autosize placeholder="请输入评论"></el-input>
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>

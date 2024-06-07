@@ -1,9 +1,6 @@
 import request from "@/utils/request";
 
 const adminRequest = {
-
-    //TODO:管理员页面相关接口
-
     //心跳检测数据获取
     //GET /security/logs
     getLogs:() => {
@@ -91,6 +88,16 @@ const adminRequest = {
     },
 
     //---------用户管理----------------
+    getUserList:() =>{
+        return request({
+            url:'users/list',
+            method:'get',
+            headers:{
+                isNeedToken:true,
+            }
+        })
+    },
+
     //禁止用户发表评论
     //POST users/shut-you-fxxking-up
     userCommentBan:(data) =>{
@@ -98,7 +105,7 @@ const adminRequest = {
             url:'users/shut-you-fxxking-up',
             method:'post',
             headers:{
-                isNeedToken:false
+                isNeedToken:true
             },
             data
         })
@@ -111,7 +118,7 @@ const adminRequest = {
             url:'users/ban',
             method:'post',
             headers:{
-                isNeedToken:false
+                isNeedToken:true
             },
             data
         })

@@ -64,6 +64,11 @@ const routes = [
                 path: '/userManagement',
                 name: 'userManagement',
                 component: () => import('../views/admin/UserManageView.vue')
+            },
+            {
+                path: '/adManagement',
+                name: 'adManagement',
+                component: () => import('../views/admin/AdManagementView.vue')
             }
         ]
     },

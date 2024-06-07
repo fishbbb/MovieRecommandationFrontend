@@ -7,7 +7,8 @@
           <div class="movie-info-top-left">
             <img class="image" :src="movie.pic"/>
           </div>
-          <el-button class="collect-button" size="large" type="primary" @click="addToFavorites">+收藏电影</el-button>
+          <el-button color="yellow" class="collect-button" size="large" type="primary" @click="addToFavorites" round :icon="isStarSolid ? 'StarFilled' : 'Star'">|   收藏电影
+          </el-button>
         </el-col>
 
 
@@ -15,7 +16,7 @@
           <div class="movie-info-top-right">
             <!-- 电影名 -->
             <div class="movie-name">
-              {{ movie.name }}
+              {{ movie.title }}
             </div>
 
             <!-- 基本信息 + 评分 -->
@@ -39,27 +40,46 @@
                 </div>
               </el-col>
 
-              <el-col :span="16">
-                <div class="rate">
+              <el-col :span="10">
+                <div class="movie-rating">
+                  <span>     评分：</span>
                   <el-rate
-                      v-model="score"
+                      v-model="movie.voteAverage"
                       disabled
                       show-score
-                      size="small"
                       text-color="#ff9900"
-                      :score-template="`${ movie.score }`"
+                      score-template="{value} points"
+                      allow-half
+                      :max="10"
+                      size="large"
+                      :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
                   />
-                </div>
-                <el-row class="rate" v-for="(p,index) in percentages" :key="index">
-                  <el-col :span="5" :style="`color: ${p.color}; text-align: center;`">{{ p.text }}</el-col>
-                  <el-col :span="19">
-                    <el-progress :percentage="p.percentage" :color="p.color"/>
+                  <el-col>
+                    <span>    评分人次：</span>
+                    <span>{{ movie.voteCount }}</span>
                   </el-col>
 
-                </el-row>
+                </div>
               </el-col>
+<!--              <el-col :span="16">-->
+<!--                <div class="rate">-->
+<!--                  <el-rate-->
+<!--                      v-model="score"-->
+<!--                      disabled-->
+<!--                      show-score-->
+<!--                      size="small"-->
+<!--                      text-color="#ff9900"-->
+<!--                      :score-template="`${ movie.score }`"-->
+<!--                  />-->
+<!--                </div>-->
+<!--                <el-row class="rate" v-for="(p,index) in percentages" :key="index">-->
+<!--                  <el-col :span="5" :style="`color: ${p.color}; text-align: center;`">{{ p.text }}</el-col>-->
+<!--                  <el-col :span="19">-->
+<!--                    <el-progress :percentage="p.percentage" :color="p.color"/>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+<!--              </el-col>-->
             </el-row>
-            <!-- 主演 + 电影简介 展现形式1 -->
             <div class="show-first">
               <el-row class="actors-and-introduction">
                 <el-col :span="8">
@@ -71,7 +91,7 @@
                     <el-collapse>
                       <el-collapse-item title="&nbsp;&nbsp;&nbsp;&nbsp;电影简介" name="introduction">
                         <div style="margin: 0 1rem">
-                          {{ movie.introduction }}
+                          {{ movie.overview }}
                         </div>
                       </el-collapse-item>
                     </el-collapse>
@@ -79,164 +99,51 @@
                 </el-col>
               </el-row>
             </div>
-            <!-- 主演 + 电影简介 展现形式2 -->
-            <div class="show-second">
-              <el-row class="actors-and-introduction">
-                <el-col :span="8">
-                  <el-button class="actors-second" type="text" @click="actorsDialogVisible = true">主演...</el-button>
-                  <el-dialog
-                      v-model="actorsDialogVisible"
-                      title="主演"
-                      width="25rem"
-                      :lock-scroll="false">
-                    <span>{{ movie.actors }}</span>
-                    <template #footer>
-                    <span class="dialog-footer">
-                      <el-button type="primary" @click="actorsDialogVisible = false">确认</el-button>
-                    </span>
-                    </template>
-                  </el-dialog>
-                </el-col>
-
-                <el-col :span="16">
-                  <el-button class="introduction-second" type="text" @click="introductionDialogVisible = true">电影简介...
-                  </el-button>
-                  <el-dialog
-                      v-model="introductionDialogVisible"
-                      title="电影简介"
-                      width="25rem"
-                      :lock-scroll="false">
-                    <span>{{ movie.introduction }}</span>
-                    <template #footer>
-                    <span class="dialog-footer">
-                      <el-button type="primary" @click="introductionDialogVisible = false">确认</el-button>
-                    </span>
-                    </template>
-                  </el-dialog>
-                </el-col>
-              </el-row>
-            </div>
-
           </div>
         </el-col>
       </el-row>
     </div>
   </div>
 </template>
-
-<!--<script>-->
-<!--import {ref} from "vue";-->
-<!--// import {useRouter} from "vue-router";-->
-<!--// import movieRequest from "@/api/movie";-->
-<!--// import {ErrorMessage} from "@/utils/my-message";-->
-
-<!--export default {-->
-<!--  name: 'MovieInfo',-->
-<!--  setup() {-->
-<!--    // const router = useRouter();-->
-<!--    // let actorsDialogVisible = ref(false);-->
-<!--    // let introductionDialogVisible = ref(false);-->
-<!--    // let movie = ref({-->
-<!--    //   actors: '',-->
-<!--    //   alias: '',-->
-<!--    //   did: '',-->
-<!--    //   directors: '',-->
-<!--    //   five: '',-->
-<!--    //   four: '',-->
-<!--    //   id: '',-->
-<!--    //   imdb: '',-->
-<!--    //   introduction: '',-->
-<!--    //   languages: '',-->
-<!--    //   name: '',-->
-<!--    //   num: '',-->
-<!--    //   one: '',-->
-<!--    //   pic: '',-->
-<!--    //   regions: '',-->
-<!--    //   releaseDate: '',-->
-<!--    //   runtime: '',-->
-<!--    //   score: '',-->
-<!--    //   three: '',-->
-<!--    //   two: '',-->
-<!--    //   types: '',-->
-<!--    //   writers: '',-->
-<!--    //   year: '',-->
-<!--    // });-->
-<!--    // let score = ref(0);-->
-<!--    // let percentages = ref([]);-->
-<!--    let actorsDialogVisible = ref(false);-->
-<!--    let introductionDialogVisible = ref(false);-->
-<!--    let movie = ref({-->
-<!--      actors: 'John Doe, Jane Smith',-->
-<!--      alias: 'Alias Movie',-->
-<!--      did: 'Director Name',-->
-<!--      directors: 'Director Name',-->
-<!--      five: 'Five Star Data',-->
-<!--      four: 'Four Star Data',-->
-<!--      id: '123456',-->
-<!--      imdb: 'IMDb Data',-->
-<!--      introduction: 'Introduction of the movie goes here.',-->
-<!--      languages: 'English',-->
-<!--      name: 'Dummy Movie',-->
-<!--      num: 'Some Number',-->
-<!--      one: 'One Star Data',-->
-<!--      pic: 'https://via.placeholder.com/150', // Placeholder image URL-->
-<!--      regions: 'Region Data',-->
-<!--      releaseDate: 'Release Date Data',-->
-<!--      runtime: 'Runtime Data',-->
-<!--      score: 'Score Data',-->
-<!--      three: 'Three Star Data',-->
-<!--      two: 'Two Star Data',-->
-<!--      types: 'Action, Drama',-->
-<!--      writers: 'Writer Name',-->
-<!--      year: 'Release Year Data',-->
-<!--    });-->
-<!--    let score = ref(0);-->
-<!--    let percentages = ref([10, 20, 30, 40, 50]);-->
-
-
-<!--    // 初始化界面前，请求电影信息-->
-<!--    // movieRequest.getMovieInfo(-->
-<!--    //     router.currentRoute.value.params.id-->
-<!--    // ).then(res => {-->
-<!--    //   if (res.code === 200) {-->
-<!--    //     movie.value = res.data;-->
-<!--    //     score.value = movie.value.score / 2.0;-->
-<!--    //     percentages.value = [-->
-<!--    //       {color: '#f56c6c', percentage: movie.value.five, text: '5星'},-->
-<!--    //       {color: '#e6a23c', percentage: movie.value.four, text: '4星'},-->
-<!--    //       {color: '#5cb87a', percentage: movie.value.three, text: '3星'},-->
-<!--    //       {color: '#1989fa', percentage: movie.value.two, text: '2星'},-->
-<!--    //       {color: '#6f7ad3', percentage: movie.value.one, text: '1星'},-->
-<!--    //     ]-->
-<!--    //   } else {-->
-<!--    //     ErrorMessage(res.msg)-->
-<!--    //   }-->
-<!--    // }).catch(err => {-->
-<!--    //   ErrorMessage(err)-->
-<!--    // })-->
-<!--  // console.log($route.query.id)-->
-<!--    return {-->
-<!--      actorsDialogVisible,-->
-<!--      introductionDialogVisible,-->
-<!--      movie,-->
-<!--      score,-->
-<!--      percentages,-->
-<!--    }-->
-<!--  },-->
-<!--}-->
-<!--</script>-->
 <script>
 import { useRoute } from 'vue-router';
+import {Star} from "@element-plus/icons";
+import {useStore} from "vuex";
+import store from "@/store/store";
 // import userRequest from "@/api/user";
 // import movieRequest from "@/api/movie";
 export default {
 
   name: 'MovieInfo',
+  computed: {
+    Star() {
+      return Star
+    }
+  },
   data() {
     return {
+      store:useStore(),
+      userID:store.state.userId,
       id:null,
       actorsDialogVisible: false,
       introductionDialogVisible: false,
+      isStarSolid:false,
+      /*
+    ◦ MovieID (主键): 唯一标识每部电影。
+    ◦ Title: 电影标题。
+    ◦ OriginalTitle: 原始标题。
+    ◦ ReleaseDate: 发布日期。
+    ◦ Genres: 类别（可以设计为外键，关联到一个单独的类别表）。
+    ◦ Budget: 预算。
+    ◦ Revenue: 票房收入。
+    ◦ Country: 国家。
+    ◦ Overview: 简介。
+    ◦ OriginalLanguage: 原语言。
+    ◦ Runtime: 时长。
+    ◦ Popularity: 流行度。
+    ◦ VoteAverage: 平均评分。//评分的取值范围0~10
+    ◦ VoteCount: 评分次数。
+       */
       movie: {
         actors: 'John Doe, Jane Smith',
         alias: 'Alias Movie',
@@ -244,64 +151,55 @@ export default {
         directors: 'Director Name',
         five: 'Five Star Data',
         four: 'Four Star Data',
-        id: '123456',
-        imdb: 'IMDb Data',
-        introduction: 'Introduction of the movie goes here.',
+        movieID: '123456',
+        overview: 'Introduction of the movie goes here.',
         languages: 'English',
-        name: 'Dummy Movie',
+        title: 'Dummy Movie',
         num: 'Some Number',
         one: 'One Star Data',
         pic: 'https://via.placeholder.com/150', // Placeholder image URL
         regions: 'Region Data',
         releaseDate: 'Release Date Data',
         runtime: 'Runtime Data',
-        score: 'Score Data',
-        three: 'Three Star Data',
-        two: 'Two Star Data',
+        voteAverage : 8.5,
+        voteCount:200,
         types: 'Action, Drama',
         writers: 'Writer Name',
         year: 'Release Year Data',
       },
-      score: 0,
-      percentages: [10, 20, 30, 40, 50],
     };
   },
   created() {
     const route = useRoute(); // Use useRoute to get the current route
     this.id = route.query.id; // Access the id from the current route
     console.log(this.id);
+    //this.fetchMovieInfo();
   },
    methods: {
-  //   fetchMovieInfo() {
-  //     movieRequest.getMovieInfo(this.id)
-  //       .then(res => {
-  //      movie.value = res.data;
-  //     score.value = movie.value.score / 2.0;
-  //     percentages.value = [
-  //       {color: '#f56c6c', percentage: movie.value.five, text: '5星'},
-  //       {color: '#e6a23c', percentage: movie.value.four, text: '4星'},
-  //       {color: '#5cb87a', percentage: movie.value.three, text: '3星'},
-  //       {color: '#1989fa', percentage: movie.value.two, text: '2星'},
-  //       {color: '#6f7ad3', percentage: movie.value.one, text: '1星'},
-  //     ]
-  //       })
-  //       .catch(err => {
-  //         console.error('Error fetching movie info:', err);
-  //       });
-  //   },
+    // fetchMovieInfo() {
+    //   movieRequest.getMovieInfo(this.id)
+    //     .then(res => {
+     //   console.log(res)
+    //    this.movie.value = res.data;
+    //     })
+    //     .catch(err => {
+    //       console.error('Error fetching movie info:', err);
+    //     });
+    // },
      addToFavorites(){
-       alert("成功")
-       // userRequest.addCollections(this.id)
+       this.isStarSolid = !this.isStarSolid;
+       // const data ={
+       //   userID:this.userID,
+       //   movieID:this.id,
+       // }
+       // userRequest.addCollections(data)
        //     .then(() => {
-       //
+       //       this.isStarSolid = !this.isStarSolid;
        //     })
        //     .catch(err => {
        //       console.error('Error adding comment:', err);
        //     });
      }
-   },
-   mounted() {
-  //   this.fetchMovieInfo(); // Call fetchMovieInfo method when component is mounted
    },
 };
 </script>
@@ -372,7 +270,7 @@ export default {
 
 .collect-button{
   margin-left: 150px;
-  font-size: 35px;
+  font-size: 28px;
   padding: 20px;
 }
 
@@ -414,44 +312,8 @@ export default {
     width: 60%;
   }
 }
-
-@media screen and (min-width: 1200px) and (max-width: 4000px) {
-  .show-first {
-    display: block;
-  }
-
-  .show-second {
-    display: none;
-  }
+.movie-rating{
+  color: white;
 }
 
-@media screen and (max-width: 450px) {
-  .blur-bg {
-    height: 26rem;
-  }
-}
-
-@media screen and (min-width: 450px) and (max-width: 501px) {
-  .blur-bg {
-    height: 25rem;
-  }
-}
-
-@media screen and (min-width: 501px) and (max-width: 700px) {
-  .blur-bg {
-    height: 23rem;
-  }
-}
-
-@media screen and (min-width: 700px) and (max-width: 800px) {
-  .blur-bg {
-    height: 24rem;
-  }
-}
-
-@media screen and (min-width: 800px) and (max-width: 1200px) {
-  .blur-bg {
-    height: 22rem;
-  }
-}
 </style>

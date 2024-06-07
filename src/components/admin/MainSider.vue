@@ -23,7 +23,8 @@ export default {
         { name: '用户管理', index: '1', route: '/userManagement' },
         { name: '流量监控', index: '2', route: '/qps' },
         { name: '安全审计', index: '3', route: '/security' },
-        { name: '退出登录', index: '4', route: '/home' },
+        { name: '广告位管理', index: '4', route: '/adManagement' },
+        { name: '退出登录', index: '5', route: '/home' },
       ]
     };
   }

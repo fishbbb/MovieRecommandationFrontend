@@ -30,6 +30,7 @@ request.interceptors.request.use(config => {
     }
     return config;
 }, error => {
+    console.log("响应："+error.response.data)
     console.log("请求拦截器出错:", error);
     return Promise.reject(error);
 });
@@ -53,6 +54,7 @@ request.interceptors.response.use(
         return res;
     },
     error => {
+        console.log(error.response.data)
         console.log('响应拦截器出错:', error); // for debug
         return Promise.reject(error);
     }
