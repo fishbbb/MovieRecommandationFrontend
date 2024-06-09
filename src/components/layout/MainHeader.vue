@@ -83,6 +83,7 @@
       title="ChatABC"
       v-model="drawer"
       :direction="direction"
+      size="50%"
       :before-close="handleClose">
     <chat-conversation/>
   </el-drawer>

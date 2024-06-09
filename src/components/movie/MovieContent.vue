@@ -78,14 +78,14 @@
 
       </div>
     </div>
-    <div class="layoutView">
-      <el-button class="list-button view-button"  @click="changeListView()" text>
-        <el-icon :size="30"><List/></el-icon>
-      </el-button>
-      <el-button class="grid-button view-button" @click="changeGridView()" text >
-        <el-icon :size="30"><Grid/></el-icon>
-      </el-button>
-    </div>
+<!--    <div class="layoutView">-->
+<!--      <el-button class="list-button view-button"  @click="changeListView()" text>-->
+<!--        <el-icon :size="30"><List/></el-icon>-->
+<!--      </el-button>-->
+<!--      <el-button class="grid-button view-button" @click="changeGridView()" text >-->
+<!--        <el-icon :size="30"><Grid/></el-icon>-->
+<!--      </el-button>-->
+<!--    </div>-->
 
   </div>
 
@@ -257,7 +257,7 @@ el-pagination{
 <script>
 
 
-import {CaretBottom, CaretTop, Grid, List} from "@element-plus/icons-vue";
+import {CaretBottom, CaretTop} from "@element-plus/icons-vue";
 import MovieCard from "@/components/movie/MovieCard.vue";
 import {reactive, ref} from "vue";
 import movieRequest from "@/api/movie";
@@ -266,7 +266,7 @@ import movieRequest from "@/api/movie";
 
 export default {
   name:"MovieContent",
-  components: {CaretBottom, CaretTop, MovieCard, Grid, List},
+  components: {CaretBottom, CaretTop, MovieCard},
   data() {
     const movieList = reactive([{id :"1", name: "a", score:"3.5"},
       {id :"2", name: "b", score:"4.5"},
@@ -304,7 +304,7 @@ export default {
           '2015', '2014', '2013', '2012',
           '2011', '2010', '00年代', '90年代',
           '80年代', '70年代', '60年代', '更早']);
-    const languages = reactive(['All','Chinese','English','Japanese','Korean','Other'])
+    const languages = reactive(['All','Chinese','English','French','Deutsch','Other'])
     let sort_by_popularity = '';
     let sort_by_ratings = '';
     let sort_by_date = '';
@@ -368,7 +368,6 @@ export default {
       this.sort_by_ratings = '0';
       this.getMovieWithConditions();
       //const userId = store.state.userId;
-
     },
     orderMovieByRateDesc(){
       this.changeColor(this.$refs.rateButtonBottom.$el,".rate-button");

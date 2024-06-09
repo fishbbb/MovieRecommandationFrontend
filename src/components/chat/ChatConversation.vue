@@ -1,10 +1,3 @@
-<script>
-export default {
-  name:"ChatConversation",
-}
-
-</script>
-
 <template>
   <div>你好我是chat组件</div>
 </template>
@@ -12,3 +5,9 @@ export default {
 <style scoped>
 
 </style>
+<script>
+export default {
+  name:"ChatConversation",
+}
+
+</script>
