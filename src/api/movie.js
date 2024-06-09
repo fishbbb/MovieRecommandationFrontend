@@ -5,7 +5,7 @@ const movieRequest = {
     //获取广告位电影（所有）：GET movies/ad
     getAdMovie:()=>{
         return request({
-            url:'movies/ad',
+            url:'/movies/ad',
             method:'get',
             headers:{
                 isNeedToken:false
@@ -96,7 +96,7 @@ const movieRequest = {
     //分类
     getMoviesWithConditions:(optionalParams)=>{
         return request({
-            url:'movie/search',
+            url:'/movie/search',
             method:'get',
             headers: {
                 isNeedToken: false
