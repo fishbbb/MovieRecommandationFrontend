@@ -28,7 +28,9 @@ export default {
 .header {
   position: sticky;
   /* 必须设一个值，否则不生效 */
+  width: 100%;
   top: 0;
+  height:60px;
 }
 
 /* 让footer保持在最下方 */
@@ -37,7 +39,10 @@ export default {
 }
 
 .footer {
-  height: 54px;
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  position: sticky;
 }
 
 @media screen and (max-width: 450px) {

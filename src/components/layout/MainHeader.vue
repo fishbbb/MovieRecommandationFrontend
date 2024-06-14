@@ -80,9 +80,12 @@
 
   </div>
   <el-drawer
-      title="ChatABC"
+      :with-header="false"
+      class="drawer"
       v-model="drawer"
       :direction="direction"
+      size="60%"
+      :show-close="true"
       :before-close="handleClose">
     <chat-conversation/>
   </el-drawer>
