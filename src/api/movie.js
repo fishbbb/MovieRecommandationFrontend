@@ -22,7 +22,7 @@ const movieRequest = {
                 isNeedToken: false
             },
             params: {
-                movieID: id
+                movieid: id
             }
         });
     },
@@ -37,7 +37,7 @@ const movieRequest = {
                 isNeedToken: false
             },
             params: {
-                movieID: id,
+                movieid: id,
                 page:page,
                 page_size:size,
             }
@@ -132,7 +132,7 @@ const movieRequest = {
                 isNeedToken: true
             },
             params: {
-                userID: userId,
+                userid: userId,
                 num: 10
             }
         })

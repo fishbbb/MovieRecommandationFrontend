@@ -54,10 +54,11 @@ request.interceptors.request.use(async config => {
         }
     }
     console.log(config.params)
-
+    delete config.headers['isNeedToken'];
     return config;
 }, error => {
     console.log("请求拦截器出错:", error);
+
     return Promise.reject(error);
 });
 

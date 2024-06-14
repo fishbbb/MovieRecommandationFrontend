@@ -37,7 +37,7 @@ const userRequest = {
                 isNeedToken: true,
             },
             params:{
-                userID:id
+                userid:id
             }
         })
     },
@@ -103,8 +103,8 @@ const userRequest = {
                 isNeedToken: true,
             },
             params:{
-                userID:userID,
-                movieID:movieID
+                userid:userID,
+                movieid:movieID
             }
         })
     },
@@ -119,7 +119,7 @@ const userRequest = {
                 isNeedToken: true,
             },
             params:{
-                userID:userID,
+                userid:userID,
                 page:page,
                 page_size:size
             }
