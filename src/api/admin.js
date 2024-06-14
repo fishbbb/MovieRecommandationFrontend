@@ -29,10 +29,10 @@ const adminRequest = {
     //GET security/qps/now
     getCurrentQPS:() => {
         return request({
-            url:'security/qps/no',
+            url:'security/qps/now',
             method:'get',
             headers:{
-                isNeedToken:true
+                isNeedToken:false
             }
         })
     },
@@ -41,7 +41,7 @@ const adminRequest = {
     //GET security/qps/history
     getHistoryQPS:(start,end) =>{
         return request({
-            url:'security/qps/no',
+            url:'security/qps/history',
             method:'get',
             headers:{
                 isNeedToken:true
@@ -63,7 +63,7 @@ const adminRequest = {
             url:'security/server-state/now',
             method:'get',
             headers:{
-                isNeedToken:true
+                isNeedToken:false
             },
         })
     },
