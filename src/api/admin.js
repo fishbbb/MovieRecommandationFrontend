@@ -14,7 +14,7 @@ const adminRequest = {
     },
 
     //异常IP
-    //GET security/abnormal-ips
+    //GET /security/abnormal-ips
     getAbnormalIp:() => {
         return request({
             url:'/security/abnormal-ips',

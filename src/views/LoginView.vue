@@ -123,13 +123,19 @@ export default {
            //roleName: "user",
             userPwd:"123",
             token: "exampleToken123",
-            //testToken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ind3dy5iZWpzb24uY29tIiwic3ViIjoiZGVtbyIsImlhdCI6MTcxODUzNTk2OSwibmJmIjoxNzE4NTM1OTY5LCJleHAiOjE3MTg2MjIzNjl9.jRPmUtI3p_n2gLg8v-U_RbdiOFn1-llP5VZJOq2qi3Q"
+            testToken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ind3dy5iZWpzb24uY29tIiwic3ViIjoiZGVtbyIsImlhdCI6MTcxODUzNTk2OSwibmJmIjoxNzE4NTM1OTY5LCJleHAiOjE3MTg2MjIzNjl9.jRPmUtI3p_n2gLg8v-U_RbdiOFn1-llP5VZJOq2qi3Q"
           }
         };
         console.log(store.state.isLogin);
-        //const decoded = jwt.decode(res.testToken);
-        //console.log(decoded)
-        //const decoded = jwt_decode(res.testToken);
+        //-------------------解析JWT--------------------------
+        const token = res.data.testToken;
+        const tokenParts = token.split('.');
+        const encodedPayload = tokenParts[1];
+        const decodedPayload = atob(encodedPayload);
+        // 将解码后的 JSON 字符串转换为对象
+        const payloadObj = JSON.parse(decodedPayload);
+        // 获取其中的字段值
+        console.log(payloadObj);
         await store.dispatch("setUser", JSON.stringify(res.data));
         await store.dispatch("setToken", res.data.token);
         console.log(store.state.isLogin);
