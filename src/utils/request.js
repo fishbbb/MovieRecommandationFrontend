@@ -33,7 +33,8 @@ request.interceptors.request.use(async config => {
             // 如果没有 token，可以根据实际情况进行处理，比如跳转到登录页面
             // router.push("/login");
         } else {
-            config.headers['token'] = token;
+            //config.headers['token'] = token;
+            config.headers["Authorization"] = "Bearer " + token
         }
     }
 

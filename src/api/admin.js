@@ -17,7 +17,7 @@ const adminRequest = {
     //GET security/abnormal-ips
     getAbnormalIp:() => {
         return request({
-            url:'security/abnormal-ips',
+            url:'/security/abnormal-ips',
             method:'get',
             headers:{
                 isNeedToken:true
@@ -29,7 +29,7 @@ const adminRequest = {
     //GET security/qps/now
     getCurrentQPS:() => {
         return request({
-            url:'security/qps/now',
+            url:'/security/qps/now',
             method:'get',
             headers:{
                 isNeedToken:false
@@ -41,7 +41,7 @@ const adminRequest = {
     //GET security/qps/history
     getHistoryQPS:(start,end) =>{
         return request({
-            url:'security/qps/history',
+            url:'/security/qps/history',
             method:'get',
             headers:{
                 isNeedToken:true
@@ -60,7 +60,7 @@ const adminRequest = {
     //GET security/server-state/now
     getServerState:() =>{
         return request({
-            url:'security/server-state/now',
+            url:'/security/server-state/now',
             method:'get',
             headers:{
                 isNeedToken:false
@@ -73,7 +73,7 @@ const adminRequest = {
     //GET security/server-state/history
     getHistoryServerState:(start,end) =>{
         return request({
-            url:'security/server-state/history',
+            url:'/security/server-state/history',
             method:'get',
             headers:{
                 isNeedToken:true
@@ -90,7 +90,7 @@ const adminRequest = {
     //---------用户管理----------------
     getUserList:() =>{
         return request({
-            url:'users/list',
+            url:'/users/list',
             method:'get',
             headers:{
                 isNeedToken:true,
@@ -102,7 +102,7 @@ const adminRequest = {
     //POST users/shut-you-fxxking-up
     userCommentBan:(data) =>{
         return request({
-            url:'users/shut-you-fxxking-up',
+            url:'/users/shut-you-fxxking-up',
             method:'post',
             headers:{
                 isNeedToken:true
@@ -115,7 +115,7 @@ const adminRequest = {
     //POST users/ban
     deleteUser:(data) =>{
         return request({
-            url:'users/ban',
+            url:'/users/ban',
             method:'post',
             headers:{
                 isNeedToken:true
@@ -129,7 +129,7 @@ const adminRequest = {
     //POST movies/ad
     addAdMovie:(data)=>{
         return request({
-            url:'movies/ad',
+            url:'/movies/ad',
             method:'post',
             headers:{
                 isNeedToken:true
@@ -140,7 +140,7 @@ const adminRequest = {
     //DELETE movies/ad
     deleteAdMovie:(data)=>{
         return request({
-            url:'movies/ad',
+            url:'/movies/ad',
             method:'delete',
             headers:{
                 isNeedToken:true
