@@ -4,8 +4,12 @@
     <el-card class="card-container">
       <el-table :data="movies" style="width: 100%">
         <el-table-column prop="movieID" label="电影ID"></el-table-column>
-        <el-table-column prop="movieName" label="电影ID"></el-table-column>
-        <el-table-column prop="movieInfo" label="电影ID"></el-table-column>
+        <el-table-column prop="title" label="电影名"></el-table-column>
+        <el-table-column prop="overview" label="电影简介" :formatter="overviewFormatter">
+          <template #default="{row}">
+            <div v-html="row.overview" class="overview-text"></div>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template #default="{row}">
             <el-button @click="deleteMovieFromAd(row.movieID)" type="danger" size="default">删除</el-button>
@@ -56,9 +60,9 @@ export default {
       searchKeywords:'',
       selectedMovie: '',
       movies: [
-        { movieID: 1,movieName:'name1',movieInfo:'info1' },
-        { movieID: 2,movieName:'name2',movieInfo:'info2'},
-        { movieID: 3,movieName:'name3',movieInfo:'info3' }
+        { movieID: 1,title:'name1',overview:'info1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' },
+        { movieID: 2,title:'name2',overview:'info2'},
+        { movieID: 3,title:'name3',overview:'info3' }
       ]
     };
   },
@@ -133,5 +137,12 @@ export default {
 }
 .card-container{
   margin: 10px;
+}
+.overview-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 限制为3行 */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
