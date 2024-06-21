@@ -9,7 +9,7 @@
 
     <el-scrollbar>
       <div class="scrollbar-flex-content">
-        <template v-for="(movie, index) in mockMovies" :key="movie.id">
+        <template v-for="(movie, index) in movies" :key="movie.movieID">
           <movie-card :movie="movie" class="movie-card-item">
             <template v-if="opt === 1 || opt === 2 || opt === 3" v-slot:header>
               <span v-if="opt === 1 && index <= 2" class="recommendation-svg-first" style="color: rgb(255,215,0)">👍</span>
@@ -22,13 +22,13 @@
 
             <template v-if="opt === 1" v-slot:footer>
               <div class="recommendation-index-div">
-                推荐指数: {{ movie.idx }}%
+                推荐指数:
               </div>
             </template>
 
             <template v-else-if="opt === 2" v-slot:footer>
               <div class="watched-num-div">
-                {{ movie.num }}人评价
+                {{ movie.voteCount }}人评价
               </div>
             </template>
           </movie-card>
@@ -52,10 +52,7 @@ export default {
      */
     opt: Number, // Pass the sorting option as a prop
     tag: String, // Pass the tag as a prop
-    //TODO:接前后端这里要打开
-    // movies:{
-    //   type:Object,
-    // }
+    movies:Array,
   },
   // setup(props) {
   //   props.movies.forEach((movie) => {
@@ -70,17 +67,7 @@ export default {
   //--------------假數據-------------------
   data() {
     return {
-      mockMovies: [ // Mock movie data
-        { id: 1, idx: 95, num: 100, name: 'hh',pic:1},
-        { id: 2, idx: 93, num: 150,name: 'hd',pic:2 },
-        { id: 3, idx: 92, num: 80, name: 'h3',pic:3 },
-        { id: 4, idx: 90, num: 80 , name: 'h3',pic:4 },
-        { id: 5, idx: 80, num: 80 , name: 'h3',pic:5 },
-        { id: 6, idx: 70, num: 80 , name: 'h3',pic:6 },
-        { id: 7, idx: 70, num: 80 , name: 'h3',pic:7 },
-        { id: 8, idx: 65, num: 80 , name: 'h3',pic:8 },
 
-      ],
     };
   },
 };

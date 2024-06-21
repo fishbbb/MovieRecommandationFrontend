@@ -1,11 +1,11 @@
 <template>
-<div class="blur-bg" :style="`background-image: url(${movie.pic}); opacity: 1;`"></div>
+<div class="blur-bg" :style="`background-image: url(${movie.url}); opacity: 1;`"></div>
   <div class="movie-info-top">
     <div class="background">
       <el-row>
         <el-col :span="8">
           <div class="movie-info-top-left">
-            <img class="image" :src="movie.pic"/>
+            <img class="image" :src="movie.url"/>
           </div>
           <el-button color="yellow" class="collect-button" size="large" type="primary" @click="addToFavorites" round :icon="isStarSolid ? 'StarFilled' : 'Star'">|   收藏电影
           </el-button>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="each">
                   <span>语言：</span>
-                  <span>{{ movie.languages }}</span>
+                  <span>{{ movie.originalLanguage }}</span>
                 </div>
               </el-col>
 
@@ -155,14 +155,14 @@ export default {
     const route = useRoute(); // Use useRoute to get the current route
     this.id = route.query.id; // Access the id from the current route
     console.log(this.id);
-    //this.fetchMovieInfo();
+    this.fetchMovieInfo();
   },
    methods: {
     fetchMovieInfo() {
       movieRequest.getMovieInfo(this.id)
         .then(res => {
        console.log(res)
-       this.movie.value = res.data;
+       this.movie= res.data;
         })
         .catch(err => {
           console.error('Error fetching movie info:', err);

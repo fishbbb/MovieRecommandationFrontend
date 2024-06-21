@@ -63,20 +63,6 @@ export default {
         userIP: ''
     };
   },
-
-    // fetch('https://api.ipify.org?format=json').
-    // then(response => response.json()).
-    // then(data => {
-    //   const ip = data.ip
-    //   //通过ip地址获取所在地
-    //   fetch(`https://api.vore.top/api/IPdata?ip=${ip}`).
-    //   then((res) => res.json()
-    //       .then((data) => {
-    //         console.log(data);
-    //       })
-    //   )
-    // })
-    //     .catch(error => { console.error(error) })
   methods:{
     getUserName(){
         console.log(store.state.userName)
@@ -92,7 +78,7 @@ export default {
     },
     getHottestMovies(){
       movieRequest.getHottestMovies().then(res =>{
-        this.hottestMovies = res.data;
+        this.hottestMovies = res.data.records;
         console.log(res.data)
       }).catch(err =>{
         console.log(err)
@@ -100,7 +86,7 @@ export default {
     },
     getHighestRatedMovies(){
       movieRequest.getHighestRatedMovies().then(response => {
-        this.highestRatingMovies = response.data
+        this.highestRatingMovies = response.data.records
         console.log(response)
       }).catch(error => {
         console.error(error);
@@ -110,7 +96,7 @@ export default {
       if(this.isLogin){
         movieRequest.getRecommendedMovie(store.state.userId)
             .then(res =>{
-              this.recommendedMovies = res.data;
+              this.recommendedMovies = res.data.records;
             }).catch(err =>{
               console.log(err)
         })

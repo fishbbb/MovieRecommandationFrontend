@@ -2,11 +2,11 @@
   <div class="card">
     <slot name="header"></slot>
 
-    <router-link :to="{ path: '/movie/info', query: { id: movie.id } }">
+    <router-link :to="{ path: '/movie/info', query: { id: movie.movieID } }">
       <!--      <a :href="`/movie/info/${movie.id}`" target="_blank">-->
 
       <div class="image-div">
-        <el-image v-if="movie.pic" ref="image" :src="require(`@/assets/test/${movie.pic}.jpg`)" class="image" @mouseover="blurImage" @mouseleave="unblurImage">
+        <el-image  ref="image" :src="movie.url" class="image" @mouseover="blurImage" @mouseleave="unblurImage">
           <template #error>
             <div class="image-error">
               <film class="center-image-error"></film>
@@ -24,10 +24,10 @@
             :content="`${ movie.name }`"
             placement="top"
         >
-          <div class="line-limit-length">{{ movie.name }}</div>
+          <div class="line-limit-length">{{ movie.title }}</div>
         </el-tooltip>
 
-        <div class="rate">{{ movie.score }}</div>
+        <div class="rate">{{ movie.voteAverage}}</div>
         <div class="release-time">Release At {{ movie.releaseDate }}</div>
       </div>
     </router-link>

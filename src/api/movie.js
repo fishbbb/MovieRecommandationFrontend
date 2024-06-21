@@ -14,15 +14,15 @@ const movieRequest = {
     },
 
     //获取单个电影详情：GET /movies
-    getMovieInfo: (id) => {
+    getMovieInfo: (movieid) => {
         return request({
             url: `/movies`,
             method: 'get',
             headers: {
                 isNeedToken: false
             },
-            params: {
-                movieid: id
+            params:{
+                movieid:movieid
             }
         });
     },
