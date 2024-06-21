@@ -12,21 +12,17 @@
       />
     </div>
 
-      <div v-if=!isLogin class="recommend-container">
-        <el-card class="login-card">
-          <div class="card-header">
-            <h2>您需要登录才能查看个性化推荐内容。</h2>
-          </div>
-          <div class="card-content">
-            <router-link :to="{ path: '/login'}">
-              <el-button>登录</el-button>
-            </router-link>
-          </div>
-          <div class="card-lock">
-            <el-icon><Lock /></el-icon>
-          </div>
-        </el-card>
-      </div>
+    <div v-if="!isLogin" class="recommend-container">
+      <el-card class="login-card">
+        <h2>您需要登录才能查看个性化推荐内容。</h2>
+        <div class="icon-container">
+          <el-icon style="font-size: 50px"><Lock /></el-icon>
+        </div>
+        <router-link :to="{ path: '/login'}">
+          <el-button>登录</el-button>
+        </router-link>
+      </el-card>
+    </div>
     <div class="recommend-container">
       <movie-list
           :opt="2"
@@ -198,6 +194,10 @@ export default {
   backdrop-filter: blur(5px); /* Adds a blur effect */
   padding: 20px;
   margin: 15px auto; /* Center the card horizontally */
+}
+
+.icon-container {
+  margin-top: 10px; /* Adjust margin between button and icon */
 }
 
 .card-header {
