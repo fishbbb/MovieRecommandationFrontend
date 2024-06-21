@@ -34,14 +34,18 @@ const chatRequest = {
 
     //发送消息
     //POST /chat
-    submitMassage:(data) => {
+    submitMassage:(data,userId,ListId) => {
         return request({
             url:'/chat',
             method:'post',
             headers:{
                 isNeedToken:true,
             },
-            data
+            params:{
+                userId:userId,
+                ListId:ListId
+            },
+            data,
         })
     }
 }

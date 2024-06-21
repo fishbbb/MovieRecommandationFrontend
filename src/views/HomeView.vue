@@ -3,12 +3,7 @@
     <div class="flex-container">
       <main-carousel/>
     </div>
-<!--    <router-link to="/movie/info">-->
-<!--      <el-button>点击我进入一个具体电影的具体信息页面</el-button>-->
-<!--    </router-link>-->
-      <el-button @click=getUserName()>Test</el-button>
     <div class="recommend-container">
-<!--      <movie-list/>-->
       <movie-list
           :opt="1"
           v-if="isLogin"
@@ -18,6 +13,7 @@
     </div>
 
       <div v-if=!isLogin>
+<!--        TODO:放在中间的card，文字置于中间，上锁or背景虚化-->
         <h2>您需要登录才能查看个性化推荐内容。</h2>
         <!-- 这里放置登录按钮或者其他登录提示 -->
         <router-link :to="{ path: '/login'}">
@@ -25,7 +21,6 @@
         </router-link>
       </div>
     <div class="recommend-container">
-      <!--      <movie-list/>-->
       <movie-list
           :opt="2"
           v-if="1 !== 0"
@@ -34,7 +29,6 @@
       />
     </div>
     <div class="recommend-container">
-      <!--      <movie-list/>-->
       <movie-list
           :opt="3"
           v-if="1 !== 0"
@@ -161,20 +155,22 @@ export default {
 </script>
 
 <style>
-
+.main-container{
+  //background-color: black;
+}
 .flex-container {
+  margin-top: 2rem;
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-  margin-left: 25%;
-  margin-right: 25%;
+  justify-content: center;
 
 }
 .movie-list {
   padding: 1rem;
   margin: 1rem 5% 1rem 5%;
 }
-
+.recommend-container{
+  //border: #5a84fd 2px solid;
+}
 /* 响应式布局 - 当屏幕小于 1200 像素宽时，让两列堆叠而不是并排 */
 @media screen and (max-width: 1200px) {
   .flex-container {

@@ -36,6 +36,8 @@ export default {
 /* 让footer保持在最下方 */
 .content {
   min-height: calc(100vh - 105px);
+  margin-top: 0;
+  background-color: rgba(0, 0, 0, 0.89);
 }
 
 .footer {
@@ -43,6 +45,7 @@ export default {
   width: 100%;
   bottom: 0;
   position: sticky;
+  z-index: 8;
 }
 
 @media screen and (max-width: 450px) {

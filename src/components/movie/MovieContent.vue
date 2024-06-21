@@ -1,38 +1,46 @@
 <template>
   <div class="movie-tags">
     <div class="type">
-      <span class="tag-text">电影类型</span>
+      <span class="tag-text">Genre</span>
       <div class="button">
         <el-radio-group class="type-button"
                         v-for="(t, index) in genres"
                         :key="index"
                         v-model="genre"
-                        @change="getMovieWithConditions()">
+                        @change="getMovieWithConditions()"
+                        fill="rgba(188, 180, 50, 0.8)"
+                        text-color="white">
           <el-radio-button  :label= t />
         </el-radio-group>
       </div>
     </div>
+    <el-divider class="divider"/>
     <div class="year">
-      <span class="tag-text">电影年份</span>
+      <span class="tag-text">Year</span>
       <div class="button">
         <el-radio-group class="type-button"
                         v-for="(t, index) in years"
                         :key="index"
                         v-model="year"
-                        @change="getMovieWithConditions()">
+                        @change="getMovieWithConditions()"
+                        fill="rgba(188, 180, 50, 0.8)"
+                        text-color="white">
           <el-radio-button  :label= t />
         </el-radio-group>
       </div>
 
     </div>
+    <el-divider  class="divider"/>
     <div class="language">
-      <span class="tag-text">电影语言</span>
+      <span class="tag-text">Language</span>
       <div class="button1">
         <el-radio-group class="type-button"
                         v-for="(item,index) in languages"
                         :key="index"
                         v-model="language"
-                        @change="getMovieWithConditions()">
+                        @change="getMovieWithConditions()"
+                        fill="rgba(188, 180, 50, 0.8)"
+                        text-color="white">
           <el-radio-button :label="item"/>
         </el-radio-group>
       </div>
@@ -43,49 +51,43 @@
   <div class="changeView">
     <div class="orderView">
       <div class="popularity-order">
-        <span class="order-text">播放热度</span>
+        <span class="order-text">Popularity</span>
         <div class="order-button-container">
-          <el-button class="popularity-button-top popularity-button" ref="popularityButtonTop" @click="orderMovieByPopularityAsc()" text>
-            <el-icon :size="15"><CaretTop/></el-icon>
+          <el-button class="popularity-button-top popularity-button order-button" ref="popularityButtonTop" @click="orderMovieByPopularityAsc()" text>
+            <el-icon :size="25"><CaretTop/></el-icon>
           </el-button>
-          <el-button class="popularity-button-bottom popularity-button" ref="popularityButtonBottom" @click="orderMovieByPopularityDesc()" text>
-            <el-icon :size="15"><CaretBottom/></el-icon>
+          <el-button class="popularity-button-bottom popularity-button order-button" ref="popularityButtonBottom" @click="orderMovieByPopularityDesc()" text>
+            <el-icon :size="25"><CaretBottom/></el-icon>
           </el-button>
         </div>
       </div>
       <div class="rate-order">
-        <span class="order-text">评分</span>
+        <span class="order-text">Rate</span>
         <div class="order-button-container">
-          <el-button ref="rateButtonTop" class="rate-button-top rate-button" @click="orderMovieByRateAsc()" text>
-            <el-icon :size="15"><CaretTop/></el-icon>
+          <el-button ref="rateButtonTop" class="rate-button-top rate-button order-button" @click="orderMovieByRateAsc()" text>
+            <el-icon :size="25"><CaretTop/></el-icon>
           </el-button>
-          <el-button ref="rateButtonBottom" class="rate-button-bottom rate-button" @click="orderMovieByRateDesc()" text>
-            <el-icon :size="15"><CaretBottom/></el-icon>
+          <el-button ref="rateButtonBottom" class="rate-button-bottom rate-button order-button" @click="orderMovieByRateDesc()" text>
+            <el-icon :size="25"><CaretBottom/></el-icon>
           </el-button>
         </div>
 
       </div>
       <div class="time-order">
-        <span class="order-text">上映时间</span>
+        <span class="order-text">Release Time</span>
         <div class="order-button-container">
-          <el-button class="time-button-top time-button" ref="timeButtonTop" @click="orderMovieByTimeAsc()" text>
-            <el-icon :size="15"><CaretTop/></el-icon>
+          <el-button class="time-button-top time-button order-button" ref="timeButtonTop" @click="orderMovieByTimeAsc()" text>
+            <el-icon :size="25"><CaretTop/></el-icon>
           </el-button>
-          <el-button class="time-button-bottom time-button" ref="timeButtonBottom" @click="orderMovieByTimeDesc()" text>
-            <el-icon :size="15"><CaretBottom/></el-icon>
+          <el-button class="time-button-bottom time-button order-button" ref="timeButtonBottom" @click="orderMovieByTimeDesc()" text>
+            <el-icon :size="25"><CaretBottom/></el-icon>
           </el-button>
         </div>
 
       </div>
+      <button class="reset-order-button" @click="resetOrder">Reset</button>
     </div>
-<!--    <div class="layoutView">-->
-<!--      <el-button class="list-button view-button"  @click="changeListView()" text>-->
-<!--        <el-icon :size="30"><List/></el-icon>-->
-<!--      </el-button>-->
-<!--      <el-button class="grid-button view-button" @click="changeGridView()" text >-->
-<!--        <el-icon :size="30"><Grid/></el-icon>-->
-<!--      </el-button>-->
-<!--    </div>-->
+
 
   </div>
 
@@ -97,6 +99,7 @@
     </div>
     <div class="movie-pagination">
       <el-pagination background layout="sizes,prev,pager,next"
+                     class="pagination"
                      :total="total"
                      :page-sizes="size"
                      v-model:page-size="size1"
@@ -115,37 +118,29 @@
 .movie-tags{
   width: 80%;
   margin: 20px auto 20px;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color:white ;
+  //background-color: rgba(188, 180, 121, 0.25);
   display: flex;
   flex-direction: column;
-
-//position: fixed;
-//left: calc(50% - 40%);
-//top:15%;
-//z-index: 999;
 
 }
 .type,
 .year,
 .language{
   display: flex;
-
 }
-.year,
+/*.year,
 .language{
   margin-top: 30px;
-}
+}*/
 .tag-text{
-//padding-top: 5px;
-  font-size: 25px;
-//padding-top: 5px;
+  font-size: 28px;
   text-align: center;
   width: 250px;
-  color: #8cbee1;
-//border: #ff9900 1px solid;
+  color: #d2ae5b;
+  font-weight: bold;
 }
 .button{
   display: grid;
@@ -161,23 +156,32 @@
   grid-gap: 15px 30px;
   margin-left: 10px;
 }
-
+.divider{
+  margin: 20px auto;
+}
 .type-button{
   margin-right: 50px;
+  width: 40px;
+  height: 40px;
 }
-.type-button /deep/ .el-radio-button__inner{
+.type-button :deep(.el-radio-button__inner) {
   border: none;
+  //color: #ba8a4b;
+  color: white;
+  background-color: transparent;
+  font-size: 18px;
 }
-.type-button /deep/ .el-radio-button__inner:hover{
-  background-color: #90d6ff;
-  color: black;
+.type-button :deep(.el-radio-button__inner:hover) {
+  background-color: rgba(231, 204, 145, 0.33);
+  color: #e0863c;
 }
 .movie-content{
   width: 80%;
-  height: 100vh;
+  height: 100%;
   //margin-top: 20px;
   margin: 20px auto 20px;
   border: #eaeaf6 2px solid;
+  //background-color: white;
   padding: 10px;
 }
 .changeView{
@@ -185,12 +189,6 @@
   justify-content: space-between;
   align-items: center;
   height: 100px;
-}
-.layoutView{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-right: 20px;
 }
 .orderView{
   display: flex;
@@ -209,14 +207,14 @@
 .order-text{
   text-align: center;
   line-height: 80px;
-
+  color: white;
+  font-size: 18px;
 }
 .order-button-container{
   display: flex;
   flex-direction: column;
   width: 30px;
   height: 40px;
-  //border: #4fa422 1px solid;
 }
 .popularity-button,
 .rate-button,
@@ -226,7 +224,35 @@
 }
 .el-button.is-text:hover
 {
-  color: #c0194c;
+  color: #d2ae5b;
+  background-color: transparent;
+}
+.reset-order-button{
+  border-radius: 10px;
+  background-color: #ff9900;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+:deep(.pagination .el-pager li),
+:deep(.pagination .btn-prev),
+:deep(.pagination .btn-next),
+:deep(.pagination .el-select),
+:deep(.el-select .el-select__wrapper),
+:deep(.el-select__placeholder)
+{
+  background-color: transparent !important;
+  color: #eae2b8;
+  font-size: 18px;
+}
+:deep(.el-pager li:hover),
+:deep(.btn-prev:hover),
+:deep(.btn-next:hover)
+{
+  background-color: #ffa200 !important;
+  color:black;
 }
 
 .movie-view{
@@ -236,12 +262,14 @@
  }
 .movies-view{
   width: 90%;
-  height: 50%;
   margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap;
-  border: #42b983 1px solid;
-  gap: 30px;
+  display: grid;
+  /*使用auto-fit，一行中有剩余宽度时不会以空白格填充，而是根据视窗宽度自适应调整单元格宽度;*/
+  grid-template-columns: repeat(auto-fit, 250px);
+  justify-content: center;
+  grid-gap: 30px;
+
+  //border: #42b983 1px solid;
 }
 .movie-pagination{
   width: 40%;
@@ -254,6 +282,12 @@ el-pagination{
   width: 100%;
 }
 </style>
+<!--<style>-->
+<!--.movie-tags .el-pagination.is-background .el-pager li:not(.disabled).active {-->
+<!--  background-color: #FD7A3A !important;   /*进行修改背景和字体*/-->
+<!--  color: #d14242;-->
+<!--}-->
+<!--</style>-->
 <script>
 
 
@@ -268,21 +302,21 @@ export default {
   name:"MovieContent",
   components: {CaretBottom, CaretTop, MovieCard},
   data() {
-    const movieList = reactive([{id :"1", name: "a", score:"3.5"},
-      {id :"2", name: "b", score:"4.5"},
-      {id :"3", name: "c", score:"2.6"},
-      {id :"4", name: "d", score:"3.2"},
-      {id :"5", name: "e", score:"8.7"},
-      {id :"6", name: "f", score:"6.8"},
-      {id :"7", name: "g", score:"9.0"},
-      {id :"8", name: "h", score:"4.6"},
-      {id :"9", name: "i", score:"10.0"},
-      {id :"10", name: "j", score:"4.7"},
-        {id :"11", name: "k", score:"3.5"},
-        {id :"12", name: "l", score:"4.5"},
-        {id :"13", name: "m", score:"2.6"},
-        {id :"14", name: "n", score:"3.2"},
-        {id :"15", name: "o", score:"8.7"},
+    const movieList = reactive([{id :"1", name: "a", score:"3.5",pic:1,description:'这是一部电影'},
+      {id :"2", name: "b", score:"4.5",pic:2,description:'这是一部电影'},
+      {id :"3", name: "c", score:"2.6",pic:3,description:'这是一部电影'},
+      {id :"4", name: "d", score:"3.2",pic:4,description:'这是一部电影'},
+      {id :"5", name: "e", score:"8.7",pic:5,description:'这是一部电影'},
+      {id :"6", name: "f", score:"6.8",pic:6,description:'这是一部电影'},
+      {id :"7", name: "g", score:"9.0",pic:7,description:'这是一部电影'},
+      {id :"8", name: "h", score:"4.6",pic:8,description:'这是一部电影'},
+      {id :"9", name: "i", score:"10.0",pic:9,description:'这是一部电影'},
+      {id :"10", name: "j", score:"4.7",pic:10,description:'这是一部电影'},
+        {id :"11", name: "k", score:"3.5",pic:5,description:'这是一部电影'},
+        {id :"12", name: "l", score:"4.5",pic:2,description:'这是一部电影'},
+        {id :"13", name: "m", score:"2.6",pic:3,description:'这是一部电影'},
+        {id :"14", name: "n", score:"3.2",pic:4,description:'这是一部电影'},
+        {id :"15", name: "o", score:"8.7",pic:5,description:'这是一部电影'},
     ])
     const total = movieList.length;
     let size = [2,3,4,5];
@@ -345,53 +379,63 @@ export default {
       console.log("222");
       this.movieViewType = "GRID";
     },
-    changeColor(ele,selector){
+    changeColor(ele,selector,color){
       //修改样式
       const buttons = document.querySelectorAll(selector);
       buttons.forEach(button => {
         button.style.color = '#606266'; // 恢复原始颜色
       });
-      ele.style.color = '#c0194c';
+      ele.style.color = color;
+
     },
+
     orderMovieByPopularityAsc(){
-      this.changeColor(this.$refs.popularityButtonTop.$el,".popularity-button");
+      this.changeColor(this.$refs.popularityButtonTop.$el,".popularity-button",'#eacd29');
       this.sort_by_popularity = '0';
       this.getMovieWithConditions();
     },
     orderMovieByPopularityDesc(){
-      this.changeColor(this.$refs.popularityButtonBottom.$el,".popularity-button");
+      this.changeColor(this.$refs.popularityButtonBottom.$el,".popularity-button",'#eacd29');
       this.sort_by_popularity = '1';
       this.getMovieWithConditions();
     },
     orderMovieByRateAsc(){
-      this.changeColor(this.$refs.rateButtonTop.$el,".rate-button");
+      this.changeColor(this.$refs.rateButtonTop.$el,".rate-button",'#eacd29');
       this.sort_by_ratings = '0';
       this.getMovieWithConditions();
       //const userId = store.state.userId;
     },
     orderMovieByRateDesc(){
-      this.changeColor(this.$refs.rateButtonBottom.$el,".rate-button");
+      this.changeColor(this.$refs.rateButtonBottom.$el,".rate-button",'#eacd29');
       this.sort_by_ratings = '1';
       this.getMovieWithConditions();
     },
 
     orderMovieByTimeAsc(){
-      this.changeColor(this.$refs.timeButtonTop.$el,".time-button");
+      this.changeColor(this.$refs.timeButtonTop.$el,".time-button",'#eacd29');
       this.sort_by_date = '0';
       this.getMovieWithConditions();
     },
     orderMovieByTimeDesc(){
-      this.changeColor(this.$refs.timeButtonBottom.$el,".time-button");
+      this.changeColor(this.$refs.timeButtonBottom.$el,".time-button",'#eacd29');
       this.sort_by_date = '1';
       this.getMovieWithConditions();
     },
-    // handleCurrentChange(){
-    //   console.log(this.currentPage);
-    // },
+    resetOrder(){
+      this.sort_by_popularity = '';
+      this.sort_by_ratings = '';
+      this.sort_by_date = '';
+      const buttons = document.querySelectorAll('.order-button');
+      buttons.forEach(button => {
+        button.style.color = '#606266'; // 恢复原始颜色
+      });
+    },
     getMovieWithConditions(){
       const optionalParam = {};
       if(this.genre){
         optionalParam['genre'] = this.genre;
+
+        //console.log("test",e.target);
       }
       if(this.year){
         optionalParam['year'] = this.year;
@@ -415,6 +459,8 @@ export default {
       movieRequest.getMoviesWithConditions(newParams)
           .then(()=>{
             //console.log("success!!!" + response);
+            //     this.movieList = response.data;
+
           })
           .catch((error) => {
             console.error('Error adding comment:', error);

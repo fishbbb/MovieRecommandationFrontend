@@ -12,10 +12,12 @@
 <style scoped>
 .oneMessage{
   margin-top: 15px;
+  width: 100%;
 }
 .dialog-content{
   border-radius: 5px;
   padding: 10px;
+  overflow-x: hidden;
 }
 
 

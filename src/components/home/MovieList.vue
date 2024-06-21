@@ -71,14 +71,14 @@ export default {
   data() {
     return {
       mockMovies: [ // Mock movie data
-        { id: 1, idx: 95, num: 100, name: 'hh'},
-        { id: 2, idx: 93, num: 150,name: 'hd' },
-        { id: 3, idx: 92, num: 80, name: 'h3' },
-        { id: 4, idx: 90, num: 80 , name: 'h3' },
-        { id: 5, idx: 80, num: 80 , name: 'h3' },
-        { id: 6, idx: 70, num: 80 , name: 'h3' },
-        { id: 7, idx: 70, num: 80 , name: 'h3' },
-        { id: 8, idx: 65, num: 80 , name: 'h3' },
+        { id: 1, idx: 95, num: 100, name: 'hh',pic:1},
+        { id: 2, idx: 93, num: 150,name: 'hd',pic:2 },
+        { id: 3, idx: 92, num: 80, name: 'h3',pic:3 },
+        { id: 4, idx: 90, num: 80 , name: 'h3',pic:4 },
+        { id: 5, idx: 80, num: 80 , name: 'h3',pic:5 },
+        { id: 6, idx: 70, num: 80 , name: 'h3',pic:6 },
+        { id: 7, idx: 70, num: 80 , name: 'h3',pic:7 },
+        { id: 8, idx: 65, num: 80 , name: 'h3',pic:8 },
 
       ],
     };
@@ -88,15 +88,18 @@ export default {
 
 <style scoped>
 .panel-title {
-  font-size: 26px;
-  color:darkblue;
+  font-size: 30px;
+  color: #d2ae5b;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .scrollbar-flex-content {
   display: flex;
+  align-items: center;
   flex-wrap: nowrap;
+  //border: #5a84fd 2px solid;
+  height: 32rem;
 }
 
 .movie-card-item {

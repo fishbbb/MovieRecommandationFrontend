@@ -2,41 +2,44 @@
   <div class="card">
     <slot name="header"></slot>
 
-      <router-link :to="{ path: '/movie/info', query: { id: movie.id } }">
-<!--      <a :href="`/movie/info/${movie.id}`" target="_blank">-->
-        <div class="image-div">
-          <el-image :src="pic" class="image">
-            <template #error>
-              <div class="image-error">
-                <film class="center-image-error"></film>
-                <img class="background-image-error" src="../../assets/logo.png" alt="default"/>
-              </div>
-            </template>
-          </el-image>
-        </div>
+    <router-link :to="{ path: '/movie/info', query: { id: movie.id } }">
+      <!--      <a :href="`/movie/info/${movie.id}`" target="_blank">-->
 
-        <div style="padding: 1rem">
-          <el-tooltip
-              class="box-item"
-              effect="light"
-              :content="`${ movie.name }`"
-              placement="top"
-          >
-            <div class="line-limit-length">{{ movie.name }}</div>
-          </el-tooltip>
+      <div class="image-div">
+        <el-image v-if="movie.pic" ref="image" :src="require(`@/assets/test/${movie.pic}.jpg`)" class="image" @mouseover="blurImage" @mouseleave="unblurImage">
+          <template #error>
+            <div class="image-error">
+              <film class="center-image-error"></film>
+              <img class="background-image-error" src="../../assets/logo.png" alt="default"/>
+            </div>
+          </template>
+        </el-image>
+        <div class="mask" ref="mask">{{movie.description}}</div>
+      </div>
 
-          <div class="rate">
-            <el-rate
-                v-model="score"
-                disabled
-                show-score
-                size="small"
-                text-color="#ff9900"
-                :score-template="`${ movie.score }`"
-            />
-          </div>
+      <div style="padding: 1rem">
+        <el-tooltip
+            class="box-item"
+            effect="light"
+            :content="`${ movie.name }`"
+            placement="top"
+
+        >
+          <div class="line-limit-length">{{ movie.name }}</div>
+        </el-tooltip>
+
+        <div class="rate">
+          <el-rate
+              v-model="score"
+              disabled
+              show-score
+              size="small"
+              text-color="#ff9900"
+              :score-template="`${ movie.score }`"
+          />
         </div>
-<!--      </a>-->
+      </div>
+      <!--      </a>-->
     </router-link>
 
 
@@ -56,16 +59,32 @@ export default {
       type: Object,
     }
   },
+  methods: {
+    blurImage() {
+      if (this.$refs.image && this.$refs.mask) {
+        this.$refs.image.$el.style.filter = "blur(5px)";
+        this.$refs.mask.style.opacity = 1;
+      }
+    },
+    unblurImage() {
+      //确保在访问其属性之前，this.$refs.image 被正确初始化。
+      if (this.$refs.image && this.$refs.mask) {
+        this.$refs.image.$el.style.filter = "none";
+        this.$refs.mask.style.opacity = 0;
+      }
+    }
+  },
   setup(props) {
     let score = computed(() => {
       return props.movie.score / 2;
     })
-    let pic = ref(props.movie.pic)
 
+    //let pic = ref(props.movie.pic);
     return {
       props,
       score,
-      pic
+
+      //pic
     }
   }
 }
@@ -75,7 +94,7 @@ export default {
 
 .card {
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: 1.5rem;
   border-width: 1px;
   border-style: solid;
   border-color: #eaeaf6;
@@ -84,6 +103,7 @@ export default {
   //min-height: 25rem;
 
   width: 13.8rem;
+  //height: 30rem;
   margin-bottom: 1rem;
 }
 
@@ -92,8 +112,9 @@ export default {
   border-color: #f2f2f6;
   border-radius: 0.5rem;
   border-width: 1px;
-  box-shadow: 0 10px 20px #dcdbdb;
+  //box-shadow: 0 10px 20px #dcdbdb;
   transition: all 0.2s;
+  transform: scale(1.1);
 }
 
 .image-div {
@@ -102,13 +123,25 @@ export default {
   max-height: 19.8rem;
   min-height: 19.8rem;
   background-color: #f5f7fa;
+  position: relative;
 }
-
 .image {
   border-radius: 0.5rem;
   width: 100%;
   height: 19.8rem;
 }
+
+.mask{
+  opacity: 0;
+  background-color: rgba(63, 46, 46, 0.85);
+  position: absolute;
+  top:60%;
+  left:0;
+  width:100%;
+  height:40%;
+  text-align: center;
+}
+
 
 .line-limit-length {
   width: 12rem;
@@ -116,6 +149,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap; /*文本不换行，这样超出一行的部分被截取，显示...*/
   text-align: center;
+  color:white;
 }
 
 .rate {
@@ -144,13 +178,13 @@ export default {
 
 /*未访问：蓝色、无下划线*/
 a:link {
-  color: black;
+  color: #420068;
   text-decoration: none;
 }
 
 /*激活：红色*/
 a:active {
-  color: black;
+  color: #b53838;
 }
 
 /*已访问：紫色、无下划线*/
@@ -161,7 +195,7 @@ a:visited {
 
 /*鼠标移近：红色、下划线*/
 a:hover {
-  color: red;
+  color: #3ca390;
   text-decoration: none;
 }
 

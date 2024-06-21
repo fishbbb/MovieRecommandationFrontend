@@ -20,7 +20,6 @@
     width:80%;
     height: 60px;
     border-radius: 10px;
-    //border: #5a84fd 1px solid;
     padding: 12px;
     margin: 15px auto;
     display: flex;
@@ -36,23 +35,20 @@
   }
   .session-name{
     font-size: 18px;
-    width: 50%;
     font-weight: 700;
+    position: absolute;
+    left: 10px;
+    top: 10px;
   }
   .session-other{
-    width: 100%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
+    position: absolute;
+    bottom: 10px;
     font-size: 12px;
   }
-  .session-count{
-    width:40%;
-  }
-  .session-time{
-    width: 60%;
-    text-align: right;
-  }
+
   .mask{
     transition: all 0.2s ease-out;
     position: absolute;
@@ -68,9 +64,10 @@
     background-color: rgba(134, 180, 212, 0.36);
   }
   .btn-wrapper{
-      width: 50%;
-      text-align: right;
       z-index: 10;
+      position: absolute;
+      top:10px;
+      right:10px;
   }
   .close:hover{
     cursor: pointer;

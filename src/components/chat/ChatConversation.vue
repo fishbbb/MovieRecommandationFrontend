@@ -105,6 +105,7 @@ import DialogCard from "@/components/chat/DialogCard.vue";
 import {Plus, Position} from "@element-plus/icons";
 import {reactive, ref} from "vue";
 import MessageRow from "@/components/chat/MessageRow.vue";
+import chatRequest from "@/api/chat";
 
 
 export default {
@@ -180,23 +181,45 @@ export default {
   },
   methods:{
     addNewDialog() {
-      console.log("delete");
       let currentHistory = this.messageData.messageHistory;
       currentHistory.push({
         title: "新的对话",
         listId: currentHistory.length + 1,
         updateTime: new Date().toLocaleString(),
-        messageList: '',
+        messageList: [],
       })
+      console.log(currentHistory);
     },
     sendMessage(listId){
-      let currentList = this.messageData.messageHistory.filter(dialog => dialog.listId === listId)[0].messageList || [];
-      currentList.push({
+      let chatList=this.messageData.messageHistory.filter(dialog => dialog.listId === listId)[0];
+      let currentList = chatList.messageList || [];
+      let newMessage = {
         messageId: currentList.length + 1,
         role: "user",
         content: this.userInput,
-      });
-      this.userInput = '';
+      };
+      currentList.push(newMessage);
+
+      chatList.title = currentList[0].content.substring(0, 10) + "...";
+      //根据用户id和当前对话id提交消息，返回chat回答内容
+      //chatRequest.submitMassage(newMessage,userId,listId)
+          // .then((res) => {
+          //   console.log(res.data + "success");
+               //setTimeout(() => {
+                     //currentList.push({
+                       //        ...res.data,
+                       //        role: "chat",
+                       //        messageId: currentList.length + 1,
+                       //   });
+               ///},1000);
+          //
+      // })
+      //     .catch((error)=>{
+      //       console.log(error);
+      //     })
+      //发送后清空输入框
+      this.userInput='';
+      //最后修改时间
       this.messageData.messageHistory.filter(dialog => dialog.listId === listId)[0].updateTime = new Date().toLocaleString();
       },
     selectDialog(userId){
