@@ -72,8 +72,9 @@ export default {
       // 填充到 this.serverStates 中
       adminRequest.getServerState().then(res => {
         this.serverStates = res.data
+        console.log(res)
       }).catch(err => {
-        console.error(err)
+        console.log("err"+err)
       })
     }
   }

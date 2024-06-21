@@ -3,7 +3,7 @@ import request from "@/utils/request";
 const chatRequest = {
     //获取聊天列表
     //GET /chat/list
-    getChatList:(userID) => {
+    getChatList:(userid) => {
         return request({
             url:'/chat/list',
             method:'get',
@@ -11,7 +11,7 @@ const chatRequest = {
                 isNeedToken:true,
             },
             params:{
-               userID:userID
+               userid:userid
             }
         })
     },
@@ -26,8 +26,8 @@ const chatRequest = {
                 isNeedToken:true,
             },
             params:{
-                userID:userID,
-                listID:listID
+                userid:userID,
+                listid:listID
             }
         })
     },

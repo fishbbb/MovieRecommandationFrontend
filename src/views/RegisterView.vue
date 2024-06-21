@@ -13,15 +13,15 @@
             alt="logo"
         />
       </router-link>
-      <div class="login-form-text">电影推荐系统 - 登录</div>
+      <div class="login-form-text">电影推荐系统 - 注册</div>
     </div>
 
-    <el-form ref="loginFormRef" :model="loginForm" :rules="rules">
+    <el-form ref="loginFormRef" :model="register" :rules="rules">
       <el-form-item label="账 号" prop="username">
         <el-input
             class="login-form-input"
             placeholder="账 号"
-            v-model="loginForm.username"
+            v-model="registerForm.username"
             autofocus
             autocomplete="off"
         >
@@ -37,7 +37,7 @@
         <el-input
             class="login-form-input"
             placeholder="密 码"
-            v-model="loginForm.password"
+            v-model="registerForm.password"
             show-password
         >
           <template #prefix>
@@ -49,10 +49,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button @click="postLogin" class="login-form-button" type="primary">登 录</el-button>
-      </el-form-item>
-      <el-form-item>
-          <el-button @click="gotoRegister" class="login-form-button" type="primary">注 册</el-button>
+        <el-button @click="postRegister" class="login-form-button" type="primary">登 录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -61,36 +58,21 @@
 <script>
 import { Lock as IconLock, User as IconUser } from "@element-plus/icons";
 import { reactive, ref, unref } from "vue";
-import { useStore } from 'vuex'
 import { useRouter } from "vue-router";
-// import { ErrorMessage, SuccessMessage } from "@/utils/my-message";
-// import userRequest from "@/api/user";
 import { debounce } from "@/utils/debounce-throttle";
-// import jwt_decode from "jwt-decode";
+import userRequest from "@/api/user"; // Import userRequest for registration
 
 export default {
-  name: "LoginView",
+  name: "RegisterView",
   components: {
     IconUser,
     IconLock,
   },
-  data(){
-    return{
-      router:useRouter()
-    }
-  },
-  methods:{
-    gotoRegister(){
-      this.router.replace('/register')
-    }
-  },
   setup() {
     const router = useRouter();
-    let remember = ref(false);
     const loginFormRef = ref("");
-    const store = useStore();
 
-    const loginForm = reactive({
+    const registerForm = reactive({ // Change loginForm to registerForm
       username: "",
       password: "",
     });
@@ -106,7 +88,7 @@ export default {
       ],
     });
 
-    const postLogin = debounce(async () => {
+    const postRegister = debounce(async () => { // Rename postLogin to postRegister
       const form = unref(loginFormRef);
       if (!form) {
         return;
@@ -114,80 +96,31 @@ export default {
       try {
         await form.validate();
 
-        //TODO:在接上后端前使用这个，接上后删除---------------------------------------------------------
-        const res = {
-          data: {
-            userId: "1",
-            userName: "exampleUser",
-           // roleName: "admin",
-            roleName: "user",
-            userPwd:"123",
-            token: "exampleToken123",
-            testToken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ind3dy5iZWpzb24uY29tIiwic3ViIjoiZGVtbyIsImlhdCI6MTcxODUzNTk2OSwibmJmIjoxNzE4NTM1OTY5LCJleHAiOjE3MTg2MjIzNjl9.jRPmUtI3p_n2gLg8v-U_RbdiOFn1-llP5VZJOq2qi3Q"
-          }
-        };
-        console.log(store.state.isLogin);
-        //-------------------解析JWT--------------------------
-        const token = res.data.testToken;
-        const tokenParts = token.split('.');
-        const encodedPayload = tokenParts[1];
-        const decodedPayload = atob(encodedPayload);
-        // 将解码后的 JSON 字符串转换为对象
-        const payloadObj = JSON.parse(decodedPayload);
-        // 获取其中的字段值
-        console.log(payloadObj);
-        await store.dispatch("setUser", JSON.stringify(res.data));
-        await store.dispatch("setToken", res.data.token);
-        console.log(store.state.isLogin);
-        console.log(res.data.roleName);
-        if (res.data.roleName ==='admin'){
-          await router.replace("/admin");
-        }else{
-          await router.replace("/");
+        // Call user registration API
+        const res = await userRequest.register(registerForm);
+
+        // Handle registration response
+        if (res.code === 200) {
+          // Handle successful registration
+          // Redirect the user to the appropriate page
+          await router.replace("/login");
+        } else {
+          // Handle registration failure
+          // You can display an error message or take other actions here
+          console.error("Registration failed:", res.msg);
         }
-
-
-        //TODO:此处接上后端再启用-----------------------------------------------------------------------
-        // userRequest.login(loginForm).then(async (res) => {
-        //   if (res.code === 200) {
-        //     const decode = jwt_decode(data.token);
-        //     //将用户名放入sessionStorage中
-        //     sessionStorage.setItem("user", JSON.stringify(res.data));
-        //     sessionStorage.setItem("userToken", res.data.userPwd);
-        //     //将用户名放入vuex中
-        //     await store.dispatch("setUser", JSON.stringify(res.data));
-        //     await store.dispatch("setToken", res.data.userPwd);
-        //     //打印login状态
-        //     console.log(store.state.isLogin);
-        //     SuccessMessage(res.msg);
-        //     // 登录成功之后，进行页面跳转
-        //     await router.replace("/");
-        //   } else {
-        //     ErrorMessage(res.msg);
-        //   }
-        // }).catch((err) => {
-        //   ErrorMessage(err);
-        // });
       } catch (err) {
-        console.log(err);
+        console.error("Error during registration:", err);
       }
     });
 
-
     return {
-      remember,
-      loginFormRef,
-      loginForm,
+      loginFormRef, // No need to return remember, as it's not used in this component
+      registerForm, // Change loginForm to registerForm
       rules,
-      postLogin,
+      postRegister, // Rename postLogin to postRegister
     };
   },
-  beforeRouteEnter: (to, from, next) => {
-    next(vm => {
-      // vm 就是当前组件的实例相当于上面的 this，所以在 next 方法里你就可以把 vm 当 this 来用了。
-      vm.$store.dispatch("setUser", null);
-    });
-  }
 };
 </script>
 

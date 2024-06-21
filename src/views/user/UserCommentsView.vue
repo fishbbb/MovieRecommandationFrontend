@@ -34,12 +34,15 @@ import {useRoute} from "vue-router";
 import store from "@/store/store";
 import {reactive} from "vue";
 import userRequest from "@/api/user";
+import {mapState} from "vuex";
+import * as userState from "@/store/getters";
+import {isLogin} from "@/store/getters";
 
 export default {
   data() {
     return {
       store:useStore(),
-      isLogin:store.state.isLogin,
+      //isLogin:store.state.isLogin,
       comments: reactive([
         { content: '这是一条评论的内容。', author: '用户A', date: '2024-05-16' },
         { content: '这是另一条评论的内容。', author: '用户B', date: '2024-05-17' },
@@ -49,6 +52,9 @@ export default {
       currentPage: 1,
       id:store.state.userId
     };
+  },
+  computed :{
+    ...mapState([userState.isLogin])
   },
   created() {
     this.fetchComments()
@@ -73,7 +79,7 @@ export default {
       this.fetchComments();
     },
     submitComment() {
-      if (this.isLogin) {
+      if (isLogin) {
         const route = useRoute();
         const userId = store.state.userId; // Assuming there's a method to get userId from global scope
         const movieId = route.query.id; // Get movie id from current route

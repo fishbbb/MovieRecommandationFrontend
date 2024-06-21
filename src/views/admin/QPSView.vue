@@ -63,6 +63,7 @@ export default {
       //GET security/qps/now
       adminRequest.getCurrentQPS().then(res => {
         this.currentQPS = res.data
+        console.log(res.data)
       }).catch(err => {
         console.error(err)
       })
