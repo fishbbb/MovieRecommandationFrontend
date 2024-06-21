@@ -80,11 +80,11 @@ export default {
     const rules = reactive({
       username: [
         { required: true, message: "请输入账号", trigger: "blur" },
-        { min: 4, max: 20, message: "长度在4到20个字符", trigger: "blur" },
+        { min: 1, max: 20, message: "长度在4到20个字符", trigger: "blur" },
       ],
       password: [
         { required: true, message: "请输入密码", trigger: "blur" },
-        { min: 4, max: 20, message: "长度在4到20个字符", trigger: "blur" },
+        { min: 6, max: 20, message: "长度在4到20个字符", trigger: "blur" },
       ],
     });
 

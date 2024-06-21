@@ -32,7 +32,7 @@ const adminRequest = {
             url:'/security/qps/now',
             method:'get',
             headers:{
-                isNeedToken:false
+                isNeedToken:true
             }
         })
     },
@@ -63,7 +63,7 @@ const adminRequest = {
             url:'/security/server-state/now',
             method:'get',
             headers:{
-                isNeedToken:false
+                isNeedToken:true
             },
         })
     },

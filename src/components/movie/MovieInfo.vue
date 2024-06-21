@@ -24,7 +24,7 @@
               <el-col :span="8">
                 <div class="each">
                   <span>导演：</span>
-                  <span>{{ movie.directors }}</span>
+                  <span>{{ director}}</span>
                 </div>
                 <div class="each">
                   <span>类型：</span>
@@ -110,6 +110,8 @@ export default {
       actorsDialogVisible: false,
       introductionDialogVisible: false,
       isStarSolid:false,
+      director:'',
+      actor:[],
       /*
     ◦ MovieID (主键): 唯一标识每部电影。
     ◦ Title: 电影标题。
@@ -161,8 +163,12 @@ export default {
     fetchMovieInfo() {
       movieRequest.getMovieInfo(this.id)
         .then(res => {
-       console.log(res)
-       this.movie= res.data;
+        console.log(res)
+        this.movie= res.data;
+           const castNames = res.data.cast.slice(0, 3).map(cast => cast.name); // 解析出crew的第一个元素的name值
+           const crewName = res.data.crew[0].name;
+           console.log(castNames); // 输出: ["Arnold Mostowicz", "Jürgen Andreas", "Artur Brauner"]
+           console.log(crewName); // 输出: "Dariusz Jabłoński"
         })
         .catch(err => {
           console.error('Error fetching movie info:', err);

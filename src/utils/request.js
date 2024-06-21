@@ -45,15 +45,15 @@ request.interceptors.request.use(async config => {
     }
 
     // 在 POST、PUT 和 DELETE 请求的 body 中加入用户 IP 地址
-    if ((config.method === 'post' || config.method === 'put' || config.method === 'delete')) {
-        //const userIP = await getUserIP();
-        if (userIP) {
-            config.data = {
-                ...config.data,
-                ip: userIP
-            };
-        }
-    }
+    // if ((config.method === 'post' || config.method === 'put' || config.method === 'delete')) {
+    //     //const userIP = await getUserIP();
+    //     if (userIP) {
+    //         config.data = {
+    //             ...config.data,
+    //             ip: userIP
+    //         };
+    //     }
+    // }
     console.log(config.params)
     delete config.headers['isNeedToken'];
     return config;

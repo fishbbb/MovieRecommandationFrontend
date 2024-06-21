@@ -15,7 +15,7 @@ const routes = [
             {
                 //以后要用第一个，带id进页面，现在仅用于测试
                 // path: 'movie/info/:id',
-                path: 'movie/info/:id',
+                path: 'movie/info',
                 name: 'movieInfo',
                 component: () => import('../views/details/MovieInfoView.vue')
             },
