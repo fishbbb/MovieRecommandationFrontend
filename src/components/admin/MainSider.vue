@@ -24,7 +24,7 @@ export default {
         { name: '流量监控', index: '2', route: '/qps' },
         { name: '安全审计', index: '3', route: '/security' },
         { name: '广告位管理', index: '4', route: '/adManagement' },
-        { name: '退出登录', index: '5', route: '/home' },
+        { name: '去用户端', index: '5', route: '/home' },
       ]
     };
   }

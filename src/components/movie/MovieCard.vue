@@ -14,32 +14,22 @@
             </div>
           </template>
         </el-image>
-        <div class="mask" ref="mask">{{movie.description}}</div>
+        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">{{movie.description}}</div>
       </div>
 
-      <div style="padding: 1rem">
+      <div class="text-content" style="padding: 1rem">
         <el-tooltip
             class="box-item"
             effect="light"
             :content="`${ movie.name }`"
             placement="top"
-
         >
           <div class="line-limit-length">{{ movie.name }}</div>
         </el-tooltip>
 
-        <div class="rate">
-          <el-rate
-              v-model="score"
-              disabled
-              show-score
-              size="small"
-              text-color="#ff9900"
-              :score-template="`${ movie.score }`"
-          />
-        </div>
+        <div class="rate">{{ movie.score }}</div>
+        <div class="release-time">Release At {{ movie.releaseDate }}</div>
       </div>
-      <!--      </a>-->
     </router-link>
 
 
@@ -102,7 +92,7 @@ export default {
   //max-height: 25rem;
   //min-height: 25rem;
 
-  width: 13.8rem;
+  width: 15.0rem;
   //height: 30rem;
   margin-bottom: 1rem;
 }
@@ -119,7 +109,7 @@ export default {
 
 .image-div {
   margin: 0 auto;
-  width: 13.8rem;
+  width: 15.0rem;
   max-height: 19.8rem;
   min-height: 19.8rem;
   background-color: #f5f7fa;
@@ -130,7 +120,6 @@ export default {
   width: 100%;
   height: 19.8rem;
 }
-
 .mask{
   opacity: 0;
   background-color: rgba(63, 46, 46, 0.85);
@@ -141,21 +130,39 @@ export default {
   height:40%;
   text-align: center;
 }
-
-
+.text-content{
+  position: relative;
+  height: 4rem;
+}
 .line-limit-length {
   width: 12rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; /*文本不换行，这样超出一行的部分被截取，显示...*/
-  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
   color:white;
+  position: absolute;
+  top: 0.8rem;
+  left: 0.5rem;
 }
 
 .rate {
-  text-align: center;
+  width: 20%;
+  //text-align: right;
+  font-size: 22px;
+  font-weight: bold;
+  color: #c3792a;
+  position: absolute;
+  bottom: 1rem;
+  right: 0.1rem;
 }
-
+.release-time{
+  position: absolute;
+  margin-top: 2.0rem;
+  left: 0.8rem;
+  color: white;
+}
 .image-error {
   display: flex;
   justify-content: center;

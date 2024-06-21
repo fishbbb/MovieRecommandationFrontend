@@ -35,9 +35,11 @@ export default {
 
 /* 让footer保持在最下方 */
 .content {
-  min-height: calc(100vh - 105px);
+  //min-height: calc(100vh - 105px);
   margin-top: 0;
-  background-color: rgba(0, 0, 0, 0.89);
+  background-color: rgba(0, 0, 0, 0.85);
+  background-image: url("../assets/img_1.png");
+  background-size: 100% 100%;
 }
 
 .footer {

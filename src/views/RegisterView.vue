@@ -49,7 +49,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button @click="postRegister" class="login-form-button" type="primary">登 录</el-button>
+        <el-button @click="postRegister" class="login-form-button" type="primary">注 册</el-button>
       </el-form-item>
     </el-form>
   </div>
