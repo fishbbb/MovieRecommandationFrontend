@@ -4,9 +4,9 @@
       <span class="tag-text">Genre</span>
       <div class="button">
         <el-radio-group class="type-button"
-                        v-for="(t, index) in genres"
+                        v-for="(t, index) in genreList"
                         :key="index"
-                        v-model="genre"
+                        v-model="genres"
                         @change="getMovieWithConditions()"
                         fill="rgba(188, 180, 50, 0.8)"
                         text-color="black">
@@ -21,7 +21,7 @@
         <el-radio-group class="type-button"
                         v-for="(t, index) in years"
                         :key="index"
-                        v-model="year"
+                        v-model="stage"
                         @change="getMovieWithConditions()"
                         fill="rgba(188, 180, 50, 0.8)"
                         text-color="black">
@@ -102,8 +102,8 @@
                      class="pagination"
                      :total="total"
                      :page-sizes="size"
-                     v-model:page-size="size1"
-                     v-model:current-page="currentPage"
+                     v-model:page-size="pageSize"
+                     v-model:current-page="page"
                      @current-change="getMovieWithConditions()"
                      @size-change="getMovieWithConditions()"></el-pagination>
     </div>
@@ -275,12 +275,7 @@ el-pagination{
   width: 100%;
 }
 </style>
-<!--<style>-->
-<!--.movie-tags .el-pagination.is-background .el-pager li:not(.disabled).active {-->
-<!--  background-color: #FD7A3A !important;   /*进行修改背景和字体*/-->
-<!--  color: #d14242;-->
-<!--}-->
-<!--</style>-->
+
 <script>
 
 
@@ -295,37 +290,36 @@ export default {
   name:"MovieContent",
   components: {CaretBottom, CaretTop, MovieCard},
   data() {
-    const movieList = reactive([{id :"1", name: "a", score:"3.5",pic:1,description:'当星光消失在城市的天际，\n' +
+    const movieList = reactive([{movieId :"1", title: "a", voteAverage:"3.5",pic:1,description:'当星光消失在城市的天际，\n' +
           '我在电子花园中寻找静谧的灵魂。',releaseDate:'2023.10.1'},
-      {id :"2", name: "Movies", score:"4.5",pic:2,description:'在深海的梦境中漫步，\n' +
+      {id :"2", title: "Movies", voteAverage:"4.5",pic:2,description:'在深海的梦境中漫步，\n' +
             '触摸珊瑚的柔软和蓝色的忧伤。',releaseDate:'2023.10.1'},
-      {id :"3", name: "TestABC Color", score:"2.6",pic:3,description:'当微风拂过夜的梦境，\n' +
+      {id :"3", title: "TestABC Color", voteAverage:"2.6",pic:3,description:'当微风拂过夜的梦境，\n' +
             '我在星空下，等待黎明的指引。',releaseDate:'2023.10.1'},
-      {id :"4", name: "TestABC Living", score:"3.2",pic:4,description:'当城市的喧嚣被晨曦吞噬，\n' +
+      {id :"4", title: "TestABC Living", voteAverage:"3.2",pic:4,description:'当城市的喧嚣被晨曦吞噬，\n' +
             '我在寂静中品味未来的微光。',releaseDate:'2023.10.1'},
-      {id :"5", name: "TestABC Head", score:"8.7",pic:5,description:'披星戴月，穿越无垠，\n' +
+      {id :"5", title: "TestABC Head", voteAverage:"8.7",pic:5,description:'披星戴月，穿越无垠，\n' +
             '寻觅远方，寄托心底的希冀。',releaseDate:'2023.10.1'},
-      {id :"6", name: "TestABC String", score:"6.8",pic:6,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"7", name: "TestABC Menulist", score:"9.0",pic:7,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"8", name: "TestABC delicate", score:"4.6",pic:8,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"9", name: "TestABC memory", score:"10",pic:9,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"10", name: "TestABC query", score:"4.7",pic:10,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"11", name: "TestABC friendly", score:"3.5",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"12", name: "TestABC Numpy", score:"4.5",pic:2,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"13", name: "TestABC Render", score:"2.6",pic:3,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"14", name: "TestABC Michel Jackson", score:"3.2",pic:4,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"15", name: "TestABC Sam Smith", score:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"6", title: "TestABC String", voteAverage:"6.8",pic:6,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"7", title: "TestABC Menulist", voteAverage:"9.0",pic:7,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"8", title: "TestABC delicate", voteAverage:"4.6",pic:8,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"9", title: "TestABC memory", voteAverage:"10",pic:9,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"10", title: "TestABC query", voteAverage:"4.7",pic:10,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"11", title: "TestABC friendly", voteAverage:"3.5",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"12", title: "TestABC Numpy", voteAverage:"4.5",pic:2,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"13", title: "TestABC Render", voteAverage:"2.6",pic:3,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"14", title: "TestABC Michel Jackson", voteAverage:"3.2",pic:4,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"15", title: "TestABC Sam Smith", voteAverage:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
     ])
     const total = movieList.length;
     let size = [2,3,4,5];
-    let size1 = 4;
-    let currentPage = 1;
-    let movieViewType = "GRID";
+    let pageSize = 4;
+    let page = 1;
 
-    let genre = ref('All');
-    let year = ref('All');
+    let genres = ref('All');
+    let stage = ref('All');
     let language = ref('All');
-    const genres = reactive(
+    const genreList = reactive(
         ['All','Drama', 'Comedy', 'Thriller',
           'Romance', 'Action', 'Horror', 'Crime',
           'Documentary', 'Adventure', 'Science Fiction',
@@ -344,20 +338,17 @@ export default {
     // let page_size = 4;
     const defaultParams = {
       userId: 1,
-      page: 1
     };
 
     return{
       movieList,
       total,
       size,
-      size1,
-      currentPage,
-      movieViewType,
-
-      genre,
+      pageSize,
+      page,
       genres,
-      year,
+      genreList,
+      stage,
       years,
       language,
       languages,
@@ -420,42 +411,53 @@ export default {
       });
     },
     getMovieWithConditions(){
-      const optionalParam = {};
-      if(this.genre){
-        optionalParam['genre'] = this.genre;
+      let page = 1;
+      let stage = 'All';
+      let language = 'All';
+      let genres = 'All';
+      let sort_by_popularity = '';
+      let sort_by_ratings = '';
+      let sort_by_date = '';
+      let pageSize = 4;
+
+      if(this.genres){
+        genres = this.genres;
       }
-      if(this.year){
-        if(this.year.toString().includes("年代")){
-          optionalParam['year'] = this.year.toString().substring(0,2);
-        }else if(this.year.toString().includes("更早")){
-          optionalParam['year'] = 'before';
-        }else if(this.year.toString().includes("最近")){
-          optionalParam['year'] = 'lately';
+      if(this.stage){
+        if(this.stage.toString().includes("年代")){
+          stage = this.stage.toString().substring(0,2);
+        }else if(this.stage.toString().includes("更早")){
+          stage = 'before';
+        }else if(this.stage.toString().includes("最近")){
+          stage = 'lately';
         }else{
-          optionalParam['year'] = this.year;
+          stage = this.stage;
         }
       }
       if(this.language){
-        optionalParam['language'] = this.language;
+        language = this.language;
       }
       if(this.sort_by_popularity){
-        optionalParam['sort_by_popularity'] = this.sort_by_popularity;
+        sort_by_popularity = this.sort_by_popularity;
       }
       if(this.sort_by_ratings){
-        optionalParam['sort_by_ratings'] = this.sort_by_ratings;
+        sort_by_ratings = this.sort_by_ratings;
       }
       if(this.sort_by_date){
-        optionalParam['sort_by_date'] = this.sort_by_date;
+        sort_by_date = this.sort_by_date;
       }
-      optionalParam['page'] = this.currentPage;
-      optionalParam['page_size'] = this.size1;
-      const newParams = { ...this.defaultParams, ...optionalParam };
-      console.log(newParams);
+      page = this.page;
+      pageSize = this.pageSize;
+      const newParams = { ...this.defaultParams,
+                              page,
+                              pageSize,
+                              stage, genres, language,
+                              sort_by_date,sort_by_ratings,sort_by_popularity};
+      //console.log(newParams);
       movieRequest.getMoviesWithConditions(newParams)
-          .then(()=>{
-            //console.log("success!!!" + response);
-            //     this.movieList = response.data;
-
+          .then((response)=>{
+            console.log("success!!!" + response);
+            this.movieList = response.data;
           })
           .catch((error) => {
             console.error('Error adding comment:', error);

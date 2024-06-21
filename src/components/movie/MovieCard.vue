@@ -2,32 +2,33 @@
   <div class="card">
     <slot name="header"></slot>
 
-    <router-link :to="{ path: '/movie/info', query: { id: movie.id } }">
+    <router-link :to="{ path: '/movie/info', query: { id: movie.movieID } }">
       <!--      <a :href="`/movie/info/${movie.id}`" target="_blank">-->
 
       <div class="image-div">
-        <el-image v-if="movie.pic" ref="image" :src="require(`@/assets/test/${movie.pic}.jpg`)" class="image" @mouseover="blurImage" @mouseleave="unblurImage">
+        <el-image v-if="movie.url" ref="image" :src="`${movie.url}`" class="image" @mouseover="blurImage" @mouseleave="unblurImage">
           <template #error>
             <div class="image-error">
               <film class="center-image-error"></film>
               <img class="background-image-error" src="../../assets/logo.png" alt="default"/>
             </div>
           </template>
+<!--          require(`@/assets/test/${movie.pic}.jpg`)-->
         </el-image>
-        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">{{movie.description}}</div>
+        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">{{movie.overview}}</div>
       </div>
 
       <div class="text-content" style="padding: 1rem">
         <el-tooltip
             class="box-item"
             effect="light"
-            :content="`${ movie.name }`"
+            :content="`${ movie.title }`"
             placement="top"
         >
-          <div class="line-limit-length">{{ movie.name }}</div>
+          <div class="line-limit-length">{{ movie.title }}</div>
         </el-tooltip>
 
-        <div class="rate">{{ movie.score }}</div>
+        <div class="rate">{{ movie.voteAverage }}</div>
         <div class="release-time">Release At {{ movie.releaseDate }}</div>
       </div>
     </router-link>
@@ -91,7 +92,7 @@ export default {
   /*box-shadow: 10px 10px 20px #888888;*/
   //max-height: 25rem;
   //min-height: 25rem;
-
+  background-color: rgba(145, 148, 156, 0.31);
   width: 15.0rem;
   //height: 30rem;
   margin-bottom: 1rem;

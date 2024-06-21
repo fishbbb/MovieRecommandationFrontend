@@ -94,16 +94,14 @@ const movieRequest = {
     },
 
     //分类
-    getMoviesWithConditions:(optionalParams)=>{
+    getMoviesWithConditions:(newParams)=>{
         return request({
             url:'/movie/search',
             method:'get',
             headers: {
                 isNeedToken: false
             },
-            params:{
-                optionalParams
-            }
+            params:newParams
         })
     },
 
