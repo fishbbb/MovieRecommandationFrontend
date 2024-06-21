@@ -72,7 +72,7 @@
                   <div class="introduction">
                     <el-collapse>
                       <el-collapse-item title="&nbsp;&nbsp;&nbsp;&nbsp;电影简介" name="introduction">
-                        <div style="margin: 0 1rem">
+                        <div style="margin: 0 1rem" class="detail-content">
                           {{ movie.overview }}
                         </div>
                       </el-collapse-item>
@@ -88,7 +88,7 @@
   </div>
 </template>
 <script>
-import { useRoute } from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import {Star} from "@element-plus/icons";
 import {useStore} from "vuex";
 import store from "@/store/store";
@@ -105,6 +105,7 @@ export default {
   data() {
     return {
       store:useStore(),
+      route:useRouter(),
       userID:store.state.userId,
       id:null,
       actorsDialogVisible: false,
@@ -112,22 +113,6 @@ export default {
       isStarSolid:false,
       director:'',
       actor:[],
-      /*
-    ◦ MovieID (主键): 唯一标识每部电影。
-    ◦ Title: 电影标题。
-    ◦ OriginalTitle: 原始标题。
-    ◦ ReleaseDate: 发布日期。
-    ◦ Genres: 类别（可以设计为外键，关联到一个单独的类别表）。
-    ◦ Budget: 预算。
-    ◦ Revenue: 票房收入。
-    ◦ Country: 国家。
-    ◦ Overview: 简介。
-    ◦ OriginalLanguage: 原语言。
-    ◦ Runtime: 时长。
-    ◦ Popularity: 流行度。
-    ◦ VoteAverage: 平均评分。//评分的取值范围0~10
-    ◦ VoteCount: 评分次数。
-       */
       movie: {
         actors: 'John Doe, Jane Smith',
         alias: 'Alias Movie',
@@ -175,10 +160,15 @@ export default {
         });
     },
      addToFavorites(){
+      console.log(this.userID)
+      if(this.userID===null){
+        alert('请先登录')
+        this.route.replace('/login')
+      }
        this.isStarSolid = !this.isStarSolid;
        const data ={
-         userID:this.userID,
-         movieID:this.id,
+         UserID:this.userID,
+         MovieID:this.id,
        }
        userRequest.addCollections(data)
            .then(() => {
@@ -193,6 +183,13 @@ export default {
 </script>
 
 <style scoped>
+.detail-content{
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* 设置显示的行数 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .blur-bg {
   height: 32rem;
   width: 100%;

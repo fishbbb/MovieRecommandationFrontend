@@ -26,6 +26,7 @@ import userRequest from "@/api/user";
 import store from "@/store/store";
 import {useRouter} from "vue-router";
 import {ErrorMessage, SuccessMessage} from "@/utils/my-message";
+import axios from "axios";
 
 export default {
   data() {
@@ -52,11 +53,12 @@ export default {
         password: this.loginForm.password,
         username: this.loginForm.username
       }
-      console.log("用户输入数据：", data)
+      // console.log("用户输入数据：", data)
       // const res = {
       //   data: {
       //     userName: "lsy",
-      //     roleName: "user",
+      //     roleName: "admin",
+      //     userId:'123',
       //     token: "exampleToken123",
       //   }
       // }
@@ -70,31 +72,87 @@ export default {
       // }else{
       //   await this.router.replace("/");
       // }
-      userRequest.login(data).then(res => {
-        const token = res.data;
-        const tokenParts = token.split('.');
-        const encodedPayload = tokenParts[1];
-        const decodedPayload = atob(encodedPayload);
-        // 将解码后的 JSON 字符串转换为对象
-        const payloadObj = JSON.parse(decodedPayload);
-        const user = {
-          userName: payloadObj.Username,
-          roleName: payloadObj.authorities,
-          userId:payloadObj.UserID,
-          token: token
-        }
-        store.dispatch("setUser",JSON.stringify(user));
-        // store.dispatch("setToken",res.data.token);
-        store.dispatch("setToken",token);
-        if(user.roleName === 'admin'){
-          this.router.replace("/admin");
-        }else{
-          this.router.replace("/")
-        }
-        SuccessMessage("登录成功")
-      }).catch(err=>{
-        ErrorMessage("密码错误")
-      })
+
+
+      axios({
+        method: 'POST',
+        headers: {
+              'Content-Type': 'application/json', // 根据实际情况设置 Content-Type
+            },
+        url: 'http://39.107.192.242:8080/login',
+        params: data,
+      }).then(res=>{
+          const token = res.data.data.token;
+          console.log("token+",token)
+          const tokenParts = token.split('.');
+          const encodedPayload = tokenParts[1];
+          const decodedPayload = atob(encodedPayload);
+          // 将解码后的 JSON 字符串转换为对象
+          const payloadObj = JSON.parse(decodedPayload);
+          const user = {
+            userName: payloadObj.Username,
+            roleName: payloadObj.authorities,
+            userId:payloadObj.UserID,
+            token: token
+          }
+          store.dispatch("setUser",JSON.stringify(user));
+          // store.dispatch("setToken",res.data.token);
+          store.dispatch("setToken",token);
+          if(user.roleName === 'admin'){
+            this.router.replace("/admin");
+          }else{
+            this.router.replace("/")
+          }
+          SuccessMessage("登录成功")
+        })
+
+      // const url = 'http://39.107.192.242:8080/login';
+      //
+      // fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json', // 根据实际情况设置 Content-Type
+      //   },
+      //   params: JSON.stringify(data), // 将对象转换为 JSON 字符串
+      // })
+      //     .then(response => {
+      //       if (!response.ok) {
+      //         throw new Error('Network response was not ok');
+      //       }
+      //       return response.json(); // 解析 JSON 响应数据
+      //     })
+      //     .then(data => {
+      //       console.log('Success:', data);
+      //     })
+      //     .catch(error => {
+      //       console.error('Error:', error);
+      //     });
+
+      // userRequest.login(data).then(res => {
+      //   const token = res.data;
+      //   const tokenParts = token.split('.');
+      //   const encodedPayload = tokenParts[1];
+      //   const decodedPayload = atob(encodedPayload);
+      //   // 将解码后的 JSON 字符串转换为对象
+      //   const payloadObj = JSON.parse(decodedPayload);
+      //   const user = {
+      //     userName: payloadObj.Username,
+      //     roleName: payloadObj.authorities,
+      //     userId:payloadObj.UserID,
+      //     token: token
+      //   }
+      //   store.dispatch("setUser",JSON.stringify(user));
+      //   // store.dispatch("setToken",res.data.token);
+      //   store.dispatch("setToken",token);
+      //   if(user.roleName === 'admin'){
+      //     this.router.replace("/admin");
+      //   }else{
+      //     this.router.replace("/")
+      //   }
+      //   SuccessMessage("登录成功")
+      // }).catch(err=>{
+      //   ErrorMessage("登录失败")
+      // })
       // 实现登录逻辑
       console.log('登录');
     },
