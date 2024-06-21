@@ -1,5 +1,5 @@
 <template>
-  <div class="blur-bg" :style="`background-image: url(${movie.pic})`"></div>
+<div class="blur-bg" :style="`background-image: url(${movie.pic}); opacity: 1;`"></div>
   <div class="movie-info-top">
     <div class="background">
       <el-row>
@@ -139,7 +139,7 @@ export default {
         title: 'Dummy Movie',
         num: 'Some Number',
         one: 'One Star Data',
-        pic: 'https://via.placeholder.com/150', // Placeholder image URL
+        pic: 'https://img0.baidu.com/it/u=544253529,1605576325&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281', // Placeholder image URL
         regions: 'Region Data',
         releaseDate: 'Release Date Data',
         runtime: 'Runtime Data',
@@ -193,12 +193,14 @@ export default {
   filter: blur(1rem) brightness(85%);
   position: absolute;
   background-size: cover;
+  background-color: black; /* 新增背景色为黑色 */
 }
 
 .movie-info-top {
   height: 38rem;
   width: 100%;
   background-size: cover;
+  background-color: black; /* 新增背景色为黑色 */
 }
 
 .movie-info-top .background {
@@ -221,14 +223,14 @@ export default {
 /************** top right **************/
 .movie-info-top-right .movie-name {
   padding-top: 2rem;
-  color: white;
+  color: #ffd700;
   width: 80%;
   font-size: 2rem;
   font-weight: bold;
 }
 
 .movie-info-top-right .each {
-  color: white;
+  color: #ffd700;
   margin-top: 1rem;
   max-width: 100%;
 }
@@ -241,7 +243,7 @@ export default {
 }
 
 .movie-info-top-right .actors-and-introduction {
-  color: white;
+  color: #ffd700;
   margin-top: 1rem;
 }
 
@@ -295,7 +297,11 @@ export default {
   }
 }
 .movie-rating{
-  color: white;
+  color: #ffd700;
+}
+/* 新增评分人次字体颜色为黄色 */
+.movie-info-top-right .rate span {
+  color: #ffd700;
 }
 
 </style>

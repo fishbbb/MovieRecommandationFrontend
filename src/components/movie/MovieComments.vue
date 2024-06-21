@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>我是评论区</h1>
+    <h1 style="color: #ffd700;">我是评论区</h1>
     <!-- Comment Form -->
     <div class="comment-edit">
-      <el-button @click="showCommentDialog">评价一下</el-button>
+      <el-button style="background-color: #ffd700; color: black;" @click="showCommentDialog">评价一下</el-button>
       <el-dialog
           title="评价"
           v-model="dialogVisible"
@@ -157,29 +157,53 @@ export default {
 
 <style scoped>
 .comment-card {
-  margin-bottom: 20px;
+   margin-bottom: 20px;
+   background-color: black; /* 设置评论卡片的背景颜色为黑色 */
+   color: white; /* 设置文本颜色为白色 */
 }
 .comment-info {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #999;
+   margin-top: 10px;
+   font-size: 12px;
+   color: #999; /* 保持评论信息的字体颜色为灰色 */
 }
 .delete-btn {
-  float: right;
-  padding: 0;
-  font-size: 12px;
-  color: #999;
+   float: right;
+   padding: 0;
+   font-size: 12px;
+   color: #999; /* 保持删除按钮的字体颜色为灰色 */
 }
 .rating-container label,
 .input-container label {
-  margin-right: 10px;
+   margin-right: 10px;
 }
 .dialog-footer {
-  margin-top: 20px;
-  text-align: right;
+   margin-top: 20px;
+   text-align: right;
 }
-.comment-edit{
-  margin-bottom: 20px;
+.comment-edit {
+   margin-bottom: 20px;
+}
+/* 如果需要，可以为评论输入框和评分组件设置背景颜色 */
+.el-input__inner {
+   background-color: black;
+   color: white;
+}
+.el-rate__item {
+   background-color: black;
+}
+/* 如果需要，可以为分页组件设置背景颜色 */
+.el-pagination {
+   background-color: black;
+}
+/* 分页组件按钮的背景颜色设置为 #ffd700 */
+.el-pagination .el-pager li:not(.disabled) a {
+  background-color: #ffd700 !important;
+  color: black !important;
+}
+
+/* 如果需要，可以为分页组件的按钮设置边框颜色 */
+.el-pagination .btn-default:focus, .el-pagination .btn-default:hover {
+  border-color: #ffd700;
 }
 </style>
 
