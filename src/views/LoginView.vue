@@ -9,7 +9,7 @@
       <router-link to="/home">
         <img
             style="width: 75px; height: 75px; float: left; padding-right: 40px;"
-            src="../assets/logo.png"
+            src="../assets/1.png"
             alt="logo"
         />
       </router-link>
@@ -51,15 +51,23 @@
       <el-form-item>
         <el-button @click="postLogin" class="login-form-button" type="primary">登 录</el-button>
       </el-form-item>
-      <router-link to="/">
-        <el-form-item>
-          <el-button class="login-form-button" type="primary">游 客 登 录</el-button>
-        </el-form-item>
-      </router-link>
-      <el-form-item>
-          <el-button @click="gotoRegister" class="login-form-button" type="primary">注 册</el-button>
-      </el-form-item>
     </el-form>
+
+    <!-- 提示文字 -->
+    <div class="login-tip">
+      <span>还没有账号？试试游客登录或者注册吧</span>
+    </div>
+
+    <!-- 游客登录和注册按钮-->
+    <div class="button-group">
+      <router-link to="/">
+        <el-button class="login-form-button--guest el-button--medium" type="primary">游 客 登 录</el-button>
+      </router-link>
+      <router-link to="/register">
+        <el-button class="login-form-button--register el-button--medium" type="primary">注 册</el-button>
+      </router-link>
+    </div>
+
   </div>
 </template>
 
@@ -202,6 +210,7 @@ export default {
   width: 100%;
   position: absolute;
   background-size: cover;
+  background-color: black;
 }
 
 .login-form {
@@ -219,10 +228,11 @@ export default {
   height: 20px;
   padding-left: 45px;
   padding-bottom: 100px;
+  color: black;
 }
 
 .login-form-text {
-  color: #000000;
+  color: #ffd700;
   font-weight: bold;
   font-size: 1.8rem;
   padding-top: 15px;
@@ -239,13 +249,51 @@ export default {
   font-size: 15px;
   letter-spacing: 2px;
   height: 3.5rem;
-  background: #5a84fd;
+  background: #fad25d;
   margin-top: 35px;
 }
 
 .login-form-button:hover {
-  box-shadow: 0 10px 30px #2156f6;
+  box-shadow: 0 10px 30px #fad25d;
   transition: 3s;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* 如果需要，可以为游客登录按钮设置一个特定的宽度 */
+.login-form-button--guest {
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 2px;
+  height: 3.5rem;
+  background: #fad25d;
+  margin-top: 25px;
+  width: 220px; /* 游客登录按钮宽度 */
+}
+
+/* 如果需要，可以为注册按钮设置一个特定的宽度 */
+.login-form-button--register {
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 2px;
+  height: 3.5rem;
+  background: #fad25d;
+  margin-top: 25px;
+  width: 220px; /* 注册按钮宽度 */
+}
+
+.login-tip {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #91949c;
 }
 
 .scan-and-forget-div {
