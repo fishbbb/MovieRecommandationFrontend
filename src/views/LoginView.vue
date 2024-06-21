@@ -51,6 +51,11 @@
       <el-form-item>
         <el-button @click="postLogin" class="login-form-button" type="primary">登 录</el-button>
       </el-form-item>
+      <router-link to="/">
+        <el-form-item>
+          <el-button class="login-form-button" type="primary">游 客 登 录</el-button>
+        </el-form-item>
+      </router-link>
       <el-form-item>
           <el-button @click="gotoRegister" class="login-form-button" type="primary">注 册</el-button>
       </el-form-item>

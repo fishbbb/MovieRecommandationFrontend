@@ -64,7 +64,7 @@
 
 <script>
 import { reactive } from 'vue';
-import { useRoute } from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import store from "@/store/store";
 import {useStore} from "vuex";
 import movieRequest from "@/api/movie";
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       store:useStore(),
-      route:useRoute(), // Use useRoute to get the current route
+      route:useRouter(), // Use useRoute to get the current route
       isLogin:store.state.isLogin,
       comments: reactive([
         { content: '这是一条评论的内容。', author: '用户A', date: '2024-05-16' },
@@ -150,6 +150,7 @@ export default {
     showLoginPrompt() {
       // Implement your login prompt logic here, such as showing a modal or redirecting to login page
       alert('登录后才能评论');
+      this.route.replace('/login')
     },
   },
 }
