@@ -94,7 +94,7 @@
   <div class="movie-view">
     <div class= movies-view>
       <template v-for="(item,index) in movieList" :key="index">
-        <movie-card :movie="item" v-if="movieViewType === 'GRID'"></movie-card>
+        <movie-card :movie="item"></movie-card>
       </template>
     </div>
     <div class="movie-pagination">
@@ -312,8 +312,8 @@ export default {
         {id :"15", title: "TestABC Sam Smith", voteAverage:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
     ])
     const total = movieList.length;
-    let size = [2,3,4,5];
-    let pageSize = 4;
+    let size = [10,15,20];
+    let pageSize = 5;
     let page = 1;
 
     let genres = ref('All');
@@ -359,6 +359,7 @@ export default {
     }
   },
   methods:{
+
     changeColor(ele,selector,color){
       //修改样式
       const buttons = document.querySelectorAll(selector);
@@ -453,11 +454,10 @@ export default {
                               pageSize,
                               stage, genres, language,
                               sort_by_date,sort_by_ratings,sort_by_popularity};
-      //console.log(newParams);
       movieRequest.getMoviesWithConditions(newParams)
           .then((response)=>{
             console.log("success!!!" + response);
-            this.movieList = response.data;
+            this.movieList = response.data.records;
           })
           .catch((error) => {
             console.error('Error adding comment:', error);

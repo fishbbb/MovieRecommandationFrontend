@@ -15,7 +15,9 @@
           </template>
 <!--          require(`@/assets/test/${movie.pic}.jpg`)-->
         </el-image>
-        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">{{movie.overview}}</div>
+        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">
+          <div class="mask-content">{{movie.overview}}</div>
+        </div>
       </div>
 
       <div class="text-content" style="padding: 1rem">
@@ -75,7 +77,6 @@ export default {
       props,
       score,
 
-      //pic
     }
   }
 }
@@ -128,10 +129,16 @@ export default {
   top:60%;
   left:0;
   width:80%;
-  height:30%;
+  height:35%;
   text-align: center;
   //line-height: 40%;
-  padding:10% 10% 0 10%;
+  padding:5% 10% 0 10%;
+}
+.mask-content{
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* 设置显示的行数 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .text-content{
   position: relative;
@@ -158,7 +165,7 @@ export default {
   color: #c3792a;
   position: absolute;
   bottom: 1rem;
-  right: 0.1rem;
+  right: 0;
 }
 .release-time{
   position: absolute;
