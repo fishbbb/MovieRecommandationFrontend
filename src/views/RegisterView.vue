@@ -174,7 +174,7 @@ export default {
 
 
 .login-form-button:hover {
-  box-shadow: 0 10px 30px #2156f6;
+  box-shadow: 0 10px 30px #fad25d;
   transition: 3s;
 }
 
