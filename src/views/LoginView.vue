@@ -119,8 +119,8 @@ export default {
           data: {
             userId: "1",
             userName: "exampleUser",
-           // roleName: "admin",
-            roleName: "user",
+            roleName: "admin",
+           // roleName: "user",
             userPwd:"123",
             token: "exampleToken123",
             testToken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ind3dy5iZWpzb24uY29tIiwic3ViIjoiZGVtbyIsImlhdCI6MTcxODUzNTk2OSwibmJmIjoxNzE4NTM1OTY5LCJleHAiOjE3MTg2MjIzNjl9.jRPmUtI3p_n2gLg8v-U_RbdiOFn1-llP5VZJOq2qi3Q"

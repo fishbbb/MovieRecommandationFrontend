@@ -9,7 +9,7 @@
                         v-model="genre"
                         @change="getMovieWithConditions()"
                         fill="rgba(188, 180, 50, 0.8)"
-                        text-color="white">
+                        text-color="black">
           <el-radio-button  :label= t />
         </el-radio-group>
       </div>
@@ -24,7 +24,7 @@
                         v-model="year"
                         @change="getMovieWithConditions()"
                         fill="rgba(188, 180, 50, 0.8)"
-                        text-color="white">
+                        text-color="black">
           <el-radio-button  :label= t />
         </el-radio-group>
       </div>
@@ -40,7 +40,7 @@
                         v-model="language"
                         @change="getMovieWithConditions()"
                         fill="rgba(188, 180, 50, 0.8)"
-                        text-color="white">
+                        text-color="black">
           <el-radio-button :label="item"/>
         </el-radio-group>
       </div>
@@ -121,20 +121,15 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  //background-color: rgba(188, 180, 121, 0.25);
   display: flex;
   flex-direction: column;
-
 }
 .type,
 .year,
 .language{
   display: flex;
 }
-/*.year,
-.language{
-  margin-top: 30px;
-}*/
+
 .tag-text{
   font-size: 28px;
   text-align: center;
@@ -153,7 +148,7 @@
   display: grid;
   grid-template-columns: repeat(6, 150px);
   grid-template-rows: repeat(2,30px);
-  grid-gap: 15px 30px;
+  grid-gap: 10px 30px;
   margin-left: 10px;
 }
 .divider{
@@ -169,7 +164,7 @@
   //color: #ba8a4b;
   color: white;
   background-color: transparent;
-  font-size: 18px;
+  font-size: 17px;
 }
 .type-button :deep(.el-radio-button__inner:hover) {
   background-color: rgba(231, 204, 145, 0.33);
@@ -178,10 +173,8 @@
 .movie-content{
   width: 80%;
   height: 100%;
-  //margin-top: 20px;
   margin: 20px auto 20px;
   border: #eaeaf6 2px solid;
-  //background-color: white;
   padding: 10px;
 }
 .changeView{
@@ -302,21 +295,21 @@ export default {
   name:"MovieContent",
   components: {CaretBottom, CaretTop, MovieCard},
   data() {
-    const movieList = reactive([{id :"1", name: "a", score:"3.5",pic:1,description:'这是一部电影'},
-      {id :"2", name: "b", score:"4.5",pic:2,description:'这是一部电影'},
-      {id :"3", name: "c", score:"2.6",pic:3,description:'这是一部电影'},
-      {id :"4", name: "d", score:"3.2",pic:4,description:'这是一部电影'},
-      {id :"5", name: "e", score:"8.7",pic:5,description:'这是一部电影'},
-      {id :"6", name: "f", score:"6.8",pic:6,description:'这是一部电影'},
-      {id :"7", name: "g", score:"9.0",pic:7,description:'这是一部电影'},
-      {id :"8", name: "h", score:"4.6",pic:8,description:'这是一部电影'},
-      {id :"9", name: "i", score:"10.0",pic:9,description:'这是一部电影'},
-      {id :"10", name: "j", score:"4.7",pic:10,description:'这是一部电影'},
-        {id :"11", name: "k", score:"3.5",pic:5,description:'这是一部电影'},
-        {id :"12", name: "l", score:"4.5",pic:2,description:'这是一部电影'},
-        {id :"13", name: "m", score:"2.6",pic:3,description:'这是一部电影'},
-        {id :"14", name: "n", score:"3.2",pic:4,description:'这是一部电影'},
-        {id :"15", name: "o", score:"8.7",pic:5,description:'这是一部电影'},
+    const movieList = reactive([{id :"1", name: "a", score:"3.5",pic:1,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"2", name: "Movies", score:"4.5",pic:2,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"3", name: "TestABC Color", score:"2.6",pic:3,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"4", name: "TestABC Living", score:"3.2",pic:4,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"5", name: "TestABC Head", score:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"6", name: "TestABC String", score:"6.8",pic:6,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"7", name: "TestABC Menulist", score:"9.0",pic:7,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"8", name: "TestABC delicate", score:"4.6",pic:8,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"9", name: "TestABC memory", score:"10",pic:9,description:'这是一部电影',releaseDate:'2023.10.1'},
+      {id :"10", name: "TestABC query", score:"4.7",pic:10,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"11", name: "TestABC friendly", score:"3.5",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"12", name: "TestABC Numpy", score:"4.5",pic:2,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"13", name: "TestABC Render", score:"2.6",pic:3,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"14", name: "TestABC Michel Jackson", score:"3.2",pic:4,description:'这是一部电影',releaseDate:'2023.10.1'},
+        {id :"15", name: "TestABC Sam Smith", score:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
     ])
     const total = movieList.length;
     let size = [2,3,4,5];
@@ -334,7 +327,7 @@ export default {
           'Family', 'Mystery','Fantasy',
           'Animation', 'Foreign', 'Music', 'History','War','Western','TV Movie']);
     const years = reactive(
-        ['All','2020','2019', '2018', '2017', '2016',
+        ['All','最近', '2017', '2016',
           '2015', '2014', '2013', '2012',
           '2011', '2010', '00年代', '90年代',
           '80年代', '70年代', '60年代', '更早']);
@@ -370,15 +363,6 @@ export default {
     }
   },
   methods:{
-    changeListView(){
-      console.log("111");
-      //this.movieViewType = "LIST";
-
-    },
-    changeGridView(){
-      console.log("222");
-      this.movieViewType = "GRID";
-    },
     changeColor(ele,selector,color){
       //修改样式
       const buttons = document.querySelectorAll(selector);
@@ -434,11 +418,17 @@ export default {
       const optionalParam = {};
       if(this.genre){
         optionalParam['genre'] = this.genre;
-
-        //console.log("test",e.target);
       }
       if(this.year){
-        optionalParam['year'] = this.year;
+        if(this.year.toString().includes("年代")){
+          optionalParam['year'] = this.year.toString().substring(0,2);
+        }else if(this.year.toString().includes("更早")){
+          optionalParam['year'] = 'before';
+        }else if(this.year.toString().includes("最近")){
+          optionalParam['year'] = 'lately';
+        }else{
+          optionalParam['year'] = this.year;
+        }
       }
       if(this.language){
         optionalParam['language'] = this.language;

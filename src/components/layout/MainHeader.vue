@@ -68,6 +68,13 @@
                 <i style="padding-right: 3px"></i>开启Chat
               </el-link>
           </el-dropdown-item>
+          <el-dropdown-item divided v-if="roleName === 'admin'">
+            <router-link to="/admin">
+              <el-button type="text" :underline="false">
+                <i style="padding-right: 3px"></i>去管理端
+              </el-button>
+            </router-link>
+          </el-dropdown-item>
           <el-dropdown-item divided>
             <el-button type="text" @click="handleLogout" :underline="false">
               <i style="padding-right: 3px"></i>退出登录
@@ -103,6 +110,7 @@ export default {
   components:{ChatConversation},
   data() {
     return {
+      roleName:store.state.roleName,
       drawer: false,
       direction: 'rtl',
       searchKeywords: '',
