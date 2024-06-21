@@ -172,6 +172,7 @@ export default {
   margin-top: 35px;
 }
 
+
 .login-form-button:hover {
   box-shadow: 0 10px 30px #2156f6;
   transition: 3s;

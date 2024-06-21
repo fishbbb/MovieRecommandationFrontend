@@ -213,6 +213,7 @@ export default {
   background-color: black;
 }
 
+
 .login-form {
   width: 28rem;
   position: absolute;
