@@ -94,7 +94,7 @@
   <div class="movie-view">
     <div class= movies-view>
       <template v-for="(item,index) in movieList" :key="index">
-        <movie-card :movie="item" v-if="movieViewType === 'GRID'"></movie-card>
+        <movie-card :movie="item"></movie-card>
       </template>
     </div>
     <div class="movie-pagination">
@@ -290,30 +290,10 @@ export default {
   name:"MovieContent",
   components: {CaretBottom, CaretTop, MovieCard},
   data() {
-    const movieList = reactive([{movieId :"1", title: "a", voteAverage:"3.5",pic:1,description:'当星光消失在城市的天际，\n' +
-          '我在电子花园中寻找静谧的灵魂。',releaseDate:'2023.10.1'},
-      {id :"2", title: "Movies", voteAverage:"4.5",pic:2,description:'在深海的梦境中漫步，\n' +
-            '触摸珊瑚的柔软和蓝色的忧伤。',releaseDate:'2023.10.1'},
-      {id :"3", title: "TestABC Color", voteAverage:"2.6",pic:3,description:'当微风拂过夜的梦境，\n' +
-            '我在星空下，等待黎明的指引。',releaseDate:'2023.10.1'},
-      {id :"4", title: "TestABC Living", voteAverage:"3.2",pic:4,description:'当城市的喧嚣被晨曦吞噬，\n' +
-            '我在寂静中品味未来的微光。',releaseDate:'2023.10.1'},
-      {id :"5", title: "TestABC Head", voteAverage:"8.7",pic:5,description:'披星戴月，穿越无垠，\n' +
-            '寻觅远方，寄托心底的希冀。',releaseDate:'2023.10.1'},
-      {id :"6", title: "TestABC String", voteAverage:"6.8",pic:6,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"7", title: "TestABC Menulist", voteAverage:"9.0",pic:7,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"8", title: "TestABC delicate", voteAverage:"4.6",pic:8,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"9", title: "TestABC memory", voteAverage:"10",pic:9,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"10", title: "TestABC query", voteAverage:"4.7",pic:10,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"11", title: "TestABC friendly", voteAverage:"3.5",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"12", title: "TestABC Numpy", voteAverage:"4.5",pic:2,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"13", title: "TestABC Render", voteAverage:"2.6",pic:3,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"14", title: "TestABC Michel Jackson", voteAverage:"3.2",pic:4,description:'这是一部电影',releaseDate:'2023.10.1'},
-        {id :"15", title: "TestABC Sam Smith", voteAverage:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
-    ])
-    const total = movieList.length;
-    let size = [2,3,4,5];
-    let pageSize = 4;
+    const movieList = reactive([]);
+    let total = movieList.length;
+    let size = [10,50,100,150,200,400,600];
+    let pageSize = 10;
     let page = 1;
 
     let genres = ref('All');
@@ -334,8 +314,6 @@ export default {
     let sort_by_popularity = '';
     let sort_by_ratings = '';
     let sort_by_date = '';
-    // let page = 1;
-    // let page_size = 4;
     const defaultParams = {
       userId: 1,
     };
@@ -358,7 +336,35 @@ export default {
       defaultParams
     }
   },
+  created(){
+    this.fetchMovies();
+  },
   methods:{
+    //网页一加载就发送请求
+    fetchMovies() {
+      const defaultParams = {
+        userId: 1,
+        sort_by_popularity: '',
+        sort_by_ratings: '',
+        sort_by_date: '',
+        genres: 'All',
+        stage: 'All',
+        language: 'All',
+        page: 1,
+        pageSize: 10,
+      };
+      console.log("success!!!" + defaultParams);
+      movieRequest.getMoviesWithConditions(defaultParams)
+          .then((response)=>{
+            console.log("success!!!" + response);
+            this.movieList = response.data.records;
+            this.total = response.data.total;
+          })
+          .catch((error) => {
+            console.error('Error adding comment:', error);
+          });
+    },
+
     changeColor(ele,selector,color){
       //修改样式
       const buttons = document.querySelectorAll(selector);
@@ -418,7 +424,7 @@ export default {
       let sort_by_popularity = '';
       let sort_by_ratings = '';
       let sort_by_date = '';
-      let pageSize = 4;
+      let pageSize = 10;
 
       if(this.genres){
         genres = this.genres;
@@ -453,11 +459,11 @@ export default {
                               pageSize,
                               stage, genres, language,
                               sort_by_date,sort_by_ratings,sort_by_popularity};
-      //console.log(newParams);
       movieRequest.getMoviesWithConditions(newParams)
           .then((response)=>{
             console.log("success!!!" + response);
-            this.movieList = response.data;
+            this.movieList = response.data.records;
+            this.total = response.data.total;
           })
           .catch((error) => {
             console.error('Error adding comment:', error);

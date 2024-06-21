@@ -96,7 +96,7 @@ const movieRequest = {
     //分类
     getMoviesWithConditions:(newParams)=>{
         return request({
-            url:'/movie/search',
+            url:'/movies/search',
             method:'get',
             headers: {
                 isNeedToken: false
