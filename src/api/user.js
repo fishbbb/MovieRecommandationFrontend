@@ -11,11 +11,11 @@ const userRequest = {
             headers: {
                 isNeedToken: false
             },
-            loginForm
+            params:loginForm
         })
     },
     //用户注册
-    //TODO:不需要这个功能
+    //POST /register
     register: (data) => {
         return request({
             url: '/register',

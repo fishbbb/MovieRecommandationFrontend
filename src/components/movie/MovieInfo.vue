@@ -1,11 +1,11 @@
 <template>
-<div class="blur-bg" :style="`background-image: url(${movie.pic}); opacity: 1;`"></div>
+<div class="blur-bg" :style="`background-image: url(${movie.url}); opacity: 1;`"></div>
   <div class="movie-info-top">
     <div class="background">
       <el-row>
         <el-col :span="8">
           <div class="movie-info-top-left">
-            <img class="image" :src="movie.pic"/>
+            <img class="image" :src="movie.url"/>
           </div>
           <el-button color="yellow" class="collect-button" size="large" type="primary" @click="addToFavorites" round :icon="isStarSolid ? 'StarFilled' : 'Star'">|   收藏电影
           </el-button>
@@ -24,7 +24,7 @@
               <el-col :span="8">
                 <div class="each">
                   <span>导演：</span>
-                  <span>{{ movie.directors }}</span>
+                  <span>{{ director}}</span>
                 </div>
                 <div class="each">
                   <span>类型：</span>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="each">
                   <span>语言：</span>
-                  <span>{{ movie.languages }}</span>
+                  <span>{{ movie.originalLanguage }}</span>
                 </div>
               </el-col>
 
@@ -110,6 +110,8 @@ export default {
       actorsDialogVisible: false,
       introductionDialogVisible: false,
       isStarSolid:false,
+      director:'',
+      actor:[],
       /*
     ◦ MovieID (主键): 唯一标识每部电影。
     ◦ Title: 电影标题。
@@ -155,14 +157,18 @@ export default {
     const route = useRoute(); // Use useRoute to get the current route
     this.id = route.query.id; // Access the id from the current route
     console.log(this.id);
-    //this.fetchMovieInfo();
+    this.fetchMovieInfo();
   },
    methods: {
     fetchMovieInfo() {
       movieRequest.getMovieInfo(this.id)
         .then(res => {
-       console.log(res)
-       this.movie.value = res.data;
+        console.log(res)
+        this.movie= res.data;
+           const castNames = res.data.cast.slice(0, 3).map(cast => cast.name); // 解析出crew的第一个元素的name值
+           const crewName = res.data.crew[0].name;
+           console.log(castNames); // 输出: ["Arnold Mostowicz", "Jürgen Andreas", "Artur Brauner"]
+           console.log(crewName); // 输出: "Dariusz Jabłoński"
         })
         .catch(err => {
           console.error('Error fetching movie info:', err);
