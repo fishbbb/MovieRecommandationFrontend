@@ -13,15 +13,16 @@
               <img class="background-image-error" src="../../assets/logo.png" alt="default"/>
             </div>
           </template>
+<!--          require(`@/assets/test/${movie.pic}.jpg`)-->
         </el-image>
-        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">{{movie.description}}</div>
+        <div class="mask" ref="mask" @mouseover="blurImage" @mouseleave="unblurImage">{{movie.overview}}</div>
       </div>
 
       <div class="text-content" style="padding: 1rem">
         <el-tooltip
             class="box-item"
             effect="light"
-            :content="`${ movie.name }`"
+            :content="`${ movie.title }`"
             placement="top"
         >
           <div class="line-limit-length">{{ movie.title }}</div>

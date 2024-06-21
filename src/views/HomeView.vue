@@ -162,19 +162,7 @@ export default {
 .recommend-container{
   //border: #5a84fd 2px solid;
 }
-/* 响应式布局 - 当屏幕小于 1200 像素宽时，让两列堆叠而不是并排 */
-/*@media screen and (max-width: 1200px) {
-  .flex-container {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
 
-  .movie-list {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-*/
 .login-card {
   width: 85%;
   text-align: center;
