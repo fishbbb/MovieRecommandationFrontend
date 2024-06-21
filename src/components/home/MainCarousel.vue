@@ -71,7 +71,7 @@ export default {
 
 <style scoped>
 .carousel-container{
-  width: 70vw;
+  width: 90%;
 }
 
 /deep/ .el-carousel__arrow {

@@ -160,12 +160,14 @@ export default {
 <style>
 .main-container{
   //background-color: black;
+
 }
 .flex-container {
-  margin-top: 2rem;
+  //margin-top: 2rem;
   display: flex;
   justify-content: center;
-
+  width: 90%;
+  margin: 2rem auto;
 }
 .movie-list {
   padding: 1rem;
@@ -175,7 +177,7 @@ export default {
   //border: #5a84fd 2px solid;
 }
 /* 响应式布局 - 当屏幕小于 1200 像素宽时，让两列堆叠而不是并排 */
-@media screen and (max-width: 1200px) {
+/*@media screen and (max-width: 1200px) {
   .flex-container {
     margin-left: 5%;
     margin-right: 5%;
@@ -186,7 +188,7 @@ export default {
     margin-right: 0;
   }
 }
-
+*/
 .login-card {
   width: 85%;
   text-align: center;

@@ -126,9 +126,11 @@ export default {
   position: absolute;
   top:60%;
   left:0;
-  width:100%;
-  height:40%;
+  width:80%;
+  height:30%;
   text-align: center;
+  //line-height: 40%;
+  padding:10% 10% 0 10%;
 }
 .text-content{
   position: relative;
