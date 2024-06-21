@@ -9,7 +9,7 @@
       <router-link to="/home">
         <img
             style="width: 75px; height: 75px; float: left; padding-right: 40px;"
-            src="../assets/logo.png"
+            src="../assets/1.png"
             alt="logo"
         />
       </router-link>
@@ -130,6 +130,7 @@ export default {
   width: 100%;
   position: absolute;
   background-size: cover;
+  background-color: black;
 }
 
 .login-form {
@@ -150,7 +151,7 @@ export default {
 }
 
 .login-form-text {
-  color: #000000;
+  color: #ffbf00;
   font-weight: bold;
   font-size: 1.8rem;
   padding-top: 15px;
@@ -167,12 +168,12 @@ export default {
   font-size: 15px;
   letter-spacing: 2px;
   height: 3.5rem;
-  background: #5a84fd;
+  background: #fad25d;
   margin-top: 35px;
 }
 
 .login-form-button:hover {
-  box-shadow: 0 10px 30px #2156f6;
+  box-shadow: 0 10px 30px #fad25d;
   transition: 3s;
 }
 
