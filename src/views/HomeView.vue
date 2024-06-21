@@ -12,13 +12,20 @@
       />
     </div>
 
-      <div v-if=!isLogin>
-<!--        TODO:放在中间的card，文字置于中间，上锁or背景虚化-->
-        <h2>您需要登录才能查看个性化推荐内容。</h2>
-        <!-- 这里放置登录按钮或者其他登录提示 -->
-        <router-link :to="{ path: '/login'}">
-          <el-button>登录</el-button>
-        </router-link>
+      <div v-if=!isLogin class="recommend-container">
+        <el-card class="login-card">
+          <div class="card-header">
+            <h2>您需要登录才能查看个性化推荐内容。</h2>
+          </div>
+          <div class="card-content">
+            <router-link :to="{ path: '/login'}">
+              <el-button>登录</el-button>
+            </router-link>
+          </div>
+          <div class="card-lock">
+            <el-icon><Lock /></el-icon>
+          </div>
+        </el-card>
       </div>
     <div class="recommend-container">
       <movie-list
@@ -182,5 +189,31 @@ export default {
     margin-left: 0;
     margin-right: 0;
   }
+}
+
+.login-card {
+  width: 85%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Adds a blur effect */
+  padding: 20px;
+  margin: 15px auto; /* Center the card horizontally */
+}
+
+.card-header {
+  margin-bottom: 20px;
+}
+
+.card-lock {
+  font-size: 4em; /* Adjust size of lock icon */
+  color: #333; /* Color of the lock icon */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-content {
+  margin-bottom: 20px;
 }
 </style>
