@@ -295,11 +295,16 @@ export default {
   name:"MovieContent",
   components: {CaretBottom, CaretTop, MovieCard},
   data() {
-    const movieList = reactive([{id :"1", name: "a", score:"3.5",pic:1,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"2", name: "Movies", score:"4.5",pic:2,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"3", name: "TestABC Color", score:"2.6",pic:3,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"4", name: "TestABC Living", score:"3.2",pic:4,description:'这是一部电影',releaseDate:'2023.10.1'},
-      {id :"5", name: "TestABC Head", score:"8.7",pic:5,description:'这是一部电影',releaseDate:'2023.10.1'},
+    const movieList = reactive([{id :"1", name: "a", score:"3.5",pic:1,description:'当星光消失在城市的天际，\n' +
+          '我在电子花园中寻找静谧的灵魂。',releaseDate:'2023.10.1'},
+      {id :"2", name: "Movies", score:"4.5",pic:2,description:'在深海的梦境中漫步，\n' +
+            '触摸珊瑚的柔软和蓝色的忧伤。',releaseDate:'2023.10.1'},
+      {id :"3", name: "TestABC Color", score:"2.6",pic:3,description:'当微风拂过夜的梦境，\n' +
+            '我在星空下，等待黎明的指引。',releaseDate:'2023.10.1'},
+      {id :"4", name: "TestABC Living", score:"3.2",pic:4,description:'当城市的喧嚣被晨曦吞噬，\n' +
+            '我在寂静中品味未来的微光。',releaseDate:'2023.10.1'},
+      {id :"5", name: "TestABC Head", score:"8.7",pic:5,description:'披星戴月，穿越无垠，\n' +
+            '寻觅远方，寄托心底的希冀。',releaseDate:'2023.10.1'},
       {id :"6", name: "TestABC String", score:"6.8",pic:6,description:'这是一部电影',releaseDate:'2023.10.1'},
       {id :"7", name: "TestABC Menulist", score:"9.0",pic:7,description:'这是一部电影',releaseDate:'2023.10.1'},
       {id :"8", name: "TestABC delicate", score:"4.6",pic:8,description:'这是一部电影',releaseDate:'2023.10.1'},
