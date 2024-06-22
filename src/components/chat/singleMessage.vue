@@ -1,7 +1,8 @@
 <template>
   <div :class="['oneMessage',message.role === 'user'?'message-right':'message-left']">
     <div class="avator-wrapper">
-      <el-avatar :src="message.role === 'user'? userAvatar: chatAvatar" />
+      <el-avatar v-if="message.role === 'user'" :src="userAvatar" />
+      <el-avatar v-else-if="message.role === 'assistant'" :src="chatAvatar" />
     </div>
     <div class="dialog-content">
       {{message.content}}

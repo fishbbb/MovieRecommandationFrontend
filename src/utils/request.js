@@ -34,8 +34,8 @@ request.interceptors.request.use(async config => {
             // router.push("/login");
         } else {
             //config.headers['token'] = token;
-            //config.headers["Authorization"] = "Bearer " + token
-            config.headers["Authorization"] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Ind4ZCIsIlVzZXJJRCI6MjcwOTIyLCJleHAiOjE3MTkyNjUyODMsImlhdCI6MTcxOTAwNjA4MywianRpIjoiOTVkZTBiMDctODFhZS00ZmI1LTk3ZTYtOGVhNzRkNWY3MzdlIiwiYXV0aG9yaXRpZXMiOltdfQ.k6fZ08jVbfNphTwgZn1Y1_UvNx3FoG1c8NR_h-v6SM4';
+            config.headers["Authorization"] = "Bearer " + token
+            //config.headers["Authorization"] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Ind4ZCIsIlVzZXJJRCI6MjcwOTIyLCJleHAiOjE3MTkyNjUyODMsImlhdCI6MTcxOTAwNjA4MywianRpIjoiOTVkZTBiMDctODFhZS00ZmI1LTk3ZTYtOGVhNzRkNWY3MzdlIiwiYXV0aG9yaXRpZXMiOltdfQ.k6fZ08jVbfNphTwgZn1Y1_UvNx3FoG1c8NR_h-v6SM4';
         }
     }
 

@@ -2,9 +2,9 @@
   <div class="movie-collection">
     <h1>用户收藏的电影</h1>
     <div class="movie-list">
-      <div v-for="movie in movies" :key="movie.id" class="movie-item">
+      <div v-for="movie in movies" :key="movie.movieID" class="movie-item">
         <movie-card :movie="movie"></movie-card>
-        <el-button @click="cancelFavorite(movie.id)">取消收藏</el-button>
+        <el-button @click="cancelFavorite(movie.movieID)">取消收藏</el-button>
       </div>
     </div>
 
@@ -24,9 +24,9 @@ export default {
     return {
       // 假数据
       movies: [
-        { id: 1, title: '电影1', director: '导演1', year: 2020 },
-        { id: 2, title: '电影2', director: '导演2', year: 2019 },
-        { id: 3, title: '电影3', director: '导演3', year: 2021 }
+        { movieID: 1, title: '电影1', director: '导演1', stage: 2020 },
+        { movieID: 2, title: '电影2', director: '导演2', stage: 2019 },
+        { movieID: 3, title: '电影3', director: '导演3', stage: 2021 }
         // 继续添加更多数据
       ],
       store:useStore(),
@@ -39,19 +39,20 @@ export default {
   methods: {
     fetchFavorite(){
       userRequest.getCollections(this.userID).then(res=>{
-        this.movies = res.data
-        console.log(res.data)
+        this.movies = res.data.records;
+        console.log(res.data);
       }).catch(err=>{
         console.log(err)
       })
     },
     cancelFavorite(movieID) {
       const data={
-        movieID:movieID,
-        userID:this.userID
+        MovieID:movieID,
+        UserID:this.userID
       }
       userRequest.deleteCollections(data).then(res =>{
         console.log(res.data)
+        this.movies = this.movies.filter(movie => movie.movieID !== movieID);
         alert("删除成功")
       }).catch(err=>{
         console.log(err)

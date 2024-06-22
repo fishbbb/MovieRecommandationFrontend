@@ -1,5 +1,6 @@
 import request from "@/utils/request";
 import request2 from  "@/utils/request2";
+import request3 from "@/utils/request3";
 
 const userRequest = {
     //用户登录
@@ -18,7 +19,7 @@ const userRequest = {
     //用户注册
     //POST /register
     register: (data) => {
-        return request({
+        return request2({
             url: '/register',
             method: 'post',
             headers: {
@@ -38,7 +39,7 @@ const userRequest = {
                 isNeedToken: true,
             },
             params:{
-                userid:id
+                userId:id
             }
         })
     },
@@ -70,7 +71,7 @@ const userRequest = {
     //增加影评和评分
     //POST /movies/comment-rating
     addComment: (data) => {
-        return request({
+        return request2({
             url: `/movies/comment-rating`,
             method: 'post',
             headers: {

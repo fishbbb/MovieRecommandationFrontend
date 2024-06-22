@@ -12,7 +12,7 @@
         <el-button class="dialog-new" :icon="Plus" @click="addNewDialog">新的聊天</el-button>
     </div>
     <div class="dialog-main">
-      <MessageRow  class="messageRow" :messagelist="
+      <MessageRow  class="messageRow" v-if="messageData && messageData.length > 0" :messagelist="
           messageData.filter(dialog => dialog.listId === listId)[0].messageList" />
       <div class="dialog-input">
       <el-input
@@ -106,6 +106,7 @@ import {Plus, Position} from "@element-plus/icons";
 import {reactive, ref} from "vue";
 import MessageRow from "@/components/chat/MessageRow.vue";
 import chatRequest from "@/api/chat";
+import store from "@/store/store";
 
 
 export default {
@@ -123,9 +124,9 @@ export default {
   data(){
     const userInput = ref('');
     const listId = ref(1);
-    //const userId = store.state.userId;
+    const token = store.state.token;
     //const userId = 1;
-    const Authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Ind4ZCIsIlVzZXJJRCI6MjcwOTIyLCJleHAiOjE3MTkyNjUyODMsImlhdCI6MTcxOTAwNjA4MywianRpIjoiOTVkZTBiMDctODFhZS00ZmI1LTk3ZTYtOGVhNzRkNWY3MzdlIiwiYXV0aG9yaXRpZXMiOltdfQ.k6fZ08jVbfNphTwgZn1Y1_UvNx3FoG1c8NR_h-v6SM4';
+    //const Authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Ind4ZCIsIlVzZXJJRCI6MjcwOTIyLCJleHAiOjE3MTkyNjUyODMsImlhdCI6MTcxOTAwNjA4MywianRpIjoiOTVkZTBiMDctODFhZS00ZmI1LTk3ZTYtOGVhNzRkNWY3MzdlIiwiYXV0aG9yaXRpZXMiOltdfQ.k6fZ08jVbfNphTwgZn1Y1_UvNx3FoG1c8NR_h-v6SM4';
     const messageData=reactive(
       [
           {
@@ -169,15 +170,15 @@ export default {
       userInput,
       listId,
       messageData,
-      Authorization,
+      token,
     }
   },
   created() {
     this.fetchChatList(this.userId);
   },
   methods:{
-    fetchChatList(Authorization){
-        chatRequest.getChatList(Authorization)
+    fetchChatList(token){
+        chatRequest.getChatList(token)
             .then((res) => {
               console.log("test",res);
               const {chatList,code,message,num} = res;
@@ -193,7 +194,7 @@ export default {
       currentHistory.push({
         listId: currentHistory.length + 1,
         updateTime: new Date().toLocaleString(),
-        messageList: [{"role":'',"content":''}],
+        messageList: [{"role":'',"content":'新的对话'}],
       })
       console.log(currentHistory);
     },
@@ -202,11 +203,11 @@ export default {
       if(listId !== undefined && this.userInput){
         let oldChatList=this.messageData.filter(dialog => dialog.listId === listId)[0];
         console.log("old",oldChatList);
-        // let newMessage = {
-        //   role: "user",
-        //   content: this.userInput,
-        // };
-        // currentList.push(newMessage);
+        let newMessage = {
+          role: "user",
+          content: this.userInput,
+        };
+        oldChatList.messageList.push(newMessage);
         chatRequest.submitMassage(this.userInput,listId)
             .then((res) => {
               const {chatList} = res;
