@@ -1,6 +1,6 @@
 <template>
   <div class="master">
-    <movie-info/>
+    <movie-info  v-on:tranMovie = 'showMsgfromChild'/>
 
     <div class="list-and-comments my-border">
       <movie-list v-if="movies.length" class="list" :tag="tag" :movies="movies" :opt="0"/>
@@ -16,7 +16,7 @@ import MovieInfo from "@/components/movie/MovieInfo";
 import MovieComments from "@/components/movie/MovieComments";
 import MovieList from "@/components/home/MovieList";
 import {reactive, ref} from "vue";
-// import movieRequest from "@/api/movie";
+import movieRequest from "@/api/movie";
 import {useRouter} from "vue-router";
 // import {ErrorMessage} from "@/utils/my-message";
 // import {Edit} from "@element-plus/icons";
@@ -33,58 +33,29 @@ export default {
     // let movies = reactive([])
     // let mid = ref(router.currentRoute.value.params.id)
     let tag = ref('喜欢这部电影的人也喜欢');
-    let movies = reactive([
-      {
-        id: '1',
-        name: 'Dummy Movie 1',
-        actors: 'John Doe, Jane Smith',
-        directors: 'Director Name',
-        releaseDate: 'Release Date Data',
-        score: 'Score Data',
-        pic: 'https://via.placeholder.com/150', // Placeholder image URL
-      },
-      {
-        id: '2',
-        name: 'Dummy Movie 2',
-        actors: 'John Doe, Jane Smith',
-        directors: 'Director Name',
-        releaseDate: 'Release Date Data',
-        score: 'Score Data',
-        pic: 'https://via.placeholder.com/150', // Placeholder image URL
-      },
-      {
-        id: '3',
-        name: 'Dummy Movie 3',
-        actors: 'John Doe, Jane Smith',
-        directors: 'Director Name',
-        releaseDate: 'Release Date Data',
-        score: 'Score Data',
-        pic: 'https://via.placeholder.com/150', // Placeholder image URL
-      },
-      // Add more dummy movie objects as needed
-    ]);
+    let movies = ref([]);
 
     let mid = ref(router.currentRoute.value.params.id);
+    let movie = ref(null)
+    let title = ref(null)
+    const showMsgfromChild = (movieFromChild) => {
+      console.log('Received movie from child:', movieFromChild);
+      movie.value = movieFromChild; // Ensure you use .value to update a ref
+      title.value = movieFromChild.title; // Set title to the value of movie's title field
 
-    // movieRequest.getRecommendedMovieByMovieId(
-    //     mid.value
-    // ).then(res => {
-    //   if (res.code === 200) {
-    //     let moviesRes = res.data.movies
-    //     for (let i = 0; i < moviesRes.length; ++i) {
-    //       movies.push(moviesRes[i])
-    //     }
-    //   } else {
-    //     ErrorMessage(res.msg)
-    //   }
-    // }).catch(err => {
-    //   console.error(err)
-    // })
-
+      // Assuming movieRequest.searchSuggestions requires title as an argument
+      movieRequest.searchSuggestions(movieFromChild.title).then(res => {
+        movies.value = res.data
+        console.log(res.data);
+      });
+    };
     return {
       tag,
       movies,
       mid,
+      movie,
+      showMsgfromChild,
+      title
     }
   },
 }

@@ -71,9 +71,9 @@
                 <el-col :span="16">
                   <div class="introduction">
                     <el-collapse>
-                      <el-collapse-item title="&nbsp;&nbsp;&nbsp;&nbsp;电影简介" name="introduction">
-                        <div style="margin: 0 1rem">
-                          {{ movie.description }}
+                      <el-collapse-item title="&nbsp;&nbsp;&nbsp;&nbsp;电影简介" name="introduction" >
+                        <div style="margin: 0 1rem" class="overview-container">
+                          {{ movie.overview }}
                         </div>
                       </el-collapse-item>
                     </el-collapse>
@@ -164,7 +164,7 @@ export default {
         .then(res => {
           this.movie= res.data;
           console.log("movie", res.data);
-
+          this.$emit('tranMovie', this.movie)
           let castNames = '';
           let crewName = '';
           let oldCast = res.data.cast.replace(/None/g, 'null');
@@ -278,6 +278,7 @@ export default {
 .movie-info-top-right .introduction {
   margin-left: 2rem;
   width: 50%;
+
 }
 
 .collect-button{
@@ -331,6 +332,11 @@ export default {
 .movie-info-top-right .rate span {
   color: #ffd700;
 }
-
+.overview-container{
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* 设置显示的行数 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 </style>
