@@ -1,14 +1,14 @@
 <template>
   <div class="navbar">
     <div class="logo">
-      <img src="../../assets/logo.png" alt="logo"/>
-      <span class="title">电影推荐系统</span>
+      <img src="../../assets/img_2.png" alt="logo"/>
+<!--      <span class="title">电影推荐系统</span>-->
     </div>
     <router-link to="/home">
-      <el-button>首页</el-button>
+      <el-button class="homepage">IMDB Mini</el-button>
     </router-link>
     <router-link to="/classification">
-      <el-button>分类</el-button>
+      <el-button class="sort">Sort</el-button>
     </router-link>
     <div class="spacer"></div> <!-- Spacer -->
     <div class="search-div">
@@ -205,6 +205,14 @@ export default {
 
 .title {
   font-size: 20px; /* Adjust as needed */
+}
+.homepage,
+.sort,
+.login-button{
+  background-color: gold;
+  color: black;
+  font-weight: bolder;
+  font-size: 17px;
 }
 
 .search-div {
