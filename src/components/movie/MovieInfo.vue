@@ -24,15 +24,15 @@
               <el-col :span="8">
                 <div class="each">
                   <span>导演：</span>
-                  <span>{{ director}}</span>
+                  <span>{{ movie.director}}</span>
                 </div>
                 <div class="each">
                   <span>类型：</span>
-                  <span>{{ movie.types }}</span>
+                  <span>{{ movie.genres }}</span>
                 </div>
                 <div class="each">
                   <span>制片国家/地区：</span>
-                  <span>{{ movie.regions }}</span>
+                  <span>{{ movie.country }}</span>
                 </div>
                 <div class="each">
                   <span>语言：</span>
@@ -73,7 +73,7 @@
                     <el-collapse>
                       <el-collapse-item title="&nbsp;&nbsp;&nbsp;&nbsp;电影简介" name="introduction">
                         <div style="margin: 0 1rem">
-                          {{ movie.overview }}
+                          {{ movie.description }}
                         </div>
                       </el-collapse-item>
                     </el-collapse>
@@ -131,44 +131,66 @@ export default {
       movie: {
         actors: 'John Doe, Jane Smith',
         alias: 'Alias Movie',
-        did: 'Director Name',
-        directors: 'Director Name',
+        director: 'Director Name',
         five: 'Five Star Data',
         four: 'Four Star Data',
         movieID: '123456',
-        overview: 'Introduction of the movie goes here.',
+        description: 'Introduction of the movie goes here.',
         languages: 'English',
         title: 'Dummy Movie',
         num: 'Some Number',
         one: 'One Star Data',
         pic: 'https://img0.baidu.com/it/u=544253529,1605576325&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281', // Placeholder image URL
-        regions: 'Region Data',
+        country: 'Region Data',
         releaseDate: 'Release Date Data',
         runtime: 'Runtime Data',
         voteAverage : 8.5,
         voteCount:200,
-        types: 'Action, Drama',
+        genres: 'Action, Drama',
         writers: 'Writer Name',
-        year: 'Release Year Data',
+        stage: 'Release Year Data',
       },
     };
   },
   created() {
     const route = useRoute(); // Use useRoute to get the current route
     this.id = route.query.id; // Access the id from the current route
-    console.log(this.id);
+    console.log("id",this.id);
     this.fetchMovieInfo();
   },
    methods: {
     fetchMovieInfo() {
       movieRequest.getMovieInfo(this.id)
         .then(res => {
-        console.log(res)
-        this.movie= res.data;
-           const castNames = res.data.cast.slice(0, 3).map(cast => cast.name); // 解析出crew的第一个元素的name值
-           const crewName = res.data.crew[0].name;
-           console.log(castNames); // 输出: ["Arnold Mostowicz", "Jürgen Andreas", "Artur Brauner"]
-           console.log(crewName); // 输出: "Dariusz Jabłoński"
+          this.movie= res.data;
+          console.log("movie", res.data);
+
+          let castNames = '';
+          let crewName = '';
+          let oldCast = res.data.cast.replace(/None/g, 'null');
+          let oldCrew = res.data.crew.replace(/None/g, 'null');
+          let oldGenres = res.data.genres.replace(/None/g, 'null');
+          let oldCountry = res.data.country.replace(/None/g, 'null');
+          console.log("old",oldCast);
+          let cast = eval('(' + oldCast + ')');
+          let crew = eval('(' + oldCrew + ')');
+          let genres = eval('(' + oldGenres + ')');
+          let country = eval('(' + oldCountry + ')');
+          // 确保 res.data.cast 是一个数组并且有元素
+          if (cast.length > 0) {
+            // 对数组进行切片并映射名称
+            castNames = cast.slice(0, 3).map(cast => cast.name);
+            crewName = crew[0].name;
+          } else {
+            console.log('错误：res.data.cast 不是一个有效的数组或为空。');
+          }
+
+           this.movie.director = crewName;
+           this.movie.actors = castNames.join(', ');
+           this.movie.genres = genres.map(genre => genre.name).join(', ');
+           this.movie.country = country.map(country => country.name).join(', ');
+           this.movie.description = res.data.overview;
+
         })
         .catch(err => {
           console.error('Error fetching movie info:', err);

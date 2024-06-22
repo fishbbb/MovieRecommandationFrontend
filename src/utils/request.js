@@ -34,13 +34,13 @@ request.interceptors.request.use(async config => {
             // router.push("/login");
         } else {
             //config.headers['token'] = token;
-            config.headers["Authorization"] = "Bearer " + token
+            //config.headers["Authorization"] = "Bearer " + token
+            config.headers["Authorization"] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Ind4ZCIsIlVzZXJJRCI6MjcwOTIyLCJleHAiOjE3MTkyNjUyODMsImlhdCI6MTcxOTAwNjA4MywianRpIjoiOTVkZTBiMDctODFhZS00ZmI1LTk3ZTYtOGVhNzRkNWY3MzdlIiwiYXV0aG9yaXRpZXMiOltdfQ.k6fZ08jVbfNphTwgZn1Y1_UvNx3FoG1c8NR_h-v6SM4';
         }
     }
 
     // 在 GET 请求的 params 中加入 id
     if (config.method === 'get' && config.params) {
-
         config.params.ip = userIP;
     }
 
@@ -68,6 +68,7 @@ request.interceptors.response.use(
     response => {
         console.log("123");
         let res = response.data;
+        console.log("res",res);
         // 如果是返回的文件
         if (response.config.responseType === 'blob') {
             return res;

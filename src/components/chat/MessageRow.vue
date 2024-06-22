@@ -1,10 +1,10 @@
 <template>
   <el-container class="dialog-container">
     <el-header class="dialog-header">
-         {{message.title}}
+         {{this.messagelist[0].content.substring(0,8) + "..."}}
     </el-header>
     <el-main >
-      <template v-for="(item,index) in message.messageList" :key="index">
+      <template v-for="(item,index) in messagelist" :key="index">
           <singleMessage :message="item"/>
       </template>
     </el-main>
@@ -27,12 +27,14 @@
 
 <script>
 import singleMessage from "@/components/chat/singleMessage.vue";
+import message from "@element-plus/icons/lib/Message";
+import {ref} from "vue";
 
 export default {
   name: "MessageRow",
   components:{singleMessage},
   props: {
-    message: {
+    messagelist: {
       type: Object,
       required: true
     },
@@ -43,9 +45,9 @@ export default {
     }
   },
   data() {
-
+    let title = ref(this.messagelist.length === 0? "暂无消息" :this.messagelist[0].content + "...");
     return {
-
+      title
   }
 
 }

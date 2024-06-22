@@ -4,7 +4,7 @@
     <div class="dialog-sider">
         <div class="dialog-title">ChatABC</div>
         <div class="dialog-subtitle">Build Your Own AI Assistant</div>
-      <template v-for="(dialog, index) in messageData.messageHistory"
+      <template v-for="(dialog, index) in messageData"
                 :key="index">
         <DialogCard :messageDialog="dialog" class="dialog-card" v-model="listId" @click="selectDialog(dialog.listId)"/>
       </template>
@@ -12,8 +12,8 @@
         <el-button class="dialog-new" :icon="Plus" @click="addNewDialog">新的聊天</el-button>
     </div>
     <div class="dialog-main">
-      <MessageRow  class="messageRow" :message="
-          messageData.messageHistory.filter(dialog => dialog.listId === listId)[0]" />
+      <MessageRow  class="messageRow" :messagelist="
+          messageData.filter(dialog => dialog.listId === listId)[0].messageList" />
       <div class="dialog-input">
       <el-input
           placeholder="请输入内容"
@@ -123,30 +123,27 @@ export default {
   data(){
     const userInput = ref('');
     const listId = ref(1);
-    const messageData=reactive({
-      userId: 1,
-      messageHistory:[
+    //const userId = store.state.userId;
+    //const userId = 1;
+    const Authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Ind4ZCIsIlVzZXJJRCI6MjcwOTIyLCJleHAiOjE3MTkyNjUyODMsImlhdCI6MTcxOTAwNjA4MywianRpIjoiOTVkZTBiMDctODFhZS00ZmI1LTk3ZTYtOGVhNzRkNWY3MzdlIiwiYXV0aG9yaXRpZXMiOltdfQ.k6fZ08jVbfNphTwgZn1Y1_UvNx3FoG1c8NR_h-v6SM4';
+    const messageData=reactive(
+      [
           {
-            title: "test",
             listId: 1,
             messageList: [
           {
-            messageId: 1,
             role: "user",
             content: "你好",
           },
           {
-            messageId: 2,
             role: "chat",
             content: "你好，我是属于你的专属机器人！",
           },
           {
-            messageId: 3,
             role: "user",
             content: "请问你有什么事吗？",
           },
           {
-            messageId: 4,
             role: "chat",
             content: "当然，我是一个AI助手，我可以回答你的问题，也可以给你推荐电影。",
           }
@@ -154,73 +151,91 @@ export default {
             updateTime: new Date().toLocaleString(),
           },
           {
-            title:"lsy么么",
             listId: 2,
             messageList: [
-        {
-          messageId: 1,
-          role: "chat",
-          content: "请告诉我你的名字",
-        },
-        {
-          messageId: 2,
-          role:"user",
-          content: "我是你爸爸！"
-        }],
+            {
+              role: "chat",
+              content: "请告诉我你的名字",
+            },
+            {
+              role:"user",
+              content: "我是你爸爸！"
+          }],
             updateTime: new Date().toLocaleString(),
           }
       ]
-    }
-
-    )
+    );
     return {
       userInput,
       listId,
-      messageData
+      messageData,
+      Authorization,
     }
   },
+  created() {
+    this.fetchChatList(this.userId);
+  },
   methods:{
+    fetchChatList(Authorization){
+        chatRequest.getChatList(Authorization)
+            .then((res) => {
+              console.log("test",res);
+              const {chatList,code,message,num} = res;
+              this.messageData = chatList;
+              console.log("mess",this.messageData);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+    },
     addNewDialog() {
-      let currentHistory = this.messageData.messageHistory;
+      let currentHistory = this.messageData;
       currentHistory.push({
-        title: "新的对话",
         listId: currentHistory.length + 1,
         updateTime: new Date().toLocaleString(),
-        messageList: [],
+        messageList: [{"role":'',"content":''}],
       })
       console.log(currentHistory);
     },
     sendMessage(listId){
-      let chatList=this.messageData.messageHistory.filter(dialog => dialog.listId === listId)[0];
-      let currentList = chatList.messageList || [];
-      let newMessage = {
-        messageId: currentList.length + 1,
-        role: "user",
-        content: this.userInput,
-      };
-      currentList.push(newMessage);
+      //let chatList = '';
+      if(listId !== undefined && this.userInput){
+        let oldChatList=this.messageData.filter(dialog => dialog.listId === listId)[0];
+        console.log("old",oldChatList);
+        // let newMessage = {
+        //   role: "user",
+        //   content: this.userInput,
+        // };
+        // currentList.push(newMessage);
+        chatRequest.submitMassage(this.userInput,listId)
+            .then((res) => {
+              const {chatList} = res;
+              console.log(chatList + "success");
+              // setTimeout(() => {
+              //       currentList.push({
+              //         ...chatList.content,
+              //         role: "chat",
+              //       })}
+              //     ,2000);
+              oldChatList = chatList.filter(dialog => dialog.listId === listId)[0];
 
-      chatList.title = currentList[0].content.substring(0, 10) + "...";
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+        //发送后清空输入框
+        this.userInput='';
+        //最后修改时间
+        this.messageData.filter(dialog => dialog.listId === listId)[0].updateTime = new Date().toLocaleString();
+      }
+      else if(!this.userInput){
+        alert("请输入内容!");
+      }
+
+      //chatList.title = currentList[0].content.substring(0, 10) + "...";
       //根据用户id和当前对话id提交消息，返回chat回答内容
-      //chatRequest.submitMassage(newMessage,userId,listId)
-          // .then((res) => {
-          //   console.log(res.data + "success");
-               //setTimeout(() => {
-                     //currentList.push({
-                       //        ...res.data,
-                       //        role: "chat",
-                       //        messageId: currentList.length + 1,
-                       //   });
-               ///},1000);
-          //
-      // })
-      //     .catch((error)=>{
-      //       console.log(error);
-      //     })
-      //发送后清空输入框
-      this.userInput='';
-      //最后修改时间
-      this.messageData.messageHistory.filter(dialog => dialog.listId === listId)[0].updateTime = new Date().toLocaleString();
+
+
       },
     selectDialog(userId){
       this.listId = userId;
