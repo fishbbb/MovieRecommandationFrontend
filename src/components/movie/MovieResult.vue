@@ -2,18 +2,18 @@
   <el-card class="movie-result">
     <el-row :gutter="20">
       <el-col :span="4">
-        <img class="movie-image" :src="movie.imageUrl" alt="Movie Image" />
+        <img class="movie-image" :src="localMovie.url" alt="Movie Image" />
       </el-col>
       <el-col :span="15">
         <div class="movie-details">
-          <h2>{{ movie.name }}</h2>
-          <p>主演: {{ movie.starring }}</p>
+          <h2>{{localMovie.title }}</h2>
+          <p>主演: {{localMovie.starring }}</p>
         </div>
       </el-col>
       <el-col :span="1">
         <div class="movie-rating">
           <span>评分：</span>
-          <el-rate v-model="movie.rating" disabled :max="5"></el-rate>
+          <el-rate v-model="localMovie.voteAverage" disabled :max="10">{{localMovie.voteAverage}}</el-rate>{{localMovie.voteAverage}}/10
         </div>
       </el-col>
     </el-row>
@@ -24,19 +24,19 @@
 export default {
   name: 'MovieResult',
   props: {
-    // movie: {
-    //   type: Object,
-    //   required: true
-    // },
+    movie: {
+      type: Array
+    },
   },
   data(){
     return{
-      movie:{
-        imageUrl: 'http://www.baidu.com/img/bdlogo.png',
-        name: '电影名称示例',
-        starring: '主演1, 主演2',
-        rating: 4.5 // 评分范围在 0 - 5 之间
-      },
+        localMovie: this.movie // 将 prop 的值赋给局部变量
+      // movie:{
+      //   imageUrl: 'http://www.baidu.com/img/bdlogo.png',
+      //   name: '电影名称示例',
+      //   starring: '主演1, 主演2',
+      //   rating: 4.5 // 评分范围在 0 - 5 之间
+      // },
     }
   }
 };
