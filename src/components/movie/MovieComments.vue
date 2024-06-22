@@ -124,14 +124,14 @@ export default {
     },
     submitComment() {
       if (this.isLogin) {
-        const route = useRoute();
-        const userId = store.state.userId; // Assuming there's a method to get userId from global scope
-        const movieId = route.query.id; // Get movie id from current route
+        //const route = useRoute();
+        const UserID = store.state.userId; // Assuming there's a method to get userId from global scope
+        const MovieID = this.id; // Get movie id from current route
         const commentData = {
-          userID: userId,
-          rating: this.rating,
-          comment: this.comment,
-          movieID: movieId
+          UserID: UserID,
+          Rating: this.rating,
+          Comment: this.comment,
+          MovieID: MovieID
         };
         console.log(commentData);
         userRequest.addComment(commentData)

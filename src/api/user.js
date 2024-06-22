@@ -1,11 +1,12 @@
 import request from "@/utils/request";
+import request2 from  "@/utils/request2";
 
 const userRequest = {
     //用户登录
     //POST/login
     //TODO:返回登录是否成功以及token
     login: (loginForm) => {
-        return request({
+        return request2({
             url: '/login',
             method: 'post',
             headers: {
