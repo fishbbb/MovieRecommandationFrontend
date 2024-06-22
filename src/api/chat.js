@@ -3,38 +3,21 @@ import request from "@/utils/request";
 const chatRequest = {
     //获取聊天列表
     //GET /chat/list
-    getChatList:(userid) => {
+    getChatList:(Authorization) => {
         return request({
             url:'/chat/list',
             method:'get',
             headers:{
-                isNeedToken:true,
+                isNeedToken: true,
+                Authorization: Authorization
             },
-            params:{
-               userid:userid
-            }
         })
     },
 
-    //获取某一聊天的历史
-    //GET /chat/history
-    getOneChat:(userID,listID) => {
-        return request({
-            url:'/chat/history',
-            method:'get',
-            headers:{
-                isNeedToken:true,
-            },
-            params:{
-                userid:userID,
-                listid:listID
-            }
-        })
-    },
 
     //发送消息
     //POST /chat
-    submitMassage:(data,userId,ListId) => {
+    submitMassage:(data,ListId) => {
         return request({
             url:'/chat',
             method:'post',
@@ -42,10 +25,10 @@ const chatRequest = {
                 isNeedToken:true,
             },
             params:{
-                userId:userId,
-                ListId:ListId
-            },
-            data,
+                listId:ListId,
+                content:data,
+            }
+
         })
     }
 }

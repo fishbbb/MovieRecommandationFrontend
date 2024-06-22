@@ -1,6 +1,6 @@
 <template>
   <div class="active-session">
-    <div class="session-name">{{messageDialog.title}}</div>
+    <div class="session-name">{{ title }}</div>
     <div class="btn-wrapper">
       <el-icon :size="15" class="close" @click="handleClose">
         <CircleClose />
@@ -88,8 +88,10 @@ export default ({
     }
   },
   data(){
+    let title = this.messageDialog.messageList.length === 0? "新的对话" :this.messageDialog.messageList[0].content + "...";
+    console.log(typeof this.messageDialog.messageList[0].content);
     return {
-
+      title
     };
   }
 })
