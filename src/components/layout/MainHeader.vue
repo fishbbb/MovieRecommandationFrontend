@@ -124,22 +124,17 @@ export default {
   },
   methods: {
     async querySearchAsync(queryString, cb) {
-      // 这里是异步请求数据的逻辑，根据queryString获取电影名建议列表
-      console.log(queryString)
-      movieRequest.searchSuggestions(queryString).then(res => {
-        const result = []
-        console.log(res)
-        res.data.forEach((name, index) => {
-          result.push({'value': name})
-          //TODO:返回value变量
-          console.log(index)
-        })
-        cb(result)
-      }).catch(err => {
-        console.error(err)
-      })
-      console.log(cb)
-      // 将建议列表传递给cb函数
+      try {
+        const res = await movieRequest.searchSuggestions(queryString);
+
+        const result = res.data.map(movie => ({
+          value: movie.title
+        }));
+
+        cb(result);
+      } catch (err) {
+        console.error(err);
+      }
     },
     handleSelect(item) {
       console.log(item)

@@ -37,7 +37,7 @@ const movieRequest = {
                 isNeedToken: false
             },
             params: {
-                movieid: id,
+                MovieID: id,
                 page:page,
                 page_size:size,
             }
