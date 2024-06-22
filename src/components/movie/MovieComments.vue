@@ -36,12 +36,13 @@
       </el-card>
 
       <el-pagination
+          v-if="comments && comments.length > 0"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           :page-sizes="[5, 10, 20]"
           :page-size="pageSize"
-          :total="comments.length"
+          :total="comments ? comments.length : 0"
           layout="total, sizes, prev, pager, next, jumper"
       >
       </el-pagination>
@@ -93,7 +94,7 @@ export default {
   created() {
     const route = useRoute();
     this.id = route.query.id; // Access the id from the current route
-    this.fetchComments()
+    this.fetchComments();
   },
   methods: {
     showCommentDialog() {
@@ -107,7 +108,8 @@ export default {
     fetchComments(){
       movieRequest.getComments(this.id,this.currentPage,this.pageSize)
           .then(response => {
-          this.comments = response.data
+          this.comments = response.data;
+          console.log(this.comments);
           })
           .catch(error => {
             console.error(error);

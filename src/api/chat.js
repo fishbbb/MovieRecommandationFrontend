@@ -3,13 +3,13 @@ import request from "@/utils/request";
 const chatRequest = {
     //获取聊天列表
     //GET /chat/list
-    getChatList:(Authorization) => {
+    getChatList:(token) => {
         return request({
             url:'/chat/list',
             method:'get',
             headers:{
                 isNeedToken: true,
-                Authorization: Authorization
+                Authorization: token
             },
         })
     },

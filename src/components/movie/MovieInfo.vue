@@ -154,7 +154,7 @@ export default {
   },
   created() {
     const route = useRoute(); // Use useRoute to get the current route
-    this.id = route.query.id; // Access the id from the current route
+    this.id = parseInt(route.query.id); // Access the id from the current route
     console.log("id",this.id);
     this.fetchMovieInfo();
   },
@@ -199,8 +199,8 @@ export default {
      addToFavorites(){
        this.isStarSolid = !this.isStarSolid;
        const data ={
-         userID:this.userID,
-         movieID:this.id,
+         UserID:this.userID,
+         MovieID:this.id,
        }
        userRequest.addCollections(data)
            .then(() => {
